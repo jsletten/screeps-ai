@@ -128,6 +128,10 @@ module.exports.loop = function () {
         }
     }
 
+    if(upgraders.length < 1) {
+        roleUpgrader.spawnCreep();
+    }
+
 
     if(Game.spawns['Spawn1'].spawning) {
         var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
