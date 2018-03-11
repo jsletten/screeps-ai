@@ -118,7 +118,7 @@ module.exports.loop = function () {
     }
     */
    if(basicWorkers.length <2) {
-    basicWorkers.spawnCreep();
+    roleBasicWorker.spawnCreep();
     }
 
 
