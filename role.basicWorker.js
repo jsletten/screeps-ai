@@ -22,4 +22,4 @@ var roleBasicWorker = {
     }
 };
 
-module.exports = roleContainerHarvester;
+module.exports = roleBasicWorker;
