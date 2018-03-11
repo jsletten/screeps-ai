@@ -1,5 +1,7 @@
-const allowSpawning = true;
+// This file contains the main game loop
+const allowSpawning = true; // Quick way to shut down creep spawning if something goes wrong.
 
+// Setup specific AI roles.
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleHauler = require('role.hauler');
@@ -10,7 +12,6 @@ var roleCleaner = require('role.cleaner');
 var roleTerminalHauler = require('role.terminalHauler');
 
 module.exports.loop = function () {
-    
     // Always place this memory cleaning code at the very top of your main loop!
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
@@ -20,7 +21,8 @@ module.exports.loop = function () {
     }
     
     //Declare Variables
-    var spawn1 = Game.spawns['Spawn1'];
+    //TODO: Make this capabile of handling multiple spawn points.
+    var spawn1 = Game.spawns['Spawn1']; // Default spawn
     
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
@@ -108,7 +110,7 @@ module.exports.loop = function () {
         }
     }
 
-if(Game.spawns['Spawn1'].spawning) {
+    if(Game.spawns['Spawn1'].spawning) {
         var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
         Game.spawns['Spawn1'].room.visual.text(
             '🛠️' + spawningCreep.memory.role,
