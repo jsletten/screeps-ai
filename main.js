@@ -121,6 +121,13 @@ module.exports.loop = function () {
     roleBasicWorker.spawnCreep();
     }
 
+    if(builders.length < 1) {
+        var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+        if(sites.length > 0) {
+            roleBuilder.spawnCreep();
+        }
+    }
+
 
     if(Game.spawns['Spawn1'].spawning) {
         var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];

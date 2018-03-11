@@ -1,8 +1,19 @@
 var roleUpgrader = {
     spawnCreep: function(containerID) {
-        var newName = Game.spawns['Spawn1'].createCreep([WORK,WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'upgrader', containerID: containerID.toString()});
-        console.log('Spawning new upgrader: ' + newName);
-        return newName;
+        var spawn = Game.spawns['Spawn1'];
+
+        if (spawn.energyCapacity < 700)
+        {
+            var newName = spawn.createCreep([WORK,CARRY,MOVE], undefined, {role: 'upgrader', containerID: containerID.toString()});
+            console.log('Spawning new upgrader(small): ' + newName);
+        }
+        else
+        {
+            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'upgrader', containerID: containerID.toString()});
+            console.log('Spawning new upgrader(large): ' + newName);
+        }
+        
+        return;
     },
     /** @param {Creep} creep **/
     run: function(creep) {
