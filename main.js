@@ -1,7 +1,8 @@
 // This file contains the main game loop
-const allowSpawning = true; // Quick way to shut down creep spawning if something goes wrong.
+const allowSpawning = false; // Quick way to shut down creep spawning if something goes wrong.
 
 // Setup specific AI roles.
+var roleBasicWorker = require('role.basicWorker');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleHauler = require('role.hauler');
@@ -24,6 +25,7 @@ module.exports.loop = function () {
     //TODO: Make this capabile of handling multiple spawn points.
     var spawn1 = Game.spawns['Spawn1']; // Default spawn
     
+    var basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker');
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
@@ -45,6 +47,7 @@ module.exports.loop = function () {
     roleTower.run();
     
     // Spawn New Creeps
+    /*
     if(cleaners.length <1) {
         roleCleaner.spawnCreep(allowSpawning);
     }
@@ -113,11 +116,16 @@ module.exports.loop = function () {
             }
         }
     }
+    */
+   if(basicWorkers.length <2) {
+    basicWorkers.spawnCreep();
+    }
+
 
     if(Game.spawns['Spawn1'].spawning) {
         var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
         Game.spawns['Spawn1'].room.visual.text(
-            '🛠️' + spawningCreep.memory.role,
+            spawningCreep.memory.role,
             Game.spawns['Spawn1'].pos.x + 1,
             Game.spawns['Spawn1'].pos.y,
             {align: 'left', opacity: 0.8});
@@ -126,6 +134,9 @@ module.exports.loop = function () {
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
+        if(creep.memory.role == 'basicWorker') {
+            roleBasicWorker.run(creep);
+        }
         if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
             //roleContainerHarvester.run(creep);
