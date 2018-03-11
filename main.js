@@ -32,7 +32,11 @@ module.exports.loop = function () {
     var cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
     var terminalHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'terminalHauler');
     
-    var containers = spawn1.room.find(FIND_STRUCTURES, {filter: { structureType: STRUCTURE_CONTAINER }});
+    var containers;
+    
+    if (typeof spawn1 !== 'undefined') {
+        containers = spawn1.room.find(FIND_STRUCTURES, {filter: { structureType: STRUCTURE_CONTAINER }});
+    }
 
     //Log current status
     console.log('Time:' + Game.time + ' B:' + builders.length + ' U:' + upgraders.length + ' BH:' + bigHarvesters.length  + ' L:' + haulers.length + ' CH:' + containerHarvesters.length);
