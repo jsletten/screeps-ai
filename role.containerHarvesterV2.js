@@ -18,11 +18,11 @@ var roleContainerHarvesterV2 = {
     /** @param {Creep} creep **/
     run: function(creep, remote = false) {
         var source = Game.getObjectById(creep.memory.sourceID);
-        var container = source.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.inRangeTo(source, 1)) }});
+        var container = source.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
         
         if(container === 'undefined' || container === null)
         {
-            var site = source.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.inRangeTo(source, 1)) }});
+            var site = source.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
             if(site === 'undefined' || site === null)
             {
                 //No Container && No Construction Site
