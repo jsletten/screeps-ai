@@ -1,9 +1,20 @@
 var roleContainerHauler = {
     
-    spawnCreep: function(containerID) {
-            var newName = Game.spawns['Spawn1'].createCreep([CARRY,CARRY,MOVE,MOVE], undefined, {role: 'containerHauler', containerID: containerID});
-            console.log('Spawning new ContainerHauler: ' + newName);
-            return newName;
+    spawnCreep: function(containerID) 
+    {
+        var spawn = Game.spawns['Spawn1'];
+        if(spawn.room.energyCapacityAvailable >= 400)
+        {
+            var result = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'containerHauler', containerID: containerID});
+            console.log('Spawning new ContainerHauler(med): ' + result);
+        }
+        else
+        {
+            var result = spawn.createCreep([CARRY,CARRY,MOVE,MOVE], undefined, {role: 'containerHauler', containerID: containerID});
+            console.log('Spawning new ContainerHauler(small): ' + result);
+        }
+        
+        return;
     },
     
     /** @param {Creep} creep **/
@@ -12,17 +23,16 @@ var roleContainerHauler = {
 
             var target = Game.getObjectById(creep.memory.containerID);
                     
+            if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+            }
+
             var found = target.pos.lookFor(LOOK_ENERGY);
             if(found.length) 
             {
                 var result = creep.pickup(found[0]);
                 console.log('Pickup Energy: ' + result);
             }
-
-            if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-            }
-            
         }
         else {
             //TODO: Make this goto Storage first, if that doesn't exist then fall back to Spawn/Extension/Tower for low level rooms.
