@@ -33,6 +33,7 @@ module.exports.loop = function () {
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
     var bigHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'bigHarvester');
     var containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester');
+    var containerHarvestersV2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvesterV2');
     var containerHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler');
     var cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
     var terminalHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'terminalHauler');
