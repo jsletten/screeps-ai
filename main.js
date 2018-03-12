@@ -120,7 +120,7 @@ module.exports.loop = function () {
             roleUpgrader.spawnCreep();
         }
 
-       if(containerHarvesters.length < containers.length)
+       if(containerHaulers.length < containers.length)
         {
             for(var container in containers )
             {
@@ -134,7 +134,7 @@ module.exports.loop = function () {
                     }
                 }
 
-                if(ctonainerHaulerFound == true)
+                if(containerHaulerFound == false)
                 {
                     roleContainerHauler.spawnCreep(containers[container].id);
                 }
