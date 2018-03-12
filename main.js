@@ -117,8 +117,9 @@ module.exports.loop = function () {
         }
     }
     */
-   if(basicWorkers.length <2) {
-    roleBasicWorker.spawnCreep();
+
+   if(upgraders.length < 1) {
+    roleUpgrader.spawnCreep();
     }
 
     if(builders.length < 1) {
@@ -128,8 +129,8 @@ module.exports.loop = function () {
         }
     }
 
-    if(upgraders.length < 1) {
-        roleUpgrader.spawnCreep();
+   if(basicWorkers.length <2) {
+    roleBasicWorker.spawnCreep();
     }
 
 
