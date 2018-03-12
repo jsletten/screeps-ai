@@ -9,7 +9,7 @@ var roleHauler = require('role.hauler');
 var roleBigHarvester = require('role.bigHarvester');
 var roleTower = require('role.tower');
 var roleContainerHarvester = require('role.containerHarvester');
-var roleContainerHarvesterv2 = require('role.containerHarvesterV2');
+var roleContainerHarvesterV2 = require('role.containerHarvesterV2');
 var roleContainerHauler = require('role.containerHauler');
 var roleCleaner = require('role.cleaner');
 var roleTerminalHauler = require('role.terminalHauler');
@@ -205,6 +205,10 @@ module.exports.loop = function () {
         if(creep.memory.role == 'containerHarvester')
         {
             roleContainerHarvester.run(creep);
+        }
+        if(creep.memory.role == 'containerHarvesterV2')
+        {
+            roleContainerHarvesterV2.run(creep);
         }
         if(creep.memory.role == 'cleaner') {
             roleCleaner.run(creep);
