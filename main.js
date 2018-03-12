@@ -97,10 +97,6 @@ module.exports.loop = function () {
     }
     */
 
-   if(upgraders.length < 1) {
-    roleUpgrader.spawnCreep();
-    }
-
     if(builders.length < 1) {
         var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
         if(sites.length > 0) {
@@ -111,6 +107,13 @@ module.exports.loop = function () {
 
     if (containers.length > 0)
     {
+        //Only spawn upgraders if we've built containers already.
+        if(upgraders.length < 1) 
+        {
+            roleUpgrader.spawnCreep();
+        }
+
+
        if(containerHarvesters.length < containers.length)
         {
             for(var container in containers )
