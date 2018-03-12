@@ -22,7 +22,7 @@ var roleUpgrader = {
             var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
                 return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0)}});            
                 
-                if(target)
+                if(target && creep.ticksToLive > 50)
                 {
                     creep.say('withdraw');
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
