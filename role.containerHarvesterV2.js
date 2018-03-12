@@ -39,8 +39,8 @@ var roleContainerHarvesterV2 = {
             {
                 creep.harvest(source);
                 creep.say('build');
-                if(creep.build(container) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(container, {visualizePathStyle: {stroke: '#ffff00'}});
+                if(creep.build(site) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(site, {visualizePathStyle: {stroke: '#ffff00'}});
                 }
             }
         }
