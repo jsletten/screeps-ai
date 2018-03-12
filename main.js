@@ -95,7 +95,23 @@ module.exports.loop = function () {
     if(bigHarvesters.length < 2) {
        roleBigHarvester.spawnCreep(allowSpawning);
     }
-  
+    */
+
+   if(upgraders.length < 1) {
+    roleUpgrader.spawnCreep();
+    }
+
+    if(builders.length < 1) {
+        var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+        if(sites.length > 0) {
+            roleBuilder.spawnCreep();
+        }
+    }
+
+   if(basicWorkers.length <2) {
+    roleBasicWorker.spawnCreep();
+    }
+
     if(containerHarvesters.length < containers.length)
     {
         for(var container in containers )
@@ -116,23 +132,6 @@ module.exports.loop = function () {
             }
         }
     }
-    */
-
-   if(upgraders.length < 1) {
-    roleUpgrader.spawnCreep();
-    }
-
-    if(builders.length < 1) {
-        var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
-        if(sites.length > 0) {
-            roleBuilder.spawnCreep();
-        }
-    }
-
-   if(basicWorkers.length <2) {
-    roleBasicWorker.spawnCreep();
-    }
-
 
     if(Game.spawns['Spawn1'].spawning) {
         var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];

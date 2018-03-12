@@ -1,10 +1,18 @@
 var roleContainerHarvester = {
     
     spawnCreep: function(containerID) {
-            var newName = Game.spawns['Spawn1'].createCreep([WORK,WORK,WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'containerHarvester', containerID: containerID});
-            //Game.creeps[newName].memory.containerID = containerID;
-            console.log('Spawning new ContainerHarvester: ' + newName);
-            return newName;
+        var spawn = Game.spawns['Spawn1'];
+        if(spawn.energyCapacity < 750)
+        {
+            var newName = spawn.createCreep([WORK,WORK,MOVE], undefined, {role: 'containerHarvester', containerID: containerID});
+            console.log('Spawning new ContainerHarvester(small): ' + newName);     
+        }
+        else
+        {
+            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,WORK,MOVE,MOVE,MOVE], undefined, {role: 'containerHarvester', containerID: containerID});
+            console.log('Spawning new ContainerHarvester(large): ' + newName);
+        }
+        return;
     },
     
     /** @param {Creep} creep **/
