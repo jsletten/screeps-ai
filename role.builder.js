@@ -2,18 +2,20 @@ var roleBuilder = {
 
     spawnCreep: function() {
         var spawn = Game.spawns['Spawn1'];
-
-        if(spawn.energyCapacity < 700)
+        if(spawn.room.energyCapacityAvailable >= 600)
         {
-            var newName = spawn.createCreep([WORK,CARRY,MOVE], undefined, {role: 'builder'});
-            console.log('Spawning new builder(small): ' + newName);  
-            
+            var newName = spawn.createCreep([WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'builder'});
+            console.log('Spawning new builder(large): ' + newName);  
+        }
+        else if(spawn.room.energyCapacityAvailable >= 400)
+        {
+            var newName = spawn.createCreep([WORK,WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'builder'});
+            console.log('Spawning new builder(med): ' + newName);  
         }
         else
         {
-            var newName = spawn.createCreep([WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'builder'});
-            console.log('Spawning new builder(large): ' + newName);  
-            
+            var newName = spawn.createCreep([WORK,CARRY,MOVE], undefined, {role: 'builder'});
+            console.log('Spawning new builder(small): ' + newName);
         }
         return;
     },
