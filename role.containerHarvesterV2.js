@@ -1,16 +1,22 @@
 var roleContainerHarvesterV2 = {
     
-    spawnCreep: function(sourceID) {
+    spawnCreep: function(sourceID) 
+    {
         var spawn = Game.spawns['Spawn1'];
-        if(spawn.energyCapacity < 750)
+        if(spawn.energyCapacity >= 750)
         {
-            var newName = spawn.createCreep([WORK,WORK,CARRY,MOVE], undefined, {role: 'containerHarvesterV2', sourceID: sourceID});
-            console.log('Spawning new ContainerHarvester(small): ' + newName);     
+            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'containerHarvesterV2', sourceID: sourceID});
+            console.log('Spawning new ContainerHarvester(large): ' + newName);     
+        }
+        else if(spawn.energyCapacity >= 550)
+        {
+            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE], undefined, {role: 'containerHarvesterV2', sourceID: sourceID});
+            console.log('Spawning new ContainerHarvester(med): ' + newName);
         }
         else
         {
-            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'containerHarvesterV2', sourceID: sourceID});
-            console.log('Spawning new ContainerHarvester(large): ' + newName);
+            var newName = spawn.createCreep([WORK,WORK,CARRY,MOVE], undefined, {role: 'containerHarvesterV2', sourceID: sourceID});
+            console.log('Spawning new ContainerHarvester(small): ' + newName);
         }
         return;
     },
