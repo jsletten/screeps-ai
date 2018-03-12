@@ -15,7 +15,8 @@ var roleContainerHauler = {
             var found = target.pos.lookFor(LOOK_ENERGY);
             if(found.length) 
             {
-                creep.pickup(found[0]);
+                var result = creep.pickup(found[0]);
+                console.log('Pickup Energy: ' + result);
             }
 
             if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
