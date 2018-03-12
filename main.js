@@ -122,6 +122,11 @@ module.exports.loop = function () {
                     roleBuilder.spawnCreep();
                 }
             }
+
+            if(cleaners.length < 1)
+            {
+                roleCleaner.spawnCreep();
+            }
         }
               
         //Check to see if we need to spawn more haulers
