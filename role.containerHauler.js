@@ -12,6 +12,12 @@ var roleContainerHauler = {
 
             var target = Game.getObjectById(creep.memory.containerID);
                     
+            var found = target.pos.lookFor(LOOK_ENERGY);
+            if(found.length) 
+            {
+                creep.pickup(found[0]);
+            }
+
             if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
