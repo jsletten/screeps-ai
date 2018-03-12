@@ -37,11 +37,12 @@ var roleContainerHarvesterV2 = {
             }
             else
             {
-                creep.harvest(source);
-                creep.say('build');
-                if(creep.build(site) == ERR_NOT_IN_RANGE) {
+                if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                {
                     creep.moveTo(site, {visualizePathStyle: {stroke: '#ffff00'}});
                 }
+                creep.say('build');
+                creep.build(site)
             }
         }
         else
