@@ -141,7 +141,7 @@ module.exports.loop = function () {
 
                 if(containerHaulerFound == false)
                 {
-                    roleContainerHauler.spawnCreep(containers[container].id);
+                    roleContainerHauler.spawnCreep(containers[container].id, containerHaulers.length);
                 }
             }
         }
