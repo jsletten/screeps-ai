@@ -106,9 +106,9 @@ module.exports.loop = function () {
 
     if (containers.length > 0)
     {
-        if(containerHaulers.length > 0)
+        if(containerHarvestersV2.length > 0 && containerHaulers.length > 0)
         {
-            //Only spawn upgraders & builders if we've built containers and creeps to haul.
+            //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
             if(upgraders.length < 1) 
             {
                 roleUpgrader.spawnCreep();
