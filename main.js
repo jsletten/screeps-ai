@@ -9,6 +9,7 @@ var roleHauler = require('role.hauler');
 var roleBigHarvester = require('role.bigHarvester');
 var roleTower = require('role.tower');
 var roleContainerHarvester = require('role.containerHarvester');
+var roleContainerHauler = require('role.containerHauler');
 var roleCleaner = require('role.cleaner');
 var roleTerminalHauler = require('role.terminalHauler');
 
@@ -31,6 +32,7 @@ module.exports.loop = function () {
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
     var bigHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'bigHarvester');
     var containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester');
+    var containerHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler');
     var cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
     var terminalHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'terminalHauler');
     
