@@ -202,14 +202,15 @@ module.exports.loop = function () {
         if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
         }
-        if(creep.memory.role == 'containerHarvester')
+        if(creep.memory.role == 'containerHauler')
         {
-            roleContainerHarvester.run(creep);
+            roleContainerHauler.run(creep);
         }
         if(creep.memory.role == 'containerHarvesterV2')
         {
             roleContainerHarvesterV2.run(creep);
         }
+        
         if(creep.memory.role == 'cleaner') {
             roleCleaner.run(creep);
         }
