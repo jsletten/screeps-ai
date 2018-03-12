@@ -22,7 +22,7 @@ var roleCleaner = {
         else 
         {
             var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-            return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && (_.sum(structure.store) < structure.storeCapacity)}});            
+            return (structure.structureType == STRUCTURE_STORAGE) && (_.sum(structure.store) < structure.storeCapacity)}});            
         
             if(target === 'undefined' || target === null)
             {
