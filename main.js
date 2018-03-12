@@ -108,29 +108,49 @@ module.exports.loop = function () {
         }
     }
 
-   if(basicWorkers.length <2) {
-    roleBasicWorker.spawnCreep();
-    }
 
-    if(containerHarvesters.length < containers.length)
+    if (containers.length > 0)
     {
-        for(var container in containers )
+       if(containerHarvesters.length < containers.length)
         {
-            var containerFound = false
-            
-            for(var creep in containerHarvesters)
+            for(var container in containers )
             {
-                if(containerHarvesters[creep].memory.containerID == containers[container].id)
+                var containerHarvesterFound = false;
+                var containerHaulerFound = false;
+                
+                for(var creep in containerHarvesters)
                 {
-                    containerFound = true;
+                    if(containerHarvesters[creep].memory.containerID == containers[container].id)
+                    {
+                        containerHarvesterFound = true;
+                    }
+                }
+
+                for(var creep in containerHaulers)
+                {
+                    if(containerHaulers[creep].memory.containerID == containers[container].id)
+                    {
+                        containerHaulerFound = true;
+                    }
+                }
+                
+                if(containerHarvesterFound == false)
+                {
+                    roleContainerHarvester.spawnCreep(containers[container].id);
+                }
+
+                if(ctonainerHaulerFound == true)
+                {
+                    roleContainerHauler.spawnCreep(containers[container].id);
                 }
             }
-            
-            if(containerFound == false)
-            {
-                roleContainerHarvester.spawnCreep(containers[container].id);
-            }
         }
+    }
+    else
+    {
+        if(basicWorkers.length <2) {
+            roleBasicWorker.spawnCreep();
+            }
     }
 
     if(Game.spawns['Spawn1'].spawning) {
