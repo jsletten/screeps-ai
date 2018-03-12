@@ -114,8 +114,8 @@ module.exports.loop = function () {
 
     if (containers.length > 0)
     {
-        //Only spawn upgraders if we've built containers already.
-        if(upgraders.length < 1) 
+        //Only spawn upgraders if we've built containers and creeps to haul.
+        if(upgraders.length < 1 && containerHaulers.length > 0) 
         {
             roleUpgrader.spawnCreep();
         }
