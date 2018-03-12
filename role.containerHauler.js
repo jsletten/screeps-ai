@@ -3,7 +3,7 @@ var roleContainerHauler = {
     spawnCreep: function(containerID, numCurrentHaulers) 
     {
         var spawn = Game.spawns['Spawn1'];
-        if((spawn.room.energyCapacityAvailable >= 400) && numCurrentHaulers > 0)
+        if((spawn.room.energyCapacityAvailable >= 300) && numCurrentHaulers > 0)
         {
             var result = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'containerHauler', containerID: containerID});
             console.log('Spawning new ContainerHauler(med): ' + result);

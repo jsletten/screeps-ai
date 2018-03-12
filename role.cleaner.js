@@ -15,6 +15,7 @@ var roleCleaner = {
                 }
             }
             else {
+                //TODO: Shouldn't hardcode waiting location
                 creep.moveTo(24,24);
             }
         }

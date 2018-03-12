@@ -3,9 +3,9 @@ var roleContainerHarvesterV2 = {
     spawnCreep: function(sourceID) 
     {
         var spawn = Game.spawns['Spawn1'];
-        if(spawn.room.energyCapacityAvailable >= 750)
+        if(spawn.room.energyCapacityAvailable >= 700)
         {
-            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'containerHarvesterV2', sourceID: sourceID});
+            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'containerHarvesterV2', sourceID: sourceID});
             console.log('Spawning new ContainerHarvester(large): ' + newName);     
         }
         else if(spawn.room.energyCapacityAvailable >= 550)
