@@ -104,23 +104,28 @@ module.exports.loop = function () {
     }
     */
 
-    if(builders.length < 1) {
-        var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
-        if(sites.length > 0) {
-            roleBuilder.spawnCreep();
-        }
-    }
-
-
     if (containers.length > 0)
     {
-        //Only spawn upgraders if we've built containers and creeps to haul.
-        if(upgraders.length < 1 && containerHaulers.length > 0) 
+        if(containerHaulers.length > 0)
         {
-            roleUpgrader.spawnCreep();
-        }
+            //Only spawn upgraders & builders if we've built containers and creeps to haul.
+            if(upgraders.length < 1) 
+            {
+                roleUpgrader.spawnCreep();
+            }
 
-       if(containerHaulers.length < containers.length)
+            if(builders.length < 1) 
+            {
+                var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+                if(sites.length > 0) 
+                {
+                    roleBuilder.spawnCreep();
+                }
+            }
+        }
+              
+        //Check to see if we need to spawn more haulers
+        if(containerHaulers.length < containers.length)
         {
             for(var container in containers )
             {
@@ -141,13 +146,8 @@ module.exports.loop = function () {
             }
         }
     }
-    else
-    {
-        if(basicWorkers.length <2) {
-            //roleBasicWorker.spawnCreep();
-            }
-    }
-
+    
+    //Make sure we have a harvester assigned to every EnergySource
     if(resourceNodes.length > 0)
     {
         for(var node in resourceNodes )
