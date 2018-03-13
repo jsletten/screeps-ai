@@ -152,7 +152,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                roleContainerHarvesterV2.spawnCreep(resourceNodes[node].id);
+                roleContainerHarvesterV2.spawnCreep(resourceNodes[node].id, containerHarvestersV2.length);
             }
         }
     }
