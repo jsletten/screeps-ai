@@ -130,7 +130,7 @@ module.exports.loop = function () {
         }
               
         //Check to see if we need to spawn more haulers
-        if(containerHaulers.length < (containers.length * 2)
+        if(containerHaulers.length < (containers.length * 2))
         {
             for(var container in containers )
             {
