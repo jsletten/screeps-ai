@@ -51,7 +51,7 @@ module.exports.loop = function () {
     console.log('Time:' + Game.time + ' B:' + builders.length + ' U:' + upgraders.length + ' BH:' + bigHarvesters.length  + ' L:' + haulers.length + ' CH:' + containerHarvesters.length);
     
     // TOWER!
-    roleTower.run();
+    //roleTower.run(); //TODO: Re-enable Tower once economy is stabalized.
     
     // Spawn New Creeps
     /*
@@ -127,6 +127,7 @@ module.exports.loop = function () {
                     }
                 }
 
+                //TODO: Only spawn 2nd hauler if a harvester exists for the node.
                 if(containerHaulerFound < 2)
                 {
                     roleContainerHauler.spawnCreep(containers[container].id, containerHaulers.length);
