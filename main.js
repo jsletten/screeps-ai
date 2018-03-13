@@ -134,17 +134,17 @@ module.exports.loop = function () {
         {
             for(var container in containers )
             {
-                var containerHaulerFound = false;
+                var containerHaulerFound = 0;
 
                 for(var creep in containerHaulers)
                 {
                     if(containerHaulers[creep].memory.containerID == containers[container].id)
                     {
-                        containerHaulerFound = true;
+                        containerHaulerFound++;
                     }
                 }
 
-                if(containerHaulerFound == false)
+                if(containerHaulerFound < 2)
                 {
                     roleContainerHauler.spawnCreep(containers[container].id, containerHaulers.length);
                 }
