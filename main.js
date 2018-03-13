@@ -55,26 +55,12 @@ module.exports.loop = function () {
     
     // Spawn New Creeps
     /*
-    if(cleaners.length <1) {
-        roleCleaner.spawnCreep(allowSpawning);
-    }
-    
-    if(upgraders.length < 2) {
-        roleUpgrader.spawnCreep('59296a59252e7c1c46120a4a');
-    }
-    
+   
     if(terminalHaulers.length < 1)
     {
         roleTerminalHauler.spawnCreep(allowSpawning);
     }
-    
-    if(builders.length < 2) {
-        var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
-        if(sites.length > 0) {
-            roleBuilder.spawnCreep(allowSpawning);
-        }
-    }
-    
+     
     if(haulers.length < (containers.length + 1)) {
         for(var container in containers)
         {
@@ -99,14 +85,11 @@ module.exports.loop = function () {
         }
     }
     
-    if(bigHarvesters.length < 2) {
-       roleBigHarvester.spawnCreep(allowSpawning);
-    }
     */
 
     if (containers.length > 0)
     {
-        if(containerHarvestersV2.length == resourceNodes.length && containerHaulers.length == containers.length)
+        if(containerHarvestersV2.length == resourceNodes.length && containerHaulers.length == (containers.length * 2))
         {
             //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
             if(upgraders.length < Game.spawns['Spawn1'].room.controller.level) 
@@ -184,40 +167,36 @@ module.exports.loop = function () {
     }
 
 
-    for(var name in Game.creeps) {
+    for(var name in Game.creeps) 
+    {
         var creep = Game.creeps[name];
-        if(creep.memory.role == 'basicWorker') {
-            roleBasicWorker.run(creep);
-        }
-        if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-            //roleContainerHarvester.run(creep);
-            //creep.moveTo(30,20)
-        }
-        if(creep.memory.role == 'hauler') {
-            roleHauler.run(creep);
-        }
-        if(creep.memory.role == 'terminalHauler')
-        {
-            roleTerminalHauler.run(creep);
-        }
-        if(creep.memory.role == 'bigHarvester') {
-            roleBigHarvester.run(creep);
-        }
-        if(creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
-        }
         if(creep.memory.role == 'containerHauler')
         {
             roleContainerHauler.run(creep);
         }
-        if(creep.memory.role == 'containerHarvesterV2')
+        else if(creep.memory.role == 'containerHarvesterV2')
         {
             roleContainerHarvesterV2.run(creep);
         }
-        
-        if(creep.memory.role == 'cleaner') {
+        else if(creep.memory.role == 'upgrader') 
+        {
+            roleUpgrader.run(creep);
+        }
+        else if(creep.memory.role == 'builder') 
+        {
+            roleBuilder.run(creep);
+        }
+        else if(creep.memory.role == 'cleaner') 
+        {
             roleCleaner.run(creep);
+        }
+        else if(creep.memory.role == 'basicWorker') 
+        {
+            roleBasicWorker.run(creep);
+        }
+        else if(creep.memory.role == 'terminalHauler')
+        {
+            roleTerminalHauler.run(creep);
         }
     }
 }
