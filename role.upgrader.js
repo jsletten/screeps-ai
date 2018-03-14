@@ -38,7 +38,7 @@ var roleUpgrader = {
             
             if(target && (creep.ticksToLive > 50))
             {
-                creep.say('withdraw');
+                //creep.say('withdraw');
                 if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                 }

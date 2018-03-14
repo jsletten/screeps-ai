@@ -33,7 +33,7 @@ var roleBuilder = {
         
         if(creep.carry[RESOURCE_ENERGY] > 0) {
             if(targets.length > 0) {
-                creep.say('build');
+                //creep.say('build');
                 if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                 }
@@ -54,7 +54,7 @@ var roleBuilder = {
                 
                 if(target)
                 {
-                    creep.say('withdraw');
+                    //creep.say('withdraw');
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                     }
