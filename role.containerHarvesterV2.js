@@ -50,21 +50,8 @@ var roleContainerHarvesterV2 = {
                 }
                 else
                 {
-                    var mineral = creep.pos.findClosestByRange(FIND_MINERALS);
-                    
-                    if(creep.pos.getRangeTo(source) < creep.pos.getRangeTo(mineral))
-                    {
-                        creep.harvest(source);
-                        creep.transfer(container, RESOURCE_ENERGY);
-                    }
-                    else
-                    {
-                        creep.harvest(mineral);
-                        for(const resourceType in creep.carry) 
-                        {
-                            creep.transfer(container, resourceType);
-                        }
-                    }
+                    creep.harvest(source);
+                    creep.transfer(container, RESOURCE_ENERGY);
                 }
             }
             else
