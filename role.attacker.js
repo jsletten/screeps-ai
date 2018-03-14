@@ -3,30 +3,31 @@ var roleAttacker = {
     spawnCreep: function() 
     {
         var newName = Game.spawns['Spawn1'].createCreep([ATTACK,ATTACK,MOVE,MOVE], undefined,{role: 'attacker'}); 
-        console.log('Spawning new BasicWorker: ' + newName);
+        console.log('Spawning new Attacker: ' + newName);
         return newName;
     },
     
     /** @param {Creep} creep **/
     run: function(creep) 
     {
-        if(creep.room == Game.flags.attackFlag.room)
+        if(Game.flags.attackFlag)
         {
-            target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-            if(!target) {
-                target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES)
-            }
-
-            if(target)
+            if(creep.room != Game.flags.attackFlag.room)
             {
-                if(creep.attack(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
-                }
+                creep.moveTo(Game.flags.attackFlag);
             }
         }
-        else
+
+        var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if(!target) {
+            target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES)
+        }
+
+        if(target)
         {
-            creep.moveTo(Game.flags.attackFlag);
+            if(creep.attack(target) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target);
+            }
         }
     }
 };
