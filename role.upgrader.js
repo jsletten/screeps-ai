@@ -25,18 +25,24 @@ var roleUpgrader = {
     },
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(creep.carry.energy == 0) {
+        if(creep.carry.energy == 0) 
+        {    
+            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_STORAGE)}});            
             
-            var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0)}});            
-                
-                if(target && (creep.ticksToLive > 50))
-                {
-                    creep.say('withdraw');
-                    if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
-                    }
+            if(target === 'undefined' || target === null)
+            {
+                target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                    return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0)}});            
+            }
+            
+            if(target && (creep.ticksToLive > 50))
+            {
+                creep.say('withdraw');
+                if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                 }
+            }
         }
         else
         {
