@@ -92,7 +92,9 @@ module.exports.loop = function () {
         if(containerHarvestersV2.length == resourceNodes.length && containerHaulers.length == (containers.length * 2))
         {
             //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
-            if(upgraders.length < Game.spawns['Spawn1'].room.controller.level) 
+            //if(upgraders.length < Game.spawns['Spawn1'].room.controller.level) 
+            //TODO: Update this code to prevent it from killing economy.
+            if(upgraders.length < 2)
             {
                 roleUpgrader.spawnCreep();
             }
