@@ -41,7 +41,7 @@ module.exports.loop = function () {
     var containers;
     var resourceNodes;
     
-    if (typeof spawn1 !== 'undefined') 
+    if (spawn1) 
     {
         containers = spawn1.room.find(FIND_STRUCTURES, {filter: { structureType: STRUCTURE_CONTAINER }});
         resourceNodes = spawn1.room.find(FIND_SOURCES);

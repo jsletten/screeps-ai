@@ -35,7 +35,7 @@ var roleContainerHarvesterV2 = {
             container = source.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
             if(container) 
             {
-                creep.memory.containerID = container.ID;
+                creep.memory.containerID = container.id;
             }
         }
         
