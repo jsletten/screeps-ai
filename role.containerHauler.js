@@ -40,10 +40,17 @@ var roleContainerHauler = {
             }
         }
         else {
-            //TODO: Make this goto Storage first, if that doesn't exist then fall back to Spawn/Extension/Tower for low level rooms.
+            
             var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
             return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER ) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});            
             
+            //If Spawn / Towers are full put remainder in storage
+            if(target === 'undefined' || target === null)
+            {
+                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                    return (structure.structureType == STRUCTURE_STORAGE)}});            
+            }    
+
             if(target)
             {
                 if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
