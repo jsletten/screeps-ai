@@ -48,6 +48,10 @@ var roleUpgrader = {
                     creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                 }
             }
+            else
+            {
+                creep.suicide();
+            }
         }
         else
         {
