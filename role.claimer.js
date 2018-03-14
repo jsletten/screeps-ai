@@ -2,6 +2,7 @@ var roleClaimer = {
     
     spawnCreep: function() 
     {
+        var spawn = Game.spawns['Spawn1'];
         if(spawn.room.energyCapacityAvailable >= 1300)
         {
             var newName = Game.spawns['Spawn1'].createCreep([CLAIM,CLAIM,MOVE,MOVE], undefined,{role: 'claimer'}); 
