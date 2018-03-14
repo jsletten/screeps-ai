@@ -1,7 +1,7 @@
 var roleTower = {
     
     run: function() {
-        var towers = Game.spawns['Spawn1'].room.find(FIND_MY_STRUCTURES, {filter: structure => structure.structureType == STRUCTURE_TOWER})
+        var towers = _.filter(Game.structures, s => s.structureType == STRUCTURE_TOWER);
 
         for(towerID in towers)
         {
