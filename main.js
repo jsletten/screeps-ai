@@ -51,7 +51,7 @@ module.exports.loop = function () {
     console.log('Time:' + Game.time + ' B:' + builders.length + ' U:' + upgraders.length + ' BH:' + bigHarvesters.length  + ' L:' + haulers.length + ' CH:' + containerHarvesters.length);
     
     // TOWER!
-    //roleTower.run(); //TODO: Re-enable Tower once economy is stabalized.
+    roleTower.run();
     
     // Spawn New Creeps
     /*
