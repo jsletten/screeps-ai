@@ -8,13 +8,27 @@ var roleCleaner = {
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
             var target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+
             if(target) {
                 creep.say('Resource!');
                 if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
                 }
             }
-            else {
+            else 
+            {
+                target = creep.pos.findClosestByRange(FIND_TOMBSTONE, {filter: (tombstone) => { 
+                    return (_.sum(tombstone.store) > 0)}}); 
+            
+                if(target)
+                {
+                    for(resourceType in target.store) 
+                    {
+                        if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(target);
+                        }
+                    }
+                }
                 //TODO: Shouldn't hardcode waiting location
                 creep.moveTo(24,24);
             }
