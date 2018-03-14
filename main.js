@@ -13,6 +13,7 @@ var roleContainerHarvesterV2 = require('role.containerHarvesterV2');
 var roleContainerHauler = require('role.containerHauler');
 var roleCleaner = require('role.cleaner');
 var roleTerminalHauler = require('role.terminalHauler');
+var roleAttacker = require('role.attacker');
 
 module.exports.loop = function () {
     // Always place this memory cleaning code at the very top of your main loop!
@@ -37,6 +38,7 @@ module.exports.loop = function () {
     var containerHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler');
     var cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
     var terminalHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'terminalHauler');
+    var attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
     
     var containers;
     var resourceNodes;
@@ -111,6 +113,11 @@ module.exports.loop = function () {
             if(cleaners.length < 1)
             {
                 roleCleaner.spawnCreep();
+            }
+
+            if(Game.flags.attackFlag && attackers.length < 5)
+            {
+                roleAttacker.spawnCreep();
             }
         }
               
@@ -200,6 +207,10 @@ module.exports.loop = function () {
         else if(creep.memory.role == 'terminalHauler')
         {
             roleTerminalHauler.run(creep);
+        }
+        else if(creep.memory.role == 'attacker') 
+        {
+            roleAttacker.run(creep);
         }
     }
 }
