@@ -17,7 +17,7 @@ var roleCleaner = {
             }
             else 
             {
-                target = creep.pos.findClosestByRange(FIND_TOMBSTONE, {filter: (tombstone) => { 
+                target = creep.pos.findClosestByRange(FIND_TOMBSTONES, {filter: (tombstone) => { 
                     return (_.sum(tombstone.store) > 0)}}); 
             
                 if(target)
