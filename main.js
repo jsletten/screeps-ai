@@ -41,9 +41,14 @@ module.exports.loop = function () {
     
     // TOWER!
     roleTower.run();
+
+    //Run creep logic
+    for (let name in Game.creeps) 
+    {
+        Game.creeps[name].runRole();
+    }
     
     // Spawn New Creeps
-    
     if (containers.length > 0)
     {
         if(containerHarvesters.length == resourceNodes.length && containerHaulers.length == (containers.length * 2))
@@ -51,7 +56,7 @@ module.exports.loop = function () {
             //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
             //if(upgraders.length < Game.spawns['Spawn1'].room.controller.level) 
             //TODO: Update this code to prevent it from killing economy.
-            if(upgraders.length < 2)
+            if(upgraders.length < 2 && spawn1.room.storage.store[RESOURCE_ENERGY] > 500)
             {
                 Globals.roles['upgrader'].spawnCreep();
             }
@@ -136,9 +141,5 @@ module.exports.loop = function () {
             {align: 'left', opacity: 0.8});
     }
 
-    //Run creep logic
-    for (let name in Game.creeps) 
-    {
-        Game.creeps[name].runRole();
-    }
+    
 }
