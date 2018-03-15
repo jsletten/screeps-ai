@@ -12,7 +12,12 @@ const Roles = {
     attacker: require('role.attacker')
 }
 
-require('prototype.creep');
+Creep.prototype.runRole =
+    function () 
+    {
+        Roles[this.memory.role].run(this);
+    };
+
 var roleTower = require('role.tower');
 
 module.exports.loop = function () {
