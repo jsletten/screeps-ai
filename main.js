@@ -1,6 +1,7 @@
 // This file contains the main game loop
 
 // import modules
+require('test')
 require('prototype.creep');
 var Globals = require('globals');
 var roleTower = require('role.tower');
@@ -18,14 +19,7 @@ module.exports.loop = function () {
     //TODO: Make this capabile of handling multiple spawn points.
     var spawn1 = Game.spawns['Spawn1']; // Default spawn
     
-    var basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker');
-    var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-    var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    var containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester');
-    var containerHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler');
-    var cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
-    var attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
-    var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
+
     
     var containers;
     var resourceNodes;
