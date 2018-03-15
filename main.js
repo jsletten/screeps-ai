@@ -3,7 +3,6 @@
 // import modules
 require('prototype.creep');
 var Globals = require('globals');
-
 var roleTower = require('role.tower');
 
 module.exports.loop = function () {
