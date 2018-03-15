@@ -1,6 +1,6 @@
 Object.defineProperty(Game.prototype, 'roles', {
     get: function() {
-        return {
+        let roleList = {
             basicWorker: require('role.basicWorker'),
             containerHarvester: require('role.containerHarvester'),
             containerHauler: require('role.containerHauler'),
@@ -10,6 +10,7 @@ Object.defineProperty(Game.prototype, 'roles', {
             claimer: require('role.claimer'),
             attacker: require('role.attacker')
         };
+        return roleList;
     },
     // This makes it so the property doesn't show up when enumerating the properties 
     // of the creep. If you arent sure, put false.
