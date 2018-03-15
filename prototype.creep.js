@@ -5,7 +5,8 @@ var roles = {
     upgrader: require('role.upgrader'),
     builder: require('role.builder'),
     cleaner: require('role.cleaner'),
-    claimer: require('role.claimer')
+    claimer: require('role.claimer'),
+    attacker: require('role.attacker')
 };
 
 Creep.prototype.runRole =
