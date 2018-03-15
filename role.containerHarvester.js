@@ -15,10 +15,10 @@ module.exports = {
         numberOfParts = Math.min(numberOfParts, 49);
 
         //1 MOVE part for every 2 WORK parts
-        for (let i = 0; i < ((numberOfParts/3)*2); i++) {
+        for (let i = 0; i < Math.min(((numberOfParts/3)*2), 6); i++) {
             body.push(WORK);
         }
-        for (let i = 0; i < (numberOfParts/3); i++) {
+        for (let i = 0; i < Math.min((numberOfParts/3), 6); i++) {
             body.push(MOVE);
         }
 
