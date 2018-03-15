@@ -57,7 +57,7 @@ module.exports.loop = function () {
 
             if(builders.length < 1) 
             {
-                var sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+                let sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
                 if(sites.length > 0) 
                 {
                     roles['builder'].spawnCreep();
