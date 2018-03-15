@@ -1,22 +1,8 @@
 // This file contains the main game loop
 
 // import modules
-const Roles = {
-    basicWorker: require('role.basicWorker'),
-    containerHarvester: require('role.containerHarvester'),
-    containerHauler: require('role.containerHauler'),
-    upgrader: require('role.upgrader'),
-    builder: require('role.builder'),
-    cleaner: require('role.cleaner'),
-    claimer: require('role.claimer'),
-    attacker: require('role.attacker')
-}
-
-Creep.prototype.runRole =
-    function () 
-    {
-        Roles[this.memory.role].run(this);
-    };
+require('prototype.creep');
+var Globals = require('globals');
 
 var roleTower = require('role.tower');
 
@@ -68,7 +54,7 @@ module.exports.loop = function () {
             //TODO: Update this code to prevent it from killing economy.
             if(upgraders.length < 2)
             {
-                Roles['upgrader'].spawnCreep();
+                Globals.roles['upgrader'].spawnCreep();
             }
 
             if(builders.length < 1) 
@@ -76,23 +62,23 @@ module.exports.loop = function () {
                 let sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
                 if(sites.length > 0) 
                 {
-                    Roles['builder'].spawnCreep();
+                    Globals.roles['builder'].spawnCreep();
                 }
             }
 
             if(cleaners.length < 1)
             {
-                Roles['cleaner'].spawnCreep();
+                Globals.roles['cleaner'].spawnCreep();
             }
 
             if(Game.flags.attackFlag && attackers.length < 5)
             {
-                Roles['attacker'].spawnCreep();
+                Globals.roles['attacker'].spawnCreep();
             }
 
             if(Game.flags.claimFlag && claimers.length < 1)
             {
-                Roles['claimer'].spawnCreep();
+                Globals.roles['claimer'].spawnCreep();
             }
         }
               
@@ -114,7 +100,7 @@ module.exports.loop = function () {
                 //TODO: Only spawn 2nd hauler if a harvester exists for the node.
                 if(containerHaulerFound < 2)
                 {
-                    Roles['containerHauler'].spawnCreep(containers[container].id, (containerHaulers.length == 0));
+                    Globals.roles['containerHauler'].spawnCreep(containers[container].id, (containerHaulers.length == 0));
                 }
             }
         }
@@ -137,7 +123,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                Roles['containerHarvester'].spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
+                Globals.roles['containerHarvester'].spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
             }
         }
     }
