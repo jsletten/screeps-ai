@@ -38,25 +38,24 @@ module.exports = {
         }
         else 
         {
-            var target = creep.room.storage;
+            var target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER ) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});            
         
             if(target === 'undefined' || target === null)
             {
-                target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                    return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER ) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});            
-                    
+                target = creep.room.storage;
             }
 
             if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
-            else
-            {
-                for(const resourceType in creep.carry) 
-                {
-                    creep.transfer(target, resourceType);
-                }
-            }
+            // else
+            // {
+            //     for(const resourceType in creep.carry) 
+            //     {
+            //         creep.transfer(target, resourceType);
+            //     }
+            // }
         }
     }
 };
