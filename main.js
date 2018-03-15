@@ -4,6 +4,17 @@
 require('prototype.creep');
 var roleTower = require('role.tower');
 
+var roles = {
+    basicWorker: require('role.basicWorker'),
+    containerHarvester: require('role.containerHarvester'),
+    containerHauler: require('role.containerHauler'),
+    upgrader: require('role.upgrader'),
+    builder: require('role.builder'),
+    cleaner: require('role.cleaner'),
+    claimer: require('role.claimer'),
+    attacker: require('role.attacker')
+};
+
 module.exports.loop = function () {
     // Always place this memory cleaning code at the very top of your main loop!
     for(var name in Memory.creeps) {

@@ -1,4 +1,4 @@
-const roles = {
+var roles = {
     basicWorker: require('role.basicWorker'),
     containerHarvester: require('role.containerHarvester'),
     containerHauler: require('role.containerHauler'),
