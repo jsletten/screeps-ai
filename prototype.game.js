@@ -1,6 +1,8 @@
 
 
-Game.prototype.roles = {
+Game.prototype.roles = null;
+
+Game.roles = {
     basicWorker: require('role.basicWorker'),
     containerHarvester: require('role.containerHarvester'),
     containerHauler: require('role.containerHauler'),
