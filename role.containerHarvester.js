@@ -2,7 +2,6 @@ module.exports = {
     spawnCreep: function(sourceID, emergencySpawn) 
     {
         var spawn = Game.spawns['Spawn1'];
-
         var body = [];
         var maxEnergy = spawn.room.energyCapacityAvailable - 50;
         var numberOfParts = Math.floor(maxEnergy / 250) * 3;
@@ -14,6 +13,8 @@ module.exports = {
 
         // make sure the creep is not too big (more than 50 parts)
         numberOfParts = Math.min(numberOfParts, 49);
+
+        //1 MOVE part for every 2 WORK parts
         for (let i = 0; i < ((numberOfParts/3)*2); i++) {
             body.push(WORK);
         }
@@ -21,10 +22,12 @@ module.exports = {
             body.push(MOVE);
         }
 
+        //Add the single CARRY part
+        body.push(CARRY);
+
         var newName = spawn.createCreep(body, undefined, {role: 'containerHarvester', sourceID: sourceID});
         console.log('Spawning new ContainerHarvester(large): ' + newName);     
         
-
         return;
     },
     
