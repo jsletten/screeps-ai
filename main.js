@@ -9,7 +9,6 @@ var roleHauler = require('role.hauler');
 var roleBigHarvester = require('role.bigHarvester');
 var roleTower = require('role.tower');
 var roleContainerHarvester = require('role.containerHarvester');
-var roleContainerHarvesterV2 = require('role.containerHarvesterV2');
 var roleContainerHauler = require('role.containerHauler');
 var roleCleaner = require('role.cleaner');
 var roleTerminalHauler = require('role.terminalHauler');
@@ -35,7 +34,7 @@ module.exports.loop = function () {
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
     var bigHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'bigHarvester');
     var containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester');
-    var containerHarvestersV2 = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvesterV2');
+    
     var containerHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler');
     var cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
     var terminalHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'terminalHauler');
@@ -93,7 +92,7 @@ module.exports.loop = function () {
 
     if (containers.length > 0)
     {
-        if(containerHarvestersV2.length == resourceNodes.length && containerHaulers.length == (containers.length * 2))
+        if(containerHarvesters.length == resourceNodes.length && containerHaulers.length == (containers.length * 2))
         {
             //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
             //if(upgraders.length < Game.spawns['Spawn1'].room.controller.level) 
@@ -159,9 +158,9 @@ module.exports.loop = function () {
         {
             var sourceFound = false;
             
-            for(var creep in containerHarvestersV2)
+            for(var creep in containerHarvesters)
             {
-                if(containerHarvestersV2[creep].memory.sourceID == resourceNodes[node].id)
+                if(containerHarvesters[creep].memory.sourceID == resourceNodes[node].id)
                 {
                     sourceFound = true;
                 }
@@ -169,7 +168,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                roleContainerHarvesterV2.spawnCreep(resourceNodes[node].id, (containerHarvestersV2.length == 0));
+                roleContainerHarvester.spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
             }
         }
     }
@@ -191,9 +190,9 @@ module.exports.loop = function () {
         {
             roleContainerHauler.run(creep);
         }
-        else if(creep.memory.role == 'containerHarvesterV2')
+        else if(creep.memory.role == 'containerHarvester')
         {
-            roleContainerHarvesterV2.run(creep);
+            roleContainerHarvester.run(creep);
         }
         else if(creep.memory.role == 'upgrader') 
         {
