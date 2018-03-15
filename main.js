@@ -123,7 +123,7 @@ module.exports.loop = function () {
             
             for(var creep in containerHarvesters)
             {
-                if(containerHarvesters[creep].memory.sourceID == resourceNodes[node].id)
+                if(containerHarvesters[creep].memory.sourceIndex == node)
                 {
                     sourceFound = true;
                 }
@@ -131,7 +131,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                Globals.roles['containerHarvester'].spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
+                Globals.roles['containerHarvester'].spawnCreep(node, (containerHarvesters.length == 0));
             }
         }
     }

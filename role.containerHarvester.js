@@ -1,5 +1,5 @@
 module.exports = {
-    spawnCreep: function(sourceID, emergencySpawn) 
+    spawnCreep: function(sourceIndex, emergencySpawn, targetRoom = 'E32N13') 
     {
         var spawn = Game.spawns['Spawn1'];
         var body = [];
@@ -25,74 +25,84 @@ module.exports = {
         //Add the single CARRY part
         body.push(CARRY);
 
-        var newName = spawn.createCreep(body, undefined, {role: 'containerHarvester', sourceID: sourceID});
-        console.log('Spawning new ContainerHarvester(large): ' + newName);     
+        var newName = spawn.createCreep(body, undefined, {role: 'containerHarvester', sourceIndex: sourceIndex, targetRoom: targetRoom});
+        console.log('Spawning new ContainerHarvester(' + numberOfParts + '): ' + newName);     
         
         return;
     },
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        var source = Game.getObjectById(creep.memory.sourceID);
-        var container;
+        if (creep.room.name != creep.memory.targetRoom)
+        {
+            // find exit to target room
+            var exit = creep.room.findExitTo(creep.memory.target);
+            // move to exit
+            creep.moveTo(creep.pos.findClosestByRange(exit));
+        }
+        else
+        {
+            var source = creep.room.find(FIND_SOURCES)[creep.memory.sourceIndex];
+            var container;
 
-        if(creep.memory.containerID)
-        {
-            container = Game.getObjectById(creep.memory.containerID);
-        }
-        else
-        {
-            container = source.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
-            if(container) 
+            if(creep.memory.containerID)
             {
-                creep.memory.containerID = container.id;
+                container = Game.getObjectById(creep.memory.containerID);
             }
-        }
-        
-        if(container)
-        {
-            if(creep.pos.isEqualTo(container.pos))
+            else
             {
-                if(creep.carry[RESOURCE_ENERGY] > 0 && container.hits < container.hitsMax)
-                {   
-                    creep.say('Reapiring!');
-                    creep.repair(container);
+                container = source.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
+                if(container) 
+                {
+                    creep.memory.containerID = container.id;
+                }
+            }
+            
+            if(container)
+            {
+                if(creep.pos.isEqualTo(container.pos))
+                {
+                    if(creep.carry[RESOURCE_ENERGY] > 0 && container.hits < container.hitsMax)
+                    {   
+                        creep.say('Reapiring!');
+                        creep.repair(container);
+                    }
+                    else
+                    {
+                        creep.harvest(source);
+                        creep.transfer(container, RESOURCE_ENERGY);
+                    }
                 }
                 else
                 {
-                    creep.harvest(source);
-                    creep.transfer(container, RESOURCE_ENERGY);
+                    creep.moveTo(container, {visualizePathStyle: {stroke: '#ff0000'}});
                 }
             }
             else
             {
-                creep.moveTo(container, {visualizePathStyle: {stroke: '#ff0000'}});
-            }
-        }
-        else
-        {
-            var site = source.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
-            if(!site)
-            {
-                //No Container && No Construction Site
-                if(creep.pos.inRangeTo(source, 1))
+                var site = source.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
+                if(!site)
                 {
-                    creep.room.createConstructionSite(creep.pos, STRUCTURE_CONTAINER);
+                    //No Container && No Construction Site
+                    if(creep.pos.inRangeTo(source, 1))
+                    {
+                        creep.room.createConstructionSite(creep.pos, STRUCTURE_CONTAINER);
+                    }
+                    else
+                    {
+                        creep.moveTo(source);
+                    }
                 }
                 else
                 {
-                    creep.moveTo(source);
-                }
+                    if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(site, {visualizePathStyle: {stroke: '#ffff00'}});
+                    }
+                    creep.say('build');
+                    creep.build(site)
+                }            
             }
-            else
-            {
-                if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
-                {
-                    creep.moveTo(site, {visualizePathStyle: {stroke: '#ffff00'}});
-                }
-                creep.say('build');
-                creep.build(site)
-            }            
         }
     }
 };
