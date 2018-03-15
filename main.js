@@ -35,7 +35,7 @@ module.exports.loop = function () {
     }
 
     //Log current status
-    console.log('Time:' + Game.time + ' B:' + builders.length + ' U:' + upgraders.length + ' BH:' + bigHarvesters.length  + ' L:' + haulers.length + ' CH:' + containerHarvesters.length);
+    console.log('Time:' + Game.time + ' B:' + builders.length + ' U:' + upgraders.length + ' CH:' + containerHarvesters.length);
     
     // TOWER!
     roleTower.run();
