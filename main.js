@@ -1,10 +1,5 @@
 // This file contains the main game loop
-
-// import modules
-require('prototype.creep');
-var roleTower = require('role.tower');
-
-var roles = {
+const roles = {
     basicWorker: require('role.basicWorker'),
     containerHarvester: require('role.containerHarvester'),
     containerHauler: require('role.containerHauler'),
@@ -14,6 +9,10 @@ var roles = {
     claimer: require('role.claimer'),
     attacker: require('role.attacker')
 };
+
+// import modules
+require('prototype.creep');
+var roleTower = require('role.tower');
 
 module.exports.loop = function () {
     // Always place this memory cleaning code at the very top of your main loop!
