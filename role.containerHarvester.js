@@ -3,7 +3,7 @@ module.exports = {
     {
         var spawn = Game.spawns['Spawn1'];
 
-        var body[];
+        var body = [];
         var maxEnergy = spawn.room.energyCapacityAvailable - 50;
         var numberOfParts = Math.floor(maxEnergy / 250) * 3;
 
