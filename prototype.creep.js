@@ -3,5 +3,5 @@
 Creep.prototype.runRole =
     function () 
     {
-        roles[this.memory.role].run(this);
+        Game.roles[this.memory.role].run(this);
     };
