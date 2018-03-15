@@ -1,7 +1,17 @@
 // This file contains the main game loop
 
 // import modules
-const Roles = require('prototype.game'); //This must be first
+const Roles = {
+    basicWorker: require('role.basicWorker'),
+    containerHarvester: require('role.containerHarvester'),
+    containerHauler: require('role.containerHauler'),
+    upgrader: require('role.upgrader'),
+    builder: require('role.builder'),
+    cleaner: require('role.cleaner'),
+    claimer: require('role.claimer'),
+    attacker: require('role.attacker')
+}
+
 require('prototype.creep');
 var roleTower = require('role.tower');
 
