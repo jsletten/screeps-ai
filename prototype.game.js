@@ -1,15 +1,13 @@
 Object.defineProperty(Game, 'roles', {
-    get: function() {
-        return {
-            basicWorker: require('role.basicWorker'),
-            containerHarvester: require('role.containerHarvester'),
-            containerHauler: require('role.containerHauler'),
-            upgrader: require('role.upgrader'),
-            builder: require('role.builder'),
-            cleaner: require('role.cleaner'),
-            claimer: require('role.claimer'),
-            attacker: require('role.attacker')
-        };
+    value: {
+        basicWorker: require('role.basicWorker'),
+        containerHarvester: require('role.containerHarvester'),
+        containerHauler: require('role.containerHauler'),
+        upgrader: require('role.upgrader'),
+        builder: require('role.builder'),
+        cleaner: require('role.cleaner'),
+        claimer: require('role.claimer'),
+        attacker: require('role.attacker')
     },
     // This makes it so the property doesn't show up when enumerating the properties 
     // of the creep. If you arent sure, put false.
