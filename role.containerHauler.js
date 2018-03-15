@@ -44,7 +44,7 @@ module.exports = {
             return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER ) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});            
             
             //If Spawn / Towers are full put remainder in storage
-            if(target === 'undefined')
+            if(target === 'undefined' || target === null)
             {
                 target = creep.room.storage;
             }    

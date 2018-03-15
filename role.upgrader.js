@@ -34,7 +34,7 @@ module.exports = {
         {    
             var target = creep.room.storage;        
             
-            if(target === 'undefined')
+            if(target === 'undefined' || target === null)
             {
                 target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
                     return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0)}});            
