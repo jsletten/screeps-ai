@@ -1,5 +1,6 @@
-Object.defineProperty(Game, 'roles', {
-    value: {
+module.exports = {
+    roles: 
+    {
         basicWorker: require('role.basicWorker'),
         containerHarvester: require('role.containerHarvester'),
         containerHauler: require('role.containerHauler'),
@@ -8,11 +9,5 @@ Object.defineProperty(Game, 'roles', {
         cleaner: require('role.cleaner'),
         claimer: require('role.claimer'),
         attacker: require('role.attacker')
-    },
-    // This makes it so the property doesn't show up when enumerating the properties 
-    // of the creep. If you arent sure, put false.
-    enumerable: false,
-    // This makes the characteristics of the property modifiable and also makes 
-    // the property deletable. if you arent sure, put true.
-    configurable: true
-   });
+    }
+   };

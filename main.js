@@ -1,7 +1,7 @@
 // This file contains the main game loop
 
 // import modules
-require('prototype.game'); //This must be first
+const Roles = require('prototype.game'); //This must be first
 require('prototype.creep');
 var roleTower = require('role.tower');
 
@@ -53,7 +53,7 @@ module.exports.loop = function () {
             //TODO: Update this code to prevent it from killing economy.
             if(upgraders.length < 2)
             {
-                Game.roles['upgrader'].spawnCreep();
+                Roles['upgrader'].spawnCreep();
             }
 
             if(builders.length < 1) 
@@ -61,23 +61,23 @@ module.exports.loop = function () {
                 let sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
                 if(sites.length > 0) 
                 {
-                    Game.roles['builder'].spawnCreep();
+                    Roles['builder'].spawnCreep();
                 }
             }
 
             if(cleaners.length < 1)
             {
-                Game.roles['cleaner'].spawnCreep();
+                Roles['cleaner'].spawnCreep();
             }
 
             if(Game.flags.attackFlag && attackers.length < 5)
             {
-                Game.roles['attacker'].spawnCreep();
+                Roles['attacker'].spawnCreep();
             }
 
             if(Game.flags.claimFlag && claimers.length < 1)
             {
-                Game.roles['claimer'].spawnCreep();
+                Roles['claimer'].spawnCreep();
             }
         }
               
@@ -99,7 +99,7 @@ module.exports.loop = function () {
                 //TODO: Only spawn 2nd hauler if a harvester exists for the node.
                 if(containerHaulerFound < 2)
                 {
-                    Game.roles['containerHauler'].spawnCreep(containers[container].id, (containerHaulers.length == 0));
+                    Roles['containerHauler'].spawnCreep(containers[container].id, (containerHaulers.length == 0));
                 }
             }
         }
@@ -122,7 +122,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                Game.roles['containerHarvester'].spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
+                Roles['containerHarvester'].spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
             }
         }
     }
