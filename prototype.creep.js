@@ -1,4 +1,5 @@
 var roles = {
+    basicWorker: require('role.basicWorker'),
     containerHarvester: require('role.containerHarvester'),
     containerHauler: require('role.containerHauler'),
     upgrader: require('role.upgrader'),
@@ -8,6 +9,7 @@ var roles = {
 };
 
 Creep.prototype.runRole =
-    function () {
+    function () 
+    {
         roles[this.memory.role].run(this);
     };

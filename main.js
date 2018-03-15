@@ -1,17 +1,17 @@
 // This file contains the main game loop
-const allowSpawning = false; // Quick way to shut down creep spawning if something goes wrong.
+
+// import modules
+require('prototype.creep');
 
 // Setup specific AI roles.
 var roleBasicWorker = require('role.basicWorker');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleHauler = require('role.hauler');
-var roleBigHarvester = require('role.bigHarvester');
 var roleTower = require('role.tower');
 var roleContainerHarvester = require('role.containerHarvester');
 var roleContainerHauler = require('role.containerHauler');
 var roleCleaner = require('role.cleaner');
-var roleTerminalHauler = require('role.terminalHauler');
 var roleAttacker = require('role.attacker');
 var roleClaimer = require('role.claimer');
 
@@ -182,45 +182,9 @@ module.exports.loop = function () {
             {align: 'left', opacity: 0.8});
     }
 
-
-    for(var name in Game.creeps) 
+    //Run creep logic
+    for (let name in Game.creeps) 
     {
-        var creep = Game.creeps[name];
-        if(creep.memory.role == 'containerHauler')
-        {
-            roleContainerHauler.run(creep);
-        }
-        else if(creep.memory.role == 'containerHarvester')
-        {
-            roleContainerHarvester.run(creep);
-        }
-        else if(creep.memory.role == 'upgrader') 
-        {
-            roleUpgrader.run(creep);
-        }
-        else if(creep.memory.role == 'builder') 
-        {
-            roleBuilder.run(creep);
-        }
-        else if(creep.memory.role == 'cleaner') 
-        {
-            roleCleaner.run(creep);
-        }
-        else if(creep.memory.role == 'basicWorker') 
-        {
-            roleBasicWorker.run(creep);
-        }
-        else if(creep.memory.role == 'terminalHauler')
-        {
-            roleTerminalHauler.run(creep);
-        }
-        else if(creep.memory.role == 'attacker') 
-        {
-            roleAttacker.run(creep);
-        }
-        else if(creep.memory.role == 'claimer') 
-        {
-            roleClaimer.run(creep);
-        }
+        Game.creeps[name].runRole();
     }
 }
