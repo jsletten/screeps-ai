@@ -1,4 +1,4 @@
-
+// depends on prototype.game.js
 
 Creep.prototype.runRole =
     function () 

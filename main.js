@@ -1,16 +1,7 @@
 // This file contains the main game loop
-const roles = {
-    basicWorker: require('role.basicWorker'),
-    containerHarvester: require('role.containerHarvester'),
-    containerHauler: require('role.containerHauler'),
-    upgrader: require('role.upgrader'),
-    builder: require('role.builder'),
-    cleaner: require('role.cleaner'),
-    claimer: require('role.claimer'),
-    attacker: require('role.attacker')
-};
 
 // import modules
+require('prototype.game'); //This must be first
 require('prototype.creep');
 var roleTower = require('role.tower');
 
@@ -62,7 +53,7 @@ module.exports.loop = function () {
             //TODO: Update this code to prevent it from killing economy.
             if(upgraders.length < 2)
             {
-                roles['upgrader'].spawnCreep();
+                Game.roles['upgrader'].spawnCreep();
             }
 
             if(builders.length < 1) 
@@ -70,23 +61,23 @@ module.exports.loop = function () {
                 let sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
                 if(sites.length > 0) 
                 {
-                    roles['builder'].spawnCreep();
+                    Game.roles['builder'].spawnCreep();
                 }
             }
 
             if(cleaners.length < 1)
             {
-                roles['cleaner'].spawnCreep();
+                Game.roles['cleaner'].spawnCreep();
             }
 
             if(Game.flags.attackFlag && attackers.length < 5)
             {
-                roles['attacker'].spawnCreep();
+                Game.roles['attacker'].spawnCreep();
             }
 
             if(Game.flags.claimFlag && claimers.length < 1)
             {
-                roles['claimer'].spawnCreep();
+                Game.roles['claimer'].spawnCreep();
             }
         }
               
@@ -108,7 +99,7 @@ module.exports.loop = function () {
                 //TODO: Only spawn 2nd hauler if a harvester exists for the node.
                 if(containerHaulerFound < 2)
                 {
-                    roles['containerHauler'].spawnCreep(containers[container].id, (containerHaulers.length == 0));
+                    Game.roles['containerHauler'].spawnCreep(containers[container].id, (containerHaulers.length == 0));
                 }
             }
         }
@@ -131,7 +122,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                roles['containerHarvester'].spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
+                Game.roles['containerHarvester'].spawnCreep(resourceNodes[node].id, (containerHarvesters.length == 0));
             }
         }
     }
