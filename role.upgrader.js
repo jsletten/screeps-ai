@@ -1,4 +1,4 @@
-var roleUpgrader = {
+module.exports = {
     spawnCreep: function() {
         var spawn = Game.spawns['Spawn1'];
         if(spawn.room.energyCapacityAvailable >= 1200)
@@ -32,12 +32,11 @@ var roleUpgrader = {
     run: function(creep) {
         if(creep.carry.energy == 0) 
         {    
-            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_STORAGE)}});            
+            var target = creep.room.storage;        
             
-            if(target === 'undefined' || target === null)
+            if(target === 'undefined')
             {
-                target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
                     return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0)}});            
             }
             
@@ -61,5 +60,3 @@ var roleUpgrader = {
         }
     }
 };
-
-module.exports = roleUpgrader;

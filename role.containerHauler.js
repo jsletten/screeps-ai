@@ -1,14 +1,13 @@
-var roleContainerHauler = {
-    
-    spawnCreep: function(containerID, numCurrentHaulers) 
+module.exports = {
+    spawnCreep: function(containerID, emergencySpawn) 
     {
         var spawn = Game.spawns['Spawn1'];
-        if((spawn.room.energyCapacityAvailable >= 450) && numCurrentHaulers > 0)
+        if((spawn.room.energyCapacityAvailable >= 450) && !emergencySpawn)
         {
             var result = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'containerHauler', containerID: containerID});
             console.log('Spawning new ContainerHauler(large): ' + result);
         }
-        else if((spawn.room.energyCapacityAvailable >= 300) && numCurrentHaulers > 0)
+        else if((spawn.room.energyCapacityAvailable >= 300) && !emergencySpawn)
         {
             var result = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'containerHauler', containerID: containerID});
             console.log('Spawning new ContainerHauler(med): ' + result);
@@ -41,14 +40,13 @@ var roleContainerHauler = {
         }
         else {
             
-            var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
+            var target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
             return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER ) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});            
             
             //If Spawn / Towers are full put remainder in storage
-            if(target === 'undefined' || target === null)
+            if(target === 'undefined')
             {
-                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                    return (structure.structureType == STRUCTURE_STORAGE)}});            
+                target = creep.room.storage;
             }    
 
             if(target)
@@ -61,4 +59,3 @@ var roleContainerHauler = {
     }
 };
 
-module.exports = roleContainerHauler;

@@ -1,4 +1,4 @@
-var roleCleaner = {
+module.exports = {
     spawnCreep: function() {
         var newName = Game.spawns['Spawn1'].createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'cleaner'});
         console.log('Spawning new cleaner: ' + newName);  
@@ -7,7 +7,7 @@ var roleCleaner = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
-            var target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+            var target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
 
             if(target) {
                 creep.say('Resource!');
@@ -17,7 +17,7 @@ var roleCleaner = {
             }
             else 
             {
-                target = creep.pos.findClosestByRange(FIND_TOMBSTONES, {filter: (tombstone) => { 
+                target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {filter: (tombstone) => { 
                     return (_.sum(tombstone.store) > 0)}}); 
             
                 if(target)
@@ -38,12 +38,11 @@ var roleCleaner = {
         }
         else 
         {
-            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-            return (structure.structureType == STRUCTURE_STORAGE) && (_.sum(structure.store) < structure.storeCapacity)}});            
+            var target = creep.room.storage;
         
-            if(target === 'undefined' || target === null)
+            if(target === 'undefined')
             {
-                target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
                     return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER ) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});            
                     
             }
@@ -61,5 +60,3 @@ var roleCleaner = {
         }
     }
 };
-
-module.exports = roleCleaner;

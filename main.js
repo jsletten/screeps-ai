@@ -146,7 +146,7 @@ module.exports.loop = function () {
                 //TODO: Only spawn 2nd hauler if a harvester exists for the node.
                 if(containerHaulerFound < 2)
                 {
-                    roleContainerHauler.spawnCreep(containers[container].id, containerHaulers.length);
+                    roleContainerHauler.spawnCreep(containers[container].id, (containerHaulers.length == 0));
                 }
             }
         }
@@ -169,7 +169,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                roleContainerHarvesterV2.spawnCreep(resourceNodes[node].id, containerHarvestersV2.length);
+                roleContainerHarvesterV2.spawnCreep(resourceNodes[node].id, (containerHarvestersV2.length == 0));
             }
         }
     }
