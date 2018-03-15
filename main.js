@@ -77,7 +77,7 @@ module.exports.loop = function () {
 
             if(cleaners.length < 1)
             {
-                roles['cleaners'].spawnCreep();
+                roles['cleaner'].spawnCreep();
             }
 
             if(Game.flags.attackFlag && attackers.length < 5)
