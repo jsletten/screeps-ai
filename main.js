@@ -43,6 +43,11 @@ module.exports.loop = function () {
     // TOWER!
     roleTower.run();
 
+    if(hostiles.length > 10)
+    {
+        Game.spawns['Spawn1'].room.controller.activateSafeMode();
+    }
+
     //Run creep logic
     for (let name in Game.creeps) 
     {
