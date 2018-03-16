@@ -119,7 +119,7 @@ module.exports.loop = function () {
     {
         for(var node in resourceNodes )
         {
-            var sourceFound = false;
+            let sourceFound = false;
             
             for(var creep in containerHarvesters)
             {
@@ -132,6 +132,29 @@ module.exports.loop = function () {
             if(sourceFound == false)
             {
                 Globals.roles['containerHarvester'].spawnCreep(node, (containerHarvesters.length == 0));
+            }
+        }
+    }
+
+    //Remote Room (mineFlag1)
+    //TODO: Make this more dynamic rather then hard coding assumptions
+    if(Game.flags.mineFlag1)
+    {
+        //Energy Sources
+        for (let sourceIndex = 0; sourceIndex < 2; sourceIndex++) {
+            let sourceFound = false;
+
+            for(let creep in containerHarvesters)
+            {
+                if((containerHarvesters[creep].memory.sourceIndex == sourceIndex) && (containerHarvesters[creep].memory.targetRoom == Game.flags.mineFlag1.room))
+                {
+                    sourceFound = true;
+                }
+            }
+
+            if(sourceFound == false)
+            {
+                Globals.roles['containerHarvester'].spawnCreep(sourceIndex, false, Game.flags.mineFlag1.room);
             }
         }
     }
