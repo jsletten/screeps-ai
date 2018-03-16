@@ -7,7 +7,8 @@ module.exports = {
         builder: require('role.builder'),
         cleaner: require('role.cleaner'),
         claimer: require('role.claimer'),
-        attacker: require('role.attacker')
+        attacker: require('role.attacker'),
+        wallMiner: require('role.wallMiner')
     },
     
     creepsByRole: {
@@ -18,6 +19,7 @@ module.exports = {
         containerHauler: _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler'),
         cleaner: _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner'),
         attacker: _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker'),
-        claimer: _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer')
+        claimer: _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer'),
+        wallMiner: _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner')
     }
 };
