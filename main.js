@@ -146,7 +146,7 @@ module.exports.loop = function () {
 
             for(let creep in containerHarvesters)
             {
-                if((containerHarvesters[creep].memory.sourceIndex == sourceIndex) && (containerHarvesters[creep].memory.targetRoom == Game.flags.mineFlag1.room))
+                if((containerHarvesters[creep].memory.sourceIndex == sourceIndex) && (containerHarvesters[creep].memory.targetRoom == Game.flags.mineFlag1.room.name))
                 {
                     sourceFound = true;
                 }
@@ -154,7 +154,7 @@ module.exports.loop = function () {
 
             if(sourceFound == false)
             {
-                Globals.roles['containerHarvester'].spawnCreep(sourceIndex, false, Game.flags.mineFlag1.room);
+                Globals.roles['containerHarvester'].spawnCreep(sourceIndex, false, Game.flags.mineFlag1.room.name);
             }
         }
     }
