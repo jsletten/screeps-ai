@@ -27,7 +27,7 @@ module.exports.loop = function () {
     let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
     let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
     let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
-    
+    let hostiles = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS);
     var containers;
     var resourceNodes;
     
@@ -81,6 +81,11 @@ module.exports.loop = function () {
             }
 
             if(Game.flags.attackFlag && attackers.length < 5)
+            {
+                Globals.roles['attacker'].spawnCreep();
+            }
+
+            if(hostiles.length > 0 && attackers.length < 10)
             {
                 Globals.roles['attacker'].spawnCreep();
             }
