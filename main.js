@@ -137,11 +137,11 @@ module.exports.loop = function () {
     //TODO: Make this more dynamic rather then hard coding assumptions
     if(Game.flags.mineFlag1)
     {
-        createHarvesters(containerHarvesters, Game.flags.mineFlag1.room.name);
+        createHarvesters(containerHarvesters, Game.flags.mineFlag1.pos.roomName);
     }
     if(Game.flags.mineFlag2)
     {
-        createHarvesters(containerHarvesters, Game.flags.mineFlag2.room.name);
+        createHarvesters(containerHarvesters, Game.flags.mineFlag2.pos.roomName);
     }
 
     if(Game.spawns['Spawn1'].spawning) {
