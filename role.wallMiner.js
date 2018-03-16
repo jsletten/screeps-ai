@@ -39,10 +39,7 @@ module.exports = {
             {
                 if(Game.flags.attackWall.room != creep.room)
                 {
-                    // find exit to target room
-                    var exit = creep.room.findExitTo(Game.flags.attackWall.room);
-                    // move to exit
-                    creep.moveTo(creep.pos.findClosestByRange(exit));
+                    creep.moveTo(Game.flags.attackWall);
                 }
                 else
                 {
