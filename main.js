@@ -130,49 +130,18 @@ module.exports.loop = function () {
         }
     }
     
-    //Make sure we have a harvester assigned to every EnergySource
-    if(resourceNodes.length > 0)
-    {
-        for(var node in resourceNodes )
-        {
-            let sourceFound = false;
-            
-            for(var creep in containerHarvesters)
-            {
-                if(containerHarvesters[creep].memory.sourceIndex == node)
-                {
-                    sourceFound = true;
-                }
-            }
 
-            if(sourceFound == false)
-            {
-                Globals.roles['containerHarvester'].spawnCreep(node, (containerHarvesters.length == 0));
-            }
-        }
-    }
+    createHarvesters(containerHarvesters, 'E32N13');
 
     //Remote Room (mineFlag1)
     //TODO: Make this more dynamic rather then hard coding assumptions
     if(Game.flags.mineFlag1)
     {
-        //Energy Sources
-        for (let sourceIndex = 0; sourceIndex < 2; sourceIndex++) {
-            let sourceFound = false;
-
-            for(let creep in containerHarvesters)
-            {
-                if((containerHarvesters[creep].memory.sourceIndex == sourceIndex) && (containerHarvesters[creep].memory.targetRoom == Game.flags.mineFlag1.room.name))
-                {
-                    sourceFound = true;
-                }
-            }
-
-            if(sourceFound == false)
-            {
-                Globals.roles['containerHarvester'].spawnCreep(sourceIndex, false, Game.flags.mineFlag1.room.name);
-            }
-        }
+        createHarvesters(containerHarvesters, Game.flags.mineFlag1.room.name)
+    }
+    if(Game.flags.mineFlag2)
+    {
+        createHarvesters(containerHarvesters, Game.flags.mineFlag2.room.name)
     }
 
     if(Game.spawns['Spawn1'].spawning) {
@@ -183,6 +152,25 @@ module.exports.loop = function () {
             Game.spawns['Spawn1'].pos.y,
             {align: 'left', opacity: 0.8});
     }
+}
 
-    
+function createHarvesters(containerHarvesters, targetRoom)
+{
+    //Energy Sources
+    for (let sourceIndex = 0; sourceIndex < 2; sourceIndex++) {
+        let sourceFound = false;
+
+        for(let creep in containerHarvesters)
+        {
+            if((containerHarvesters[creep].memory.sourceIndex == sourceIndex) && (containerHarvesters[creep].memory.targetRoom == targetRoom))
+            {
+                sourceFound = true;
+            }
+        }
+
+        if(sourceFound == false)
+        {
+            Globals.roles['containerHarvester'].spawnCreep(sourceIndex, false, targetRoom);
+        }
+    }
 }
