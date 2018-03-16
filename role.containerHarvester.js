@@ -36,7 +36,7 @@ module.exports = {
         if (creep.room.name != creep.memory.targetRoom)
         {
             // find exit to target room
-            var exit = creep.room.findExitTo(creep.memory.target);
+            var exit = creep.room.findExitTo(creep.memory.targetRoom);
             // move to exit
             creep.moveTo(creep.pos.findClosestByRange(exit));
         }
