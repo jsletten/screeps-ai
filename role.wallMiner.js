@@ -34,27 +34,26 @@ module.exports = {
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(_.sum(creep.carry) < creep.carryCapacity) {
-            if(Game.flags.attackWall)
+        if(_.sum(creep.carry) < creep.carryCapacity && Game.flags.attackWall) 
+        {
+            if(Game.flags.attackWall.room != creep.room)
             {
-                if(Game.flags.attackWall.room != creep.room)
+                creep.moveTo(Game.flags.attackWall);
+            }
+            else
+            {
+                var found = Game.flags.attackWall.pos.lookFor(LOOK_STRUCTURES);
+                if(found.length) 
                 {
-                    creep.moveTo(Game.flags.attackWall);
-                }
-                else
-                {
-                    var found = Game.flags.attackWall.pos.lookFor(LOOK_STRUCTURES);
-                    if(found.length) 
-                    {
-                        if(creep.dismantle(found[0]) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(found[0]);
-                        }
-                        creep.say('Knock!');
+                    if(creep.dismantle(found[0]) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(found[0]);
                     }
+                    creep.say('Knock!');
                 }
             }
         }
-        else {
+        else 
+        {
             if(creep.room.name != creep.memory.homeRoom)
             {
                 // find exit to target room
