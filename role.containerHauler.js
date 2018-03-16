@@ -2,7 +2,7 @@ module.exports = {
     spawnCreep: function(containerID, emergencySpawn, homeRoom = 'E32N13') 
     {
         var spawn = Game.spawns['Spawn1'];
-        var target = Game.getObjectById(creep.memory.containerID);
+        var target = Game.getObjectById(containerID);
         var body = [];
         var maxEnergy
         var numberOfParts;
