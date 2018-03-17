@@ -35,14 +35,14 @@ module.exports.loop = function () {
     {
         let moreContainers = Game.flags.mineFlag1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
         console.log(moreContainers.length);
-        containers.concat(moreContainers);
+        containers = containers.concat(moreContainers);
     }
 
     if(Game.flags.mineFlag2)
     {
         let moreContainers = Game.flags.mineFlag2.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
         console.log(moreContainers.length);
-        containers.concat(moreContainers);
+        containers = containers.concat(moreContainers);
     }
 
     //Log current stats
