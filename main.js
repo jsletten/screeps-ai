@@ -33,7 +33,8 @@ module.exports.loop = function () {
     
     if (spawn1) 
     {
-        containers = spawn1.room.find(FIND_STRUCTURES, {filter: { structureType: STRUCTURE_CONTAINER }});
+        containers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_CONTAINER);
+        //containers = spawn1.room.find(FIND_STRUCTURES, {filter: { structureType: STRUCTURE_CONTAINER }});
         resourceNodes = spawn1.room.find(FIND_SOURCES);
     }
 
