@@ -31,6 +31,16 @@ module.exports.loop = function () {
     let resourceNodes = spawn1.room.find(FIND_SOURCES);
     let containers = spawn1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
 
+    if(Game.flags.mineFlag1)
+    {
+        containers.concat(Game.flags.mineFlag1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }}))
+    }
+
+    if(Game.flags.mineFlag2)
+    {
+        containers.concat(Game.flags.mineFlag2.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }}))
+    }
+
     //Log current stats
     console.log('Time:' + Game.time + ' Containers:' + containers.length + ' U:' + upgraders.length + ' CH:' + containerHarvesters.length);
     
