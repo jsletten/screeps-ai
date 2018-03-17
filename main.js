@@ -33,12 +33,16 @@ module.exports.loop = function () {
 
     if(Game.flags.mineFlag1)
     {
-        containers.concat(Game.flags.mineFlag1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }}))
+        let moreContainers = Game.flags.mineFlag1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
+        console.log(moreContainers.length);
+        containers.concat(moreContainers);
     }
 
     if(Game.flags.mineFlag2)
     {
-        containers.concat(Game.flags.mineFlag2.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }}))
+        let moreContainers = Game.flags.mineFlag2.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
+        console.log(moreContainers.length);
+        containers.concat(moreContainers);
     }
 
     //Log current stats
