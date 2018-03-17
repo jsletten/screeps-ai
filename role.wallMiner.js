@@ -66,7 +66,7 @@ module.exports = {
                 target = creep.room.storage;
             
                 if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
+                    creep.moveTo(target);
                 }
             
             }

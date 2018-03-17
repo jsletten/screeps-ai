@@ -75,7 +75,7 @@ module.exports = {
                 }
                 else
                 {
-                    creep.moveTo(container, {visualizePathStyle: {stroke: '#ff0000'}});
+                    creep.moveTo(container);
                 }
             }
             else
@@ -97,7 +97,7 @@ module.exports = {
                 {
                     if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
                     {
-                        creep.moveTo(site, {visualizePathStyle: {stroke: '#ffff00'}});
+                        creep.moveTo(site);
                     }
                     creep.say('build');
                     creep.build(site)
