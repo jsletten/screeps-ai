@@ -28,15 +28,12 @@ module.exports.loop = function () {
     let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
     let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
     let hostiles = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS);
-    var containers;
+    var containers = _.filter(_.values(Game.structures), (structure) => structure.structureType == STRUCTURE_CONTAINER);
     var resourceNodes;
     
     if (spawn1) 
     {
-        let containersHash = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_CONTAINER);
-        for (var key in containersHash) {
-            containers.push(containersHash[key]);
-        }
+        
         resourceNodes = spawn1.room.find(FIND_SOURCES);
     }
 
