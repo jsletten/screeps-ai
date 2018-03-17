@@ -24,14 +24,14 @@ var roleClaimer = {
         {
             if(creep.room == Game.flags.claimFlag.room)
             {
-                if(creep.room.controller && !creep.room.controller.my) {
-                    if(creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                if(creep.room.controller.owner == 'undefined')
+                {
+                    if(creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(creep.room.controller);
                     }
                 }
-                else if(creep.room.controller && creep.room.controller.owner == 'undefined')
-                {
-                    if(creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                else if(!creep.room.controller.my) {
+                    if(creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(creep.room.controller);
                     }
                 }
