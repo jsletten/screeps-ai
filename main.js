@@ -33,8 +33,10 @@ module.exports.loop = function () {
     
     if (spawn1) 
     {
-        containers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_CONTAINER).values().toArray();
-        //containers = spawn1.room.find(FIND_STRUCTURES, {filter: { structureType: STRUCTURE_CONTAINER }});
+        let containersHash = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_CONTAINER).values().toArray();
+        for (var key in containersHash) {
+            array_values.push(containersHash[key]);
+        }
         resourceNodes = spawn1.room.find(FIND_SOURCES);
     }
 
