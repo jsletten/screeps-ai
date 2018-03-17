@@ -27,6 +27,7 @@ module.exports.loop = function () {
     let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
     let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
     let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
+    let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager');
     let hostiles = spawn1.room.find(FIND_HOSTILE_CREEPS);
     let resourceNodes = spawn1.room.find(FIND_SOURCES);
     let containers = spawn1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
@@ -45,7 +46,7 @@ module.exports.loop = function () {
     }
 
     //Log current stats
-    console.log('Time:' + Game.time + ' Containers:' + containers.length + ' U:' + upgraders.length + ' CH:' + containerHarvesters.length);
+    console.log('Time:' + Game.time + ' Containers:' + containers.length + ' H:' + containerHaulers.length + ' CH:' + containerHarvesters.length);
     
     // TOWER!
     roleTower.run();
@@ -53,6 +54,26 @@ module.exports.loop = function () {
     if(hostiles.length > 10)
     {
         Game.spawns['Spawn1'].room.controller.activateSafeMode();
+    }
+
+    let storageLink = Game.getObjectById('5aab7f20bee66f0ce744f802');
+    if(storageLink)
+    {
+        if(storageManagers.length < 1)
+        {
+            Globals.roles['storageManager'].spawnCreep(storageLink.id);
+        }
+        
+        let linksWithEnergy = spawn1.room.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
+            return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
+          
+        for(var link in linksWithEnergy)
+        {
+            if(linksWithEnergy[link].id != storageLink.id)
+            {
+                linksWithEnergy[link].transferEnergy(storageLink);
+            }
+        }
     }
 
     //Run creep logic
