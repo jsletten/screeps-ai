@@ -33,7 +33,7 @@ module.exports.loop = function () {
     
     if (spawn1) 
     {
-        let containersHash = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_CONTAINER).values().toArray();
+        let containersHash = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_CONTAINER);
         for (var key in containersHash) {
             containers.push(containersHash[key]);
         }
