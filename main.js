@@ -38,8 +38,8 @@ module.exports.loop = function () {
         resourceNodes = spawn1.room.find(FIND_SOURCES);
     }
 
-    //Log current status
-    console.log('Time:' + Game.time + ' B:' + builders.length + ' U:' + upgraders.length + ' CH:' + containerHarvesters.length);
+    //Log current stats
+    console.log('Time:' + Game.time + ' Containers:' + containers.length + ' U:' + upgraders.length + ' CH:' + containerHarvesters.length);
     
     // TOWER!
     roleTower.run();
