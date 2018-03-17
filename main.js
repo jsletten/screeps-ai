@@ -27,15 +27,9 @@ module.exports.loop = function () {
     let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
     let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
     let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
-    let hostiles = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS);
-    var containers = _.filter(_.values(Game.structures), (structure) => structure.structureType == STRUCTURE_CONTAINER);
-    var resourceNodes;
-    
-    if (spawn1) 
-    {
-        
-        resourceNodes = spawn1.room.find(FIND_SOURCES);
-    }
+    let hostiles = spawn1.room.find(FIND_HOSTILE_CREEPS);
+    let resourceNodes = spawn1.room.find(FIND_SOURCES);
+    let containers = spawn1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
 
     //Log current stats
     console.log('Time:' + Game.time + ' Containers:' + containers.length + ' U:' + upgraders.length + ' CH:' + containerHarvesters.length);
@@ -73,7 +67,7 @@ module.exports.loop = function () {
 
             if(builders.length < 1) 
             {
-                let sites = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+                let sites = spawn1.room.find(FIND_CONSTRUCTION_SITES);
                 if(sites.length > 0) 
                 {
                     Globals.roles['builder'].spawnCreep();
