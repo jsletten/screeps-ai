@@ -32,7 +32,7 @@ module.exports = {
         {
             //1x CARRY - 1X MOVE
             numberOfParts = Math.floor(maxEnergy / 100) * 2;
-            numberOfParts = Math.min(numberOfParts, 50); // Can't have more then 50 parts
+            numberOfParts = Math.min(numberOfParts, 32); // limit haul capacity to 800
             for (let i = 0; i < numberOfParts/2; i++)
             {
                 body.push(CARRY);
