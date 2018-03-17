@@ -31,13 +31,14 @@ module.exports.loop = function () {
     let resourceNodes = spawn1.room.find(FIND_SOURCES);
     let containers = spawn1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
 
-    if(Game.flags.mineFlag1)
+    if(Game.flags.mineFlag1 && Game.flags.mineFlag1.room)
     {
+        
         let moreContainers = Game.flags.mineFlag1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
         containers = containers.concat(moreContainers);
     }
 
-    if(Game.flags.mineFlag2)
+    if(Game.flags.mineFlag2 && Game.flags.mineFlag2.room)
     {
         let moreContainers = Game.flags.mineFlag2.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
         containers = containers.concat(moreContainers);
@@ -63,7 +64,7 @@ module.exports.loop = function () {
     // Spawn New Creeps
     if (containers.length > 0)
     {
-        if(containerHarvesters.length == resourceNodes.length && containerHaulers.length == (containers.length * 2))
+        if(containerHarvesters.length >= resourceNodes.length && containerHaulers.length >= (containers.length * 2))
         {
             //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
             //if(upgraders.length < Game.spawns['Spawn1'].room.controller.level) 
