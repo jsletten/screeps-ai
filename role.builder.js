@@ -1,7 +1,6 @@
 var roleBuilder = {
 
-    spawnCreep: function() {
-        var spawn = Game.spawns['Spawn1'];
+    spawnCreep: function(spawn) {
         if(spawn.room.energyCapacityAvailable >= 600)
         {
             var newName = spawn.createCreep([WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'builder'});

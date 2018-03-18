@@ -1,6 +1,6 @@
 module.exports = {
-    spawnCreep: function() {
-        var newName = Game.spawns['Spawn1'].createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'cleaner'});
+    spawnCreep: function(spawn) {
+        var newName = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'cleaner'});
         console.log('Spawning new cleaner: ' + newName);  
         return newName;
     },

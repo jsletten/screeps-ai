@@ -1,6 +1,5 @@
 module.exports = {
-    spawnCreep: function() {
-        var spawn = Game.spawns['Spawn1'];
+    spawnCreep: function(spawn) {
         if(spawn.room.energyCapacityAvailable >= 1200)
         {
             var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'upgrader'});

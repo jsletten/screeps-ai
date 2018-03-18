@@ -1,6 +1,6 @@
 module.exports = {
-    spawnCreep: function(linkID) {
-        var newName = Game.spawns['Spawn1'].createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'storageManager', linkID: linkID});
+    spawnCreep: function(spawn, linkID) {
+        var newName = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'storageManager', linkID: linkID});
         console.log('Spawning new storageManager: ' + newName);  
         return newName;
     },

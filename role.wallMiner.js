@@ -1,7 +1,6 @@
 module.exports = {
-    spawnCreep: function(homeRoom = 'E32N13') 
+    spawnCreep: function(spawn, homeRoom = 'E32N13') 
     {
-        var spawn = Game.spawns['Spawn1'];
         var body = [];
         var maxEnergy
         var numberOfParts;

@@ -1,7 +1,7 @@
 var roleBasicWorker = {
     
-    spawnCreep: function() {
-            var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined,{role: 'basicWorker'}); 
+    spawnCreep: function(spawn) {
+            var newName = spawn.createCreep([WORK,CARRY,MOVE], undefined,{role: 'basicWorker'}); 
             //Game.creeps[newName].memory.containerID = containerID;
             console.log('Spawning new BasicWorker: ' + newName);
             return newName;
