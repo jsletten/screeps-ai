@@ -26,6 +26,7 @@ var roleBuilder = {
             var exit = creep.room.findExitTo(creep.memory.targetRoom);
             // move to exit
             creep.moveTo(creep.pos.findClosestByRange(exit));
+            Game.console.log('move');
         }
         else
         {
