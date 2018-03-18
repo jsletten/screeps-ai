@@ -1,3 +1,16 @@
+let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
+let basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker');
+let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
+let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
+let containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester');
+let containerHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler');
+let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager');
+let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
+let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
+
+
+
 module.exports = {
     roles: {
         basicWorker: require('role.basicWorker'),
@@ -13,15 +26,15 @@ module.exports = {
     },
     
     creepsByRole: {
-        basicWorker: _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker'),
-        upgrader: _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader'),
-        builder: _.filter(Game.creeps, (creep) => creep.memory.role == 'builder'),
-        containerHarvester: _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester'),
-        containerHauler: _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler'),
-        cleaner: _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner'),
-        attacker: _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker'),
-        claimer: _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer'),
-        wallMiner: _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner'),
-        storageManager: _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager')        
+        attacker: attackers,
+        basickWorker: basicWorkers,
+        builder: builders,
+        claimer: claimers,
+        cleaner: cleaners,
+        containerHarvester: containerHarvesters,
+        containerHauler: containerHaulers,
+        storageManager: storageManagers,
+        upgrader: upgraders,
+        wallMiner: wallMiners       
     }
 };
