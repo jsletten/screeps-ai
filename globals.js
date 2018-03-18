@@ -2,14 +2,6 @@ let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker'
 let basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker');
 let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
 let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
-let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
-let containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester');
-let containerHaulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler');
-let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager');
-let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
-
-
 
 module.exports = {
     roles: {
@@ -30,11 +22,11 @@ module.exports = {
         basickWorker: basicWorkers,
         builder: builders,
         claimer: claimers,
-        cleaner: cleaners,
-        containerHarvester: containerHarvesters,
-        containerHauler: containerHaulers,
-        storageManager: storageManagers,
-        upgrader: upgraders,
-        wallMiner: wallMiners       
+        cleaner: _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner'),
+        containerHarvester: _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester'),
+        containerHauler: _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler'),
+        storageManager: _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager'),
+        upgrader: _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader'),
+        wallMiner: _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner')      
     }
 };
