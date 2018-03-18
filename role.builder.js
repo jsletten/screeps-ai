@@ -56,6 +56,7 @@ var roleBuilder = {
             }
             else 
             {
+                console.log('find energy');
                 var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                     return (structure.structureType == STRUCTURE_STORAGE && structure.room == creep.room)}});            
                 
