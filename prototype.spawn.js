@@ -99,25 +99,22 @@ StructureSpawn.prototype.createHarvesters =
 StructureSpawn.prototype.createHaulers = 
     function (containerHaulers, containers)
     {
-        if(containerHaulers.length < (containers.length * 2))
+        for(var container in containers )
         {
-            for(var container in containers )
+            var containerHaulerFound = 0;
+
+            for(var creep in containerHaulers)
             {
-                var containerHaulerFound = 0;
-
-                for(var creep in containerHaulers)
+                if(containerHaulers[creep].memory.containerID == containers[container].id)
                 {
-                    if(containerHaulers[creep].memory.containerID == containers[container].id)
-                    {
-                        containerHaulerFound++;
-                    }
+                    containerHaulerFound++;
                 }
+            }
 
-                //TODO: Only spawn 2nd hauler if a harvester exists for the node.
-                if(containerHaulerFound < 2)
-                {
-                    Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0));
-                }
+            //TODO: Only spawn 2nd hauler if a harvester exists for the node.
+            if(containerHaulerFound < 2)
+            {
+                Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0));
             }
         }
     };
