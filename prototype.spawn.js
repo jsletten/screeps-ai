@@ -19,7 +19,8 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         // Spawn New Creeps
         if (containers.length > 0)
         {
-            if(Globals.creepsByRole['containerHarvester'].length >= resourceNodes.length && Globals.creepsByRole['containerHauler'].length >= (containers.length * 2))
+            //TODO: Make this code more room aware.  Intent was to protect economy before adding extra roles but it isn't multi-room aware
+            if(Globals.creepsByRole('containerHarvester').length >= 1 && Globals.creepsByRole('containerHauler').length >= containers.length )
             {
                 //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
                 //if(upgraders.length < this.room.controller.level) 
@@ -56,9 +57,9 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
     
         //Check to see if we need to spawn more haulers
         //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
-        this.createHaulers(Globals.creepsByRole['containerHauler'], containers);
+        this.createHaulers(Globals.creepsByRole('containerHauler'), containers);
 
-        this.createHarvesters(Globals.creepsByRole['containerHarvester'], this.room.name);
+        this.createHarvesters(Globals.creepsByRole('containerHarvester'), this.room.name);
     
         if(this.spawning) {
             var spawningCreep = Game.creeps[this.spawning.name];

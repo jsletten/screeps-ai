@@ -17,16 +17,8 @@ module.exports = {
         storageManager: require('role.storageManager')
     },
     
-    creepsByRole: {
-        attacker: attackers,
-        basickWorker: basicWorkers,
-        builder: builders,
-        claimer: claimers,
-        cleaner: _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner'),
-        containerHarvester: _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester'),
-        containerHauler: _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler'),
-        storageManager: _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager'),
-        upgrader: _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader'),
-        wallMiner: _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner')      
+    creepsByRole: function(role)
+    {
+        return _.filter(Game.creeps, (creep) => creep.memory.role == role);
     }
 };
