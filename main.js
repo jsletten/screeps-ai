@@ -32,6 +32,8 @@ module.exports.loop = function () {
     {
         var spawn = Game.spawns[name];
         let hostiles = spawn.room.find(FIND_HOSTILE_CREEPS);
+
+        console.log('Spawn:' + name);
     
         Game.spawns[name].spawnCreepsIfNecessary();
 
