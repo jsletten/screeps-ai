@@ -58,9 +58,9 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
     
         //Check to see if we need to spawn more haulers
         //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
-        createHaulers(containerHaulers, containers);
+        this.createHaulers(containerHaulers, containers);
 
-        createHarvesters(containerHarvesters, this.room.name);
+        this.createHarvesters(containerHarvesters, this.room.name);
     
         if(this.spawning) {
             var spawningCreep = Game.creeps[this.spawning.name];
