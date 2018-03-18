@@ -49,7 +49,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     let sites = this.room.find(FIND_CONSTRUCTION_SITES);
                     if(sites.length > 0) 
                     {
-                        Globals.roles['builder'].spawnCreep(this);
+                        Globals.roles['builder'].spawnCreep(this, this.room.name);
                     }
                 }
     
