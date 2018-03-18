@@ -26,7 +26,7 @@ var roleBuilder = {
             var exit = creep.room.findExitTo(creep.memory.targetRoom);
             // move to exit
             creep.moveTo(creep.pos.findClosestByRange(exit));
-            Game.console.log('move');
+            console.log('move');
         }
         else
         {
@@ -39,7 +39,7 @@ var roleBuilder = {
             
             if(creep.carry[RESOURCE_ENERGY] > 0) {
                 if(targets.length > 0) {
-                    Game.console.log('build');
+                    console.log('build');
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                     }
@@ -48,7 +48,7 @@ var roleBuilder = {
                 {
                     var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                         return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity}});            
-                    Game.console.log('transfer')
+                    console.log('transfer')
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
@@ -66,7 +66,7 @@ var roleBuilder = {
                 }
                 if(target)
                 {
-                    Game.console.log('withdraw: ' + target.structureType);
+                    console.log('withdraw: ' + target.structureType);
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                     }
