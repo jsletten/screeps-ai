@@ -3,14 +3,14 @@ var Globals = require('globals');
 StructureSpawn.prototype.spawnCreepsIfNecessary =
     function () 
     {
-        let basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker');
-        let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-        let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-        let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
+        let basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker' && creep.room == this.room);
+        let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.room == this.room);
+        let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.room == this.room);
+        let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner' && creep.room == this.room);
         let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
         let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
         let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
-        let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager');
+        let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager' && creep.room == this.room);
         
         let hostiles = this.room.find(FIND_HOSTILE_CREEPS);
         let resourceNodes = this.room.find(FIND_SOURCES);
