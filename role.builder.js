@@ -59,11 +59,12 @@ var roleBuilder = {
                 var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                     return (structure.structureType == STRUCTURE_STORAGE && structure.room == creep.room)}});            
                 
-                if(target === 'undefined' || target === null)
+                if(!target)
                 {
                     target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0 && structure.room == creep.room)}});            
+                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0) && (structure.room == creep.room)}});            
                 }
+                
                 if(target)
                 {
                     console.log('withdraw: ' + target.structureType);
