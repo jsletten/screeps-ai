@@ -18,33 +18,7 @@ module.exports.loop = function () {
     //Log current stats
     console.log('Time:' + Game.time + ' H:' + Globals.creepsByRole('containerHauler').length + ' CH:' + Globals.creepsByRole('containerHarvester').length);
 
-    // TOWER!
-    roleTower.run();
-
-    //Run creep logic
-    for (let name in Game.creeps) 
-    {
-        Game.creeps[name].runRole();
-    }
-
-    //Run spawn logic
-    for (let name in Game.spawns)
-    {
-        var spawn = Game.spawns[name];
-        let hostiles = spawn.room.find(FIND_HOSTILE_CREEPS);
-
-        console.log('Spawn:' + name);
-    
-        Game.spawns[name].spawnCreepsIfNecessary();
-
-        //If more than 10 hostiles are in the room we are in trouble, activate SafeMode!
-        if(hostiles.length > 10)
-        {
-            spawn.room.controller.activateSafeMode();
-        }        
-    }
-
-    //TODO: Everything remote is hard coded with spawn1 right now, make this more dynamic
+        //TODO: Everything remote is hard coded with spawn1 right now, make this more dynamic
     let spawn1 = Game.spawns['Spawn1'];
 
     //TODO: This is a room one only feature, need to figure out how to set the "storageLink" for earch room and put this code inside the room loop / structureSpawn as appropriate
@@ -102,5 +76,31 @@ module.exports.loop = function () {
     if(Game.flags.attackFlag && Globals.creepsByRole('attacker').length < 5)
     {
         Globals.roles['attacker'].spawnCreep(spawn1);
+    }
+
+    // TOWER!
+    roleTower.run();
+
+    //Run creep logic
+    for (let name in Game.creeps) 
+    {
+        Game.creeps[name].runRole();
+    }
+
+    //Run spawn logic
+    for (let name in Game.spawns)
+    {
+        var spawn = Game.spawns[name];
+        let hostiles = spawn.room.find(FIND_HOSTILE_CREEPS);
+
+        console.log('Spawn:' + name);
+    
+        Game.spawns[name].spawnCreepsIfNecessary();
+
+        //If more than 10 hostiles are in the room we are in trouble, activate SafeMode!
+        if(hostiles.length > 10)
+        {
+            spawn.room.controller.activateSafeMode();
+        }        
     }
 }
