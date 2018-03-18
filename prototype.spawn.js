@@ -25,15 +25,25 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                 //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
                 //if(upgraders.length < this.room.controller.level) 
                 //TODO: Update this code to prevent it from killing economy.
-                if(upgraders.length < 2 && this.room.storage.store[RESOURCE_ENERGY] > 1000)
+                if(this.room.storage)
                 {
-                    Globals.roles['upgrader'].spawnCreep(this);
+                    if(upgraders.length < 2 && this.room.storage.store[RESOURCE_ENERGY] > 1000)
+                    {
+                        Globals.roles['upgrader'].spawnCreep(this);
+                    }
+                    else if (upgraders.length < 1 && this.room.storage.store[RESOURCE_ENERGY] > 500)
+                    {
+                        Globals.roles['upgrader'].spawnCreep(this);
+                    }
                 }
-                else if (upgraders.length < 1 && this.room.storage.store[RESOURCE_ENERGY] > 500)
+                else
                 {
-                    Globals.roles['upgrader'].spawnCreep(this);
+                    if (upgraders.length < 1)
+                    {
+                        Globals.roles['upgrader'].spawnCreep(this);
+                    }
                 }
-    
+
                 if(builders.length < 1) 
                 {
                     let sites = this.room.find(FIND_CONSTRUCTION_SITES);
