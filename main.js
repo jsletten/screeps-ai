@@ -99,7 +99,7 @@ module.exports.loop = function () {
         Globals.roles['wallMiner'].spawnCreep(spawn1);
     }
 
-    if(Game.flags.attackFlag && Globals.creepsByRole([)'attacker').length < 5)
+    if(Game.flags.attackFlag && Globals.creepsByRole('attacker').length < 5)
     {
         Globals.roles['attacker'].spawnCreep(spawn1);
     }
