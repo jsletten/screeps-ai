@@ -2,7 +2,7 @@ var roleAttacker = {
     
     spawnCreep: function(spawn) 
     {
-        spawn.createCreep([MOVE,MOVE,ATTACK,ATTACK], undefined,{role: 'attacker'}); 
+        var newName = spawn.createCreep([MOVE,MOVE,ATTACK,ATTACK], undefined,{role: 'attacker'}); 
         console.log('Spawning new Attacker: ' + newName);
         return newName;
     },
