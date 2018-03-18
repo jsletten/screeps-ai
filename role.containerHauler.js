@@ -40,7 +40,7 @@ module.exports = {
         }
 
         var result = spawn.createCreep(body, undefined, {role: 'containerHauler', containerID: containerID, homeRoom: homeRoom});
-        console.log('Spawning new ContainerHauler(' + numberOfParts + '): ' + result);
+        console.log('Spawning new ContainerHauler(' + numberOfParts + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + result);
         
         return;
     },
