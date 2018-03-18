@@ -29,10 +29,8 @@ var roleBuilder = {
         }
         else
         {
-            var  targets = creep.room.find(FIND_CONSTRUCTION_SITES, {filter: (structure) => {return (structure.structureType == STRUCTURE_STORAGE)}});
-            if(targets.length == 0) {
-                targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            }
+            var  targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+
             if(targets.length == 0 && _.sum(creep.carry) == 0) {
                 creep.suicide();
                 return;
@@ -40,7 +38,7 @@ var roleBuilder = {
             
             if(creep.carry[RESOURCE_ENERGY] > 0) {
                 if(targets.length > 0) {
-                    //creep.say('build');
+                    creep.say('build');
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                     }
@@ -49,7 +47,7 @@ var roleBuilder = {
                 {
                     var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                         return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity}});            
-                
+                    creep.say('transfer')
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
@@ -67,7 +65,7 @@ var roleBuilder = {
                 }
                 if(target)
                 {
-                    //creep.say('withdraw');
+                    creep.say('withdraw: ' + target.structureType);
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                     }
