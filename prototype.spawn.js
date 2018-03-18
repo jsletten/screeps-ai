@@ -77,6 +77,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 StructureSpawn.prototype.createHarvesters =
     function (containerHarvesters, targetRoom) 
     {
+        console.log(this.name + ': CH.length('+ containerHarvesters.length + ') targetRoom(' + targetRoom + ')');
         //Energy Sources
         for (let sourceIndex = 0; sourceIndex < 2; sourceIndex++) {
             let sourceFound = false;

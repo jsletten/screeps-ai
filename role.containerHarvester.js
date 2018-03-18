@@ -25,7 +25,7 @@ module.exports = {
         body.push(CARRY);
 
         var newName = spawn.createCreep(body, undefined, {role: 'containerHarvester', sourceIndex: sourceIndex, targetRoom: targetRoom});
-        console.log('Spawning new ContainerHarvester(' + numberOfParts + '): ' + newName);     
+        console.log('Spawning new ContainerHarvester(' + numberOfParts + ') target: ' + targetRoom + '(' + sourceIndex + '): ' + newName);     
         
         return;
     },
