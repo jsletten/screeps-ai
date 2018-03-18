@@ -58,15 +58,14 @@ var roleBuilder = {
             {
                 console.log('find energy');
                 var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                    return (structure.structureType == STRUCTURE_STORAGE && structure.room == creep.room)}});            
+                    return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.room == creep.room && structure.store[RESOURCE_ENERGY] > 0)}});            
                 
                 if(!target)
                 {
                     target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                        return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0) && (structure.room == creep.room))}});            
+                        return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy > 0) && (structure.room == creep.room))}});            
                 }
-                console.log('target2: ' + target.structureType);
-
+                
                 if(target)
                 {
                     console.log('withdraw: ' + target.structureType);
