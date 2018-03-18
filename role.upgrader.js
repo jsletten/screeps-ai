@@ -31,12 +31,13 @@ module.exports = {
     run: function(creep) {
         if(creep.carry.energy == 0) 
         {    
-            var target = creep.room.storage;        
+            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 0)}});            
             
-            if(target === 'undefined' || target === null)
+            if(!target)
             {
-                target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                    return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy > 0)}});            
+                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                    return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy > 0))}});            
             }
             
             if(target && (creep.ticksToLive > 50))
