@@ -38,7 +38,7 @@ var roleBuilder = {
             
             if(creep.carry[RESOURCE_ENERGY] > 0) {
                 if(targets.length > 0) {
-                    creep.say('build');
+                    Game.console.log('build');
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                     }
@@ -47,7 +47,7 @@ var roleBuilder = {
                 {
                     var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                         return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity}});            
-                    creep.say('transfer')
+                    Game.console.log('transfer')
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
@@ -65,7 +65,7 @@ var roleBuilder = {
                 }
                 if(target)
                 {
-                    creep.say('withdraw: ' + target.structureType);
+                    Game.console.log('withdraw: ' + target.structureType);
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                     }
