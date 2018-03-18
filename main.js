@@ -89,17 +89,17 @@ module.exports.loop = function () {
         }
     }
 
-    if(Game.flags.claimFlag && claimers.length < 1)
+    if(Game.flags.claimFlag && Globals.creepsByRole['claimer'].length < 1)
     {
         Globals.roles['claimer'].spawnCreep(spawn1);
     }
 
-    if(Game.flags.attackWall && wallMiners.length < 3)
+    if(Game.flags.attackWall && Globals.creepsByRole['wallMiner'].length < 3)
     {
         Globals.roles['wallMiner'].spawnCreep(spawn1);
     }
 
-    if(Game.flags.attackFlag && attackers.length < 5)
+    if(Game.flags.attackFlag && Globals.creepsByRole['attacker'].length < 5)
     {
         Globals.roles['attacker'].spawnCreep(spawn1);
     }
