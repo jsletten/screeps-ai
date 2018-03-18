@@ -6,7 +6,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         let basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker');
         let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-        let containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester');
         let containerHaulers = _.filter(Game.creeps, (creep) => (creep.memory.role == 'containerHauler' && creep.memory.homeRoom == this.room.name));
         let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner');
         let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
@@ -21,7 +20,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         // Spawn New Creeps
         if (containers.length > 0)
         {
-            if(containerHarvesters.length >= resourceNodes.length && containerHaulers.length >= (containers.length * 2))
+            if(Globals.creepsByRole['containerHarvester'].length >= resourceNodes.length && containerHaulers.length >= (containers.length * 2))
             {
                 //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
                 //if(upgraders.length < this.room.controller.level) 
@@ -60,7 +59,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
         this.createHaulers(containerHaulers, containers);
 
-        this.createHarvesters(containerHarvesters, this.room.name);
+        this.createHarvesters(Globals.creepsByRole['containerHarvester'], this.room.name);
     
         if(this.spawning) {
             var spawningCreep = Game.creeps[this.spawning.name];
