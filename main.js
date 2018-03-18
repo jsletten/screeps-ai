@@ -49,7 +49,7 @@ module.exports.loop = function () {
     let storageLink = Game.getObjectById('5aab7f20bee66f0ce744f802');
     if(storageLink)
     {
-        if(storageManagers.length < 1)
+        if(Globals.creepsByRole['storageManager'].length < 1)
         {
             Globals.roles['storageManager'].spawnCreep(spawn1, storageLink.id);
         }
