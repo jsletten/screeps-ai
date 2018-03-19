@@ -26,14 +26,12 @@ var roleBuilder = {
                 // find exit to target room
                 var exit = creep.room.findExitTo(creep.memory.targetRoom);
                 creep.moveTo(creep.pos.findClosestByRange(exit));
-                console.log('builder move');
             }
             else
             {
                 var  targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 
                 if(targets.length > 0) {
-                    console.log('builder build');
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                     }
@@ -42,7 +40,6 @@ var roleBuilder = {
                 {
                     var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                         return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity}});            
-                    console.log('builder transfer')
                     if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
@@ -51,7 +48,6 @@ var roleBuilder = {
         }
         else 
         {
-            console.log('builder find energy');
             var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                 return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 0)}});            
             
@@ -63,7 +59,6 @@ var roleBuilder = {
             
             if(target)
             {
-                console.log('builder withdraw: ' + target.structureType);
                 if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                 }
