@@ -124,7 +124,7 @@ StructureSpawn.prototype.createHaulers =
             //TODO: Only spawn 2nd hauler if a harvester exists for the node.
             if(containerHaulerFound < 2)
             {
-                Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0));
+                Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0), this.room.name);
             }
         }
     };
