@@ -38,7 +38,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                 }
                 else
                 {
-                    if (upgraders.length < 1)
+                    if (upgraders.length < 2)
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
                     }
