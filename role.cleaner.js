@@ -43,11 +43,16 @@ module.exports = {
         
             if(target === 'undefined' || target === null)
             {
-                target = creep.room.storage;
+                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                    return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && _.sum(structure.store) < structure.storeCapacity)}});            
+                
             }
 
-            if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+            if(target)
+            {
+                if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+                }
             }
             // else
             // {
