@@ -30,7 +30,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
                     }
-                    else if (upgraders.length < 1 && this.room.storage.store[RESOURCE_ENERGY] > 500)
+                    else if (upgraders.length < 1 && this.room.storage.store[RESOURCE_ENERGY] > 1000)
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
                     }
@@ -59,7 +59,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
     
                 if(hostiles.length > 0 && attackers.length < 10)
                 {
-                    Globals.roles['attacker'].spawnCreep(this);
+                    Globals.roles['attacker'].spawnCreep(this, this.room.name);
                 }
             }
         }

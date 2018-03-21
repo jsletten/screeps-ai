@@ -1,8 +1,8 @@
 var roleAttacker = {
     
-    spawnCreep: function(spawn) 
+    spawnCreep: function(spawn, targetRoom) 
     {
-        var newName = spawn.createCreep([MOVE,MOVE,ATTACK,ATTACK], undefined,{role: 'attacker'}); 
+        var newName = spawn.createCreep([MOVE,MOVE,ATTACK,ATTACK], undefined,{role: 'attacker', targetRoom: targetRoom}); 
         console.log('Spawning new Attacker: ' + newName);
         return newName;
     },
@@ -10,14 +10,13 @@ var roleAttacker = {
     /** @param {Creep} creep **/
     run: function(creep) 
     {
-        if(Game.flags.attackFlag)
+        if(creep.room.name != creep.memory.targetRoom)
         {
-            if(creep.room != Game.flags.attackFlag.room)
-            {
-                creep.moveTo(Game.flags.attackFlag);
-            }
+            // find exit to target room
+            var exit = creep.room.findExitTo(creep.memory.targetRoom);
+            creep.moveTo(creep.pos.findClosestByRange(exit));
         }
-
+    
         var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(!target) {
             target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES)
