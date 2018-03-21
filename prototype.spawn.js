@@ -72,7 +72,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         
         if(extractors.length > 0)
         {
-            this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
+            //this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
         }
 
         if(this.spawning) {
