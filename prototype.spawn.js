@@ -105,7 +105,14 @@ StructureSpawn.prototype.createHarvesters =
 
             if(sourceFound == false)
             {
-                Globals.roles['containerHarvester'].spawnCreep(this, targetIndex, false, targetRoom, harvestEnergy);
+                let role = 'containerHarvester';
+                if(!harvestEnergy)
+                {
+                    role = 'mineralHarvester';
+                }
+                
+                Globals.roles[role].spawnCreep(this, targetIndex, false, targetRoom, harvestEnergy);
+                
             }
         }
     };
