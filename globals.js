@@ -1,8 +1,3 @@
-let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
-let basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker');
-let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
-
 module.exports = {
     roles: {
         basicWorker: require('role.basicWorker'),
@@ -14,7 +9,8 @@ module.exports = {
         claimer: require('role.claimer'),
         attacker: require('role.attacker'),
         wallMiner: require('role.wallMiner'),
-        storageManager: require('role.storageManager')
+        storageManager: require('role.storageManager'),
+        mineralHarvester: require('role.containerHarvester')
     },
     
     creepsByRole: function(role)

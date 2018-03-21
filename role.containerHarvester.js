@@ -1,13 +1,19 @@
 module.exports = {
-    spawnCreep: function(spawn, sourceIndex, emergencySpawn, targetRoom = 'E32N13') 
+    spawnCreep: function(spawn, targetIndex, emergencySpawn, targetRoom = 'E32N13', harvestEnergy = true) 
     {
         var body = [];
         var maxEnergy = spawn.room.energyCapacityAvailable - 50;
         var numberOfParts = Math.floor(maxEnergy / 250) * 3;
+        var role = 'containerHarvester';
 
         if(emergencySpawn)
         {
             numberOfParts = 3;
+        }
+
+        if(!harvestEnergy)
+        {
+            role = 'mineralHarvester';
         }
 
         // make sure the creep is not too big (more than 50 parts)
@@ -24,8 +30,8 @@ module.exports = {
         //Add the single CARRY part
         body.push(CARRY);
 
-        var newName = spawn.createCreep(body, undefined, {role: 'containerHarvester', sourceIndex: sourceIndex, targetRoom: targetRoom});
-        console.log('Spawning new ContainerHarvester(' + numberOfParts + ') target: ' + targetRoom + '(' + sourceIndex + '): ' + newName);     
+        var newName = spawn.createCreep(body, undefined, {role: role, targetIndex: targetIndex, targetRoom: targetRoom});
+        console.log('Spawning new ' + role + '(' + numberOfParts + ') target: ' + targetRoom + '(' + targetIndex + '): ' + newName);     
         
         return;
     },
@@ -41,8 +47,17 @@ module.exports = {
         }
         else
         {
-            var source = creep.room.find(FIND_SOURCES)[creep.memory.sourceIndex];
+            var target;
             var container;
+
+            if(creep.memory.role == 'containerHarvester')
+            {
+                target = creep.room.find(FIND_SOURCES)[creep.memory.targetIndex];
+            }
+            else
+            {
+                target = creep.room.find(FIND_MINERALS)[creep.memory.targetIndex];
+            }
 
             if(creep.memory.containerID)
             {
@@ -50,7 +65,7 @@ module.exports = {
             }
             else
             {
-                container = source.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
+                container = target.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(target, 1)) }});
                 if(container) 
                 {
                     creep.memory.containerID = container.id;
@@ -68,8 +83,10 @@ module.exports = {
                     }
                     else
                     {
-                        creep.harvest(source);
-                        creep.transfer(container, RESOURCE_ENERGY);
+                        creep.harvest(target);
+                        for(const resourceType in creep.carry) {
+                            creep.transfer(container, resourceType);
+                        }
                     }
                 }
                 else
@@ -79,22 +96,22 @@ module.exports = {
             }
             else
             {
-                var site = source.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(source, 1)) }});
+                var site = target.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(target, 1)) }});
                 if(!site)
                 {
                     //No Container && No Construction Site
-                    if(creep.pos.inRangeTo(source, 1))
+                    if(creep.pos.inRangeTo(target, 1))
                     {
                         creep.room.createConstructionSite(creep.pos, STRUCTURE_CONTAINER);
                     }
                     else
                     {
-                        creep.moveTo(source);
+                        creep.moveTo(target);
                     }
                 }
                 else
                 {
-                    if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                    if(creep.harvest(target) == ERR_NOT_IN_RANGE) 
                     {
                         creep.moveTo(site);
                     }
