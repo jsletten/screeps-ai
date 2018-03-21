@@ -12,7 +12,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager' && creep.room == this.room);
         
         let hostiles = this.room.find(FIND_HOSTILE_CREEPS);
-        let resourceNodes = this.room.find(FIND_SOURCES);
+        let extractors = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTRACTOR) }});
         let containers = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
         
         // Spawn New Creeps
@@ -70,8 +70,11 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
         this.createHarvesters(Globals.creepsByRole('containerHarvester'), this.room.name);
         
-        this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
-    
+        if(extractors.length > 0)
+        {
+            this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
+        }
+
         if(this.spawning) {
             var spawningCreep = Game.creeps[this.spawning.name];
             this.room.visual.text(
