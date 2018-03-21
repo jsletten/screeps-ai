@@ -70,7 +70,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
         this.createHarvesters(Globals.creepsByRole('containerHarvester'), this.room.name);
         
-        this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1);
+        this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
     
         if(this.spawning) {
             var spawningCreep = Game.creeps[this.spawning.name];
@@ -85,7 +85,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
 
 StructureSpawn.prototype.createHarvesters =
-    function (harvesters, targetRoom, numberOfTargets = 2) 
+    function (harvesters, targetRoom, numberOfTargets = 2, harvestEnergy = true) 
     {
         console.log(this.name + ': CH.length('+ harvesters.length + ') targetRoom(' + targetRoom + ')');
         //Energy Sources
@@ -102,7 +102,7 @@ StructureSpawn.prototype.createHarvesters =
 
             if(sourceFound == false)
             {
-                Globals.roles['containerHarvester'].spawnCreep(this, targetIndex, false, targetRoom);
+                Globals.roles['containerHarvester'].spawnCreep(this, targetIndex, false, targetRoom, harvestEnergy);
             }
         }
     };
