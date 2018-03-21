@@ -63,7 +63,7 @@ module.exports.loop = function () {
         }
     }
 
-    if(Game.flags.claimFlag && Globals.creepsByRole('claimer').length < 1)
+    if((Game.flags.claimFlag || Game.flags.reserveFlag) && Globals.creepsByRole('claimer').length < 1)
     {
         Globals.roles['claimer'].spawnCreep(spawn1);
     }

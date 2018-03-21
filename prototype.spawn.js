@@ -8,7 +8,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.room == this.room);
         let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner' && creep.room == this.room);
         let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
-        let claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
         let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
         let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager' && creep.room == this.room);
         

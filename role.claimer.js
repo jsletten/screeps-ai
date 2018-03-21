@@ -19,6 +19,28 @@ var roleClaimer = {
     /** @param {Creep} creep **/
     run: function(creep) 
     {
+        if(Game.flags.reserveFlag)
+        {
+            if(creep.room == Game.flags.reserveFlag.room)
+            {
+                console.log('Controller.owner:' + creep.room.controller.owner);
+                if(creep.room.controller.owner == undefined)
+                {
+                    if(creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(creep.room.controller);
+                    }
+                }
+                else if(!creep.room.controller.my) {
+                    if(creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(creep.room.controller);
+                    }
+                }
+            }
+            else
+            {
+                creep.moveTo(Game.flags.reserveFlag);
+            }
+        }
         if(Game.flags.claimFlag)
         {
             if(creep.room == Game.flags.claimFlag.room)
