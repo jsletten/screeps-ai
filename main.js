@@ -75,7 +75,7 @@ module.exports.loop = function () {
 
     if(Game.flags.attackFlag && Globals.creepsByRole('attacker').length < 5)
     {
-        Globals.roles['attacker'].spawnCreep(spawn1, attackFlag.pos.roomName);
+        Globals.roles['attacker'].spawnCreep(spawn1, Game.flags.attackFlag.pos.roomName);
     }
 
     // TOWER!
