@@ -24,12 +24,7 @@ module.exports.loop = function () {
     //TODO: This is a room one only feature, need to figure out how to set the "storageLink" for earch room and put this code inside the room loop / structureSpawn as appropriate
     let storageLink = Game.getObjectById('5aab7f20bee66f0ce744f802');
     if(storageLink)
-    {
-        if(Globals.creepsByRole('storageManager').length < 1)
-        {
-            Globals.roles['storageManager'].spawnCreep(spawn1, storageLink.id);
-        }
-        
+    {        
         let linksWithEnergy = spawn1.room.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
             return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
           

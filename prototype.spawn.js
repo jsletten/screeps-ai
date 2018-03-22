@@ -34,6 +34,19 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
                     }
+
+                    if(storageManagers.length < 1)
+                    {
+                        let links = this.pos.findInRange(FIND_MY_STRUCTURES, 10, {filter: (structure) => { 
+                            return (structure.structureType == STRUCTURE_LINK)}});
+                        
+                        if(links.length > 0)
+                        {
+                            Globals.roles['storageManager'].spawnCreep(this, links[0]);
+                        }
+                        
+                        Globals.roles['storageManager'].spawnCreep(this);
+                    }
                 }
                 else
                 {
@@ -72,7 +85,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         
         if(extractors.length > 0)
         {
-            //this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
+            this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
         }
 
         if(this.spawning) {
