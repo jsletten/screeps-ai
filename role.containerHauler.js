@@ -74,15 +74,10 @@ module.exports = {
             }
             else
             {
-                let target = creep.room.storage;
-                
-                //If storage doesn't exist unload directly to spawn / tower
-                if(target === 'undefined' || target === null)
-                {
-                    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});                  
-                }    
-
+                let target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                    return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))
+                        || (structure.structureType == STRUCTURE_STORAGE))}});                  
+            
                 if(target)
                 {
                     for(resourceType in creep.carry) 
