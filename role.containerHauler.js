@@ -48,27 +48,17 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
-
-            if(creep.room.name != creep.memory.homeRoom)
-            {
-                // find exit to target room
-                var exit = creep.room.findExitTo(creep.memory.homeRoom);
-                creep.moveTo(creep.pos.findClosestByRange(exit));
+            var target = Game.getObjectById(creep.memory.containerID);
+                    
+            if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
-            else
-            {
-                var target = Game.getObjectById(creep.memory.containerID);
-                        
-                if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-                }
 
-                var found = target.pos.lookFor(LOOK_ENERGY);
-                if(found.length) 
-                {
-                    var result = creep.pickup(found[0]);
-                    console.log('Pickup Energy: ' + result);
-                }
+            var found = target.pos.lookFor(LOOK_ENERGY);
+            if(found.length) 
+            {
+                var result = creep.pickup(found[0]);
+                console.log('Pickup Energy: ' + result);
             }
         }
         else {
