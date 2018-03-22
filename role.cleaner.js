@@ -50,7 +50,7 @@ module.exports = {
 
             if(target)
             {
-                for(resourceType in target.store) 
+                for(resourceType in creep.carry) 
                     {
                         if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(target);
