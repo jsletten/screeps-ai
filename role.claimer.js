@@ -2,17 +2,19 @@ var roleClaimer = {
     
     spawnCreep: function(spawn) 
     {
-        if(spawn.room.energyCapacityAvailable >= 1300)
+        let body = [];
+        let maxEnergy = spawn.room.energyCapacityAvailable;
+        //1x CLAIM - 1X MOVE
+        let numberOfParts = Math.floor(maxEnergy /650) * 2;
+
+        for (let i = 0; i < numberOfParts/2; i++)
         {
-            var newName = Game.spawns['Spawn1'].createCreep([CLAIM,CLAIM,MOVE,MOVE], undefined,{role: 'claimer'}); 
-            console.log('Spawning new Claimer(med): ' + newName);
+            body.push(CLAIM);
+            body.push(MOVE);
         }
-        else
-        {
-            var newName = Game.spawns['Spawn1'].createCreep([CLAIM,MOVE], undefined,{role: 'claimer'}); 
-            console.log('Spawning new Claimer(small): ' + newName);
-        }
-        
+
+        spawn.createCreep(body, undefined, {role: 'claimer'});
+        console.log('Spawning new Claimer(' + numberOfParts + ')');
         return;
     },
     
