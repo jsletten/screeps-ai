@@ -50,8 +50,11 @@ module.exports = {
         if(_.sum(creep.carry)  == 0) {
             var target = Game.getObjectById(creep.memory.containerID);
                     
-            if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+            for(resourceType in target.store) 
+            {
+                if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
             }
 
             var found = target.pos.lookFor(LOOK_ENERGY);
@@ -71,19 +74,22 @@ module.exports = {
             }
             else
             {
-                var target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});            
+                let target = creep.room.storage;
                 
-                //If Spawn / Towers are full put remainder in storage
+                //If storage doesn't exist unload directly to spawn / tower
                 if(target === 'undefined' || target === null)
                 {
-                    target = creep.room.storage;
+                    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))}});                  
                 }    
 
                 if(target)
                 {
-                    if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                    for(resourceType in creep.carry) 
+                    {
+                        if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(target);
+                        }
                     }
                 }
             }
