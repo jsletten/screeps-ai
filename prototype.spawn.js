@@ -21,6 +21,25 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
             //TODO: Make this code more room aware.  Intent was to protect economy before adding extra roles but it isn't multi-room aware
             if(Globals.creepsByRole('containerHarvester').length >= 1 && Globals.creepsByRole('containerHauler').length >= containers.length )
             {
+                if(builders.length < 1) 
+                {
+                    let sites = this.room.find(FIND_CONSTRUCTION_SITES);
+                    if(sites.length > 0) 
+                    {
+                        Globals.roles['builder'].spawnCreep(this, this.room.name);
+                    }
+                }
+    
+                if(cleaners.length < 1)
+                {
+                    Globals.roles['cleaner'].spawnCreep(this);
+                }
+    
+                if(hostiles.length > 0 && attackers.length < 10)
+                {
+                    Globals.roles['attacker'].spawnCreep(this, this.room.name);
+                }
+                
                 //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
                 //if(upgraders.length < this.room.controller.level) 
                 //TODO: Update this code to prevent it from killing economy.
@@ -54,25 +73,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
                     }
-                }
-
-                if(builders.length < 1) 
-                {
-                    let sites = this.room.find(FIND_CONSTRUCTION_SITES);
-                    if(sites.length > 0) 
-                    {
-                        Globals.roles['builder'].spawnCreep(this, this.room.name);
-                    }
-                }
-    
-                if(cleaners.length < 1)
-                {
-                    Globals.roles['cleaner'].spawnCreep(this);
-                }
-    
-                if(hostiles.length > 0 && attackers.length < 10)
-                {
-                    Globals.roles['attacker'].spawnCreep(this, this.room.name);
                 }
             }
         }
