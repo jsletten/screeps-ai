@@ -65,7 +65,20 @@ module.exports.loop = function () {
 
     if((Game.flags.claimFlag || Game.flags.reserveFlag) && Globals.creepsByRole('claimer').length < 1)
     {
-        Globals.roles['claimer'].spawnCreep(spawn1);
+        let spawnClaimer = true;
+
+        if(Game.flags.reserveFlag)
+        {
+            if(Game.flags.reserveFlag.room.controller.reservation.ticksToEnd > 4000)
+            {
+                spawnClaimer = false;
+            }
+        }
+
+        if(spawnClaimer)
+        {
+            Globals.roles['claimer'].spawnCreep(spawn1);
+        }
     }
 
     if(Game.flags.attackWall && Globals.creepsByRole('wallMiner').length < 3)
