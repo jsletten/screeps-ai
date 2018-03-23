@@ -20,7 +20,7 @@ module.exports = {
         let results;
         if(targetRoom)
         {
-            consol.log('creepsByRole - targetRoom:' + targetRoom);
+            console.log('creepsByRole - targetRoom:' + targetRoom);
             results = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == targetRoom);  
         }
         else
