@@ -31,21 +31,23 @@ module.exports = {
             var exit = creep.room.findExitTo(creep.memory.targetRoom);
             creep.moveTo(creep.pos.findClosestByRange(exit));
         }
-    
-        var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(!target) {
-            target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES)
-        }
-        
-        if(target)
-        {
-            if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target);
-            }
-        }
         else
-        {
-            creep.moveTo(25,25); //TODO make this smarter
+        {    
+            var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            if(!target) {
+                target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES)
+            }
+            
+            if(target)
+            {
+                if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
+            }
+            else
+            {
+                creep.moveTo(25,25); //TODO make this smarter
+            }
         }
     }
 };
