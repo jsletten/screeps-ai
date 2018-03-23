@@ -43,5 +43,9 @@ module.exports = {
                 creep.moveTo(target);
             }
         }
+        else
+        {
+            creep.moveTo(25,25); //TODO make this smarter
+        }
     }
 };
