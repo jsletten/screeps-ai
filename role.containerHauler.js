@@ -74,6 +74,7 @@ module.exports = {
             }
             else
             {
+                //TODO: Check if creep is only carrying energy.  Could get stuck if carrying other resource types.
                 let target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
                     return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))
                         || (structure.structureType == STRUCTURE_STORAGE))}});                  

@@ -9,7 +9,7 @@ module.exports = {
 
         //1x CARRY - 1X MOVE
         numberOfParts = Math.floor(maxEnergy / 200) * 2;
-        numberOfParts = Math.min(numberOfParts, 10); // limit guard size for now
+        numberOfParts = Math.min(numberOfParts, 16); // limit guard size for now
         for (let i = 0; i < numberOfParts/2; i++)
         {
             body.push(RANGED_ATTACK);
