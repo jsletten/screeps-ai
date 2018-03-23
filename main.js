@@ -39,7 +39,14 @@ module.exports.loop = function () {
     
     if(Game.flags.mineFlag1)
     {
-        spawn1.createHarvesters(Globals.creepsByRole('containerHarvester'), Game.flags.mineFlag1.pos.roomName);
+        let targetRoom = Game.flags.mineFlag1.pos.roomName;
+
+        spawn1.createHarvesters(Globals.creepsByRole('containerHarvester'), targetRoom);
+
+        if(Globals.creepsByRole('guard', targetRoom) < 2)
+        {
+            Globals.roles['guard'].spawnCreep(spawn1, targetRoom)
+        }
 
         if(Game.flags.mineFlag1.room)
         {       
@@ -78,7 +85,14 @@ module.exports.loop = function () {
 
     if(Game.flags.attackWall && Globals.creepsByRole('wallMiner').length < 3)
     {
-        Globals.roles['wallMiner'].spawnCreep(spawn1);
+        Globals.roles['wallMiner'].spawnCreep(Game.spawns['Spawn2']);
+
+        let targetRoom = Game.flags.attackWall.pos.roomName;
+
+        if(Globals.creepsByRole('healer', targetRoom) < 2)
+        {
+            Globals.roles['healer'].spawnCreep(Game.spawns['Spawn2'], targetRoom)
+        }
     }
 
     if(Game.flags.attackFlag && Globals.creepsByRole('attacker').length < 5)

@@ -10,11 +10,23 @@ module.exports = {
         attacker: require('role.attacker'),
         wallMiner: require('role.wallMiner'),
         storageManager: require('role.storageManager'),
-        mineralHarvester: require('role.containerHarvester')
+        mineralHarvester: require('role.containerHarvester'),
+        healer: require('role.healer'),
+        guard: require('role.guard')
     },
     
-    creepsByRole: function(role)
+    creepsByRole: function(role, targetRoom = null)
     {
-        return _.filter(Game.creeps, (creep) => creep.memory.role == role);
+        let results;
+        if(targetRoom)
+        {
+            consol.log('creepsByRole - targetRoom:' + targetRoom);
+            results = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == targetRoom);  
+        }
+        else
+        {
+            results = _.filter(Game.creeps, (creep) => creep.memory.role == role);
+        }
+        return results
     }
 };
