@@ -61,7 +61,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                         
                         if(links.length > 0)
                         {
-                            Globals.roles['storageManager'].spawnCreep(this, links[0]);
+                            Globals.roles['storageManager'].spawnCreep(this, links[0].id);
                         }
                         else
                         {
