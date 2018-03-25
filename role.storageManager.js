@@ -1,7 +1,23 @@
 module.exports = {
     spawnCreep: function(spawn, linkID = null) {
-        var newName = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'storageManager', linkID: linkID});
-        console.log('Spawning new storageManager: ' + newName);  
+        var body = [];
+        var maxEnergy
+        var numberOfParts;
+
+        maxEnergy = spawn.room.energyCapacityAvailable;
+        
+        //1 MOVE part for every 2 CARRY parts
+        maxEnergy = Math.min(maxEnergy, 1200);
+        numberOfParts = Math.floor(maxEnergy / 150) * 3;
+        for (let i = 0; i < ((numberOfParts/3)*2); i++) {
+            body.push(CARRY);
+        }
+        for (let i = 0; i < (numberOfParts/3); i++) {
+            body.push(MOVE);
+        }
+       
+        var newName = spawn.createCreep(body, undefined, {role: 'storageManager', linkID: linkID});
+        console.log('Spawning new storageManager(' + numberOfParts +'): ' + newName);  
         return newName;
     },
     /** @param {Creep} creep **/
