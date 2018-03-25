@@ -147,9 +147,16 @@ StructureSpawn.prototype.createHaulers =
                 }
             }
 
-            //TODO: Only spawn 2nd hauler if a harvester exists for the node.
-            if(containerHaulerFound < 2)
+            let links = containers[container].pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_LINK)}});
+
+            if(links.length > 0 && containerHaulerFound < 1)
             {
+                Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0), this.room.name);
+            }
+            else if(links.length == 0 && containerHaulerFound < 2)
+            {
+                //TODO: Only spawn 2nd hauler if a harvester exists for the node.
                 Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0), this.room.name);
             }
         }
