@@ -2,7 +2,7 @@
 
 // import modules
 require('prototype.creep');
-require('prototype.spawn')
+require('prototype.spawn');
 var Globals = require('globals');
 var roleTower = require('role.tower');
 
