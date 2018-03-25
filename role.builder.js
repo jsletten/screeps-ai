@@ -1,6 +1,7 @@
 var roleBuilder = {
 
     spawnCreep: function(spawn, targetRoom = 'E32N13') {
+        //TODO: Spawn builder dynamically
         if(spawn.room.energyCapacityAvailable >= 1000)
         {
             var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE], undefined, {role: 'builder', targetRoom: targetRoom});
