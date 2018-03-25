@@ -154,3 +154,30 @@ StructureSpawn.prototype.createHaulers =
             }
         }
     };
+
+StructureSpawn.prototype.executeLinks =
+    function ()
+    {
+        let storageLink;
+        let links = this.pos.findInRange(FIND_MY_STRUCTURES, 10, {filter: (structure) => { 
+            return (structure.structureType == STRUCTURE_LINK)}});
+        
+        if(links.length > 0)
+        {
+            storageLink = links[0];
+        }
+        
+        if(storageLink)
+        {        
+            let linksWithEnergy = this.room.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
+              
+            for(var link in linksWithEnergy)
+            {
+                if(linksWithEnergy[link].id != storageLink.id)
+                {
+                    linksWithEnergy[link].transferEnergy(storageLink);
+                }
+            }
+        }
+    };

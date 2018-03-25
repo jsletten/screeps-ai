@@ -21,21 +21,6 @@ module.exports.loop = function () {
         //TODO: Everything remote is hard coded with spawn1 right now, make this more dynamic
     let spawn1 = Game.spawns['Spawn1'];
 
-    //TODO: This is a room one only feature, need to figure out how to set the "storageLink" for earch room and put this code inside the room loop / structureSpawn as appropriate
-    let storageLink = Game.getObjectById('5aab7f20bee66f0ce744f802');
-    if(storageLink)
-    {        
-        let linksWithEnergy = spawn1.room.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
-            return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
-          
-        for(var link in linksWithEnergy)
-        {
-            if(linksWithEnergy[link].id != storageLink.id)
-            {
-                linksWithEnergy[link].transferEnergy(storageLink);
-            }
-        }
-    }
     
     if(Game.flags.mineFlag1)
     {
@@ -117,6 +102,7 @@ module.exports.loop = function () {
 
         console.log('Spawn:' + name);
     
+        Game.spawns[name].executeLinks();
         Game.spawns[name].spawnCreepsIfNecessary();
 
         //If more than 10 hostiles are in the room we are in trouble, activate SafeMode!
