@@ -150,7 +150,11 @@ StructureSpawn.prototype.createHaulers =
             let links = containers[container].pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
                 return (structure.structureType == STRUCTURE_LINK)}});
 
-            if(links.length > 0 && containerHaulerFound < 1)
+            let extractors = containers[container].pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_EXTRACTOR)}});
+    
+            //Only spawn 1 hauler for containers next to links or extractors.
+            if(((links.length > 0) || (extractors.length > 0)) && containerHaulerFound < 1)
             {
                 Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0), this.room.name);
             }
