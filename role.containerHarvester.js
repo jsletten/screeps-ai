@@ -11,19 +11,23 @@ module.exports = {
             numberOfParts = 3;
         }
 
-        if(!harvestEnergy)
+        if(harvestEnergy)
+        {
+            //Energy Harvesters don't need more then 6 WORK parts to keep up with node respawn.
+            numberOfParts = Math.min(numberOfParts, 9);
+        }
+        else
         {
             role = 'mineralHarvester';
-        }
-
-        // make sure the creep is not too big (more than 50 parts)
-        numberOfParts = Math.min(numberOfParts, 49);
+            // make sure the creep is not too big (more than 50 parts))
+            numberOfParts = Math.min(numberOfParts, 49);
+        }        
 
         //1 MOVE part for every 2 WORK parts
-        for (let i = 0; i < Math.min(((numberOfParts/3)*2), 6); i++) {
+        for (let i = 0; i < ((numberOfParts/3)*2); i++) {
             body.push(WORK);
         }
-        for (let i = 0; i < Math.min((numberOfParts/3), 6); i++) {
+        for (let i = 0; i < (numberOfParts/3); i++) {
             body.push(MOVE);
         }
 
