@@ -33,6 +33,11 @@ module.exports.loop = function () {
             Globals.roles['guard'].spawnCreep(spawn1, targetRoom)
         }
 
+        if(Globals.creepsByRole('fixer', targetRoom) < 1)
+        {
+            Globals.roles['fixer'].spawnCreep(spawn1, targetRoom)
+        }
+
         if(Game.flags.mineFlag1.room)
         {       
             let containers = Game.flags.mineFlag1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
