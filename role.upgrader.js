@@ -5,18 +5,27 @@ module.exports = {
         let maxEnergy = spawn.room.energyCapacityAvailable;
         let numberOfParts;
 
-        maxEnergy -= 200; //reserve energy for CARRY/MOVE
+        maxEnergy -= 150; //reserve energy for CARRY/MOVE
         body.push(CARRY);
         body.push(CARRY);
-        body.push(MOVE);
         body.push(MOVE);
 
-        //1x WORK - 1x CARRY - 1X MOVE
-        numberOfParts = Math.floor(maxEnergy / 100);
-        numberOfParts = Math.min(numberOfParts, 46); // creeps can't exceed 50
-        for (let i = 0; i < numberOfParts; i++)
+        //2x WORK - 1x MOVE
+        let numberOfParts = Math.floor(maxEnergy / 250) * 3;
+        numberOfParts = Math.min(numberOfParts, 45); //creeps can't exceed 50, 45 is nearest number divisible by 3 since we already have 3 static parts
+        if(numberOfParts == 0)
         {
             body.push(WORK);
+            body.push(MOVE);
+        }
+        else
+        {
+            for (let i = 0; i < numberOfParts/3; i++)
+            {
+                body.push(WORK);
+                body.push(WORK);
+                body.push(MOVE);
+            }
         }
 
         let newName = spawn.createCreep(body, undefined, {role: 'upgrader'});
