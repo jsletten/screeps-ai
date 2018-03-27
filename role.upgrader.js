@@ -4,11 +4,11 @@ module.exports = {
         let body = [];
         let maxEnergy = spawn.room.energyCapacityAvailable;
 
-        maxEnergy -= 200; //reserve energy for CARRY/MOVE
+        maxEnergy -= 150; //reserve energy for CARRY/MOVE
         body.push(CARRY);
         body.push(CARRY);
         body.push(MOVE);
-        body.push(MOVE);
+        
 
         //2x WORK - 1x MOVE
         let numberOfParts = Math.floor(maxEnergy / 250) * 3;
@@ -16,6 +16,7 @@ module.exports = {
         if(numberOfParts == 0)
         {
             body.push(WORK);
+            body.push(MOVE);
         }
         else
         {
