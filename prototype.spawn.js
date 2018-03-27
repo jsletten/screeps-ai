@@ -45,15 +45,13 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                 //TODO: Update this code to prevent it from killing economy.
                 if(this.room.storage)
                 {
-                    if(upgraders.length < 3 && this.room.storage.store[RESOURCE_ENERGY] > 10000)
-                    {
-                        Globals.roles['upgrader'].spawnCreep(this);
-                    }
-                    else if (upgraders.length < 1 && this.room.storage.store[RESOURCE_ENERGY] > 1000)
-                    {
-                        Globals.roles['upgrader'].spawnCreep(this);
-                    }
+                    let numberOfUpgraders = Math.min(Math.floor(this.room.storage.store[RESOURCE_ENERGY] / 75000), 8);
 
+                    if(upgraders.length < numberOfUpgraders)
+                    {
+                        Globals.roles['upgrader'].spawnCreep(this);
+                    }
+                    
                     if(storageManagers.length < 1)
                     {
                         let links = this.pos.findInRange(FIND_MY_STRUCTURES, 10, {filter: (structure) => { 
