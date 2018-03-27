@@ -48,7 +48,7 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
-            var target = Game.getObjectById(creep.memory.containerID);
+            let target = Game.getObjectById(creep.memory.containerID);
                     
             for(resourceType in target.store) 
             {
@@ -57,10 +57,10 @@ module.exports = {
                 }
             }
 
-            var found = target.pos.lookFor(LOOK_ENERGY);
+            let found = target.pos.lookFor(LOOK_ENERGY);
             if(found.length) 
             {
-                var result = creep.pickup(found[0]);
+                let result = creep.pickup(found[0]);
                 console.log('Pickup Energy: ' + result);
             }
         }
@@ -68,16 +68,24 @@ module.exports = {
             if(creep.room.name != creep.memory.homeRoom)
             {
                 // find exit to target room
-                var exit = creep.room.findExitTo(creep.memory.homeRoom);
+                let exit = creep.room.findExitTo(creep.memory.homeRoom);
                 // move to exit
                 creep.moveTo(creep.pos.findClosestByRange(exit));
             }
             else
             {
-                //TODO: Check if creep is only carrying energy.  Could get stuck if carrying other resource types.
-                let target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))
-                        || (structure.structureType == STRUCTURE_STORAGE))}});                  
+                let target;
+                
+                if(_.sum(creep.carry) == creep.carry[RESOURCE_ENERGY]) //Only energy so deposit anywhere
+                {
+                    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                        return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))
+                            || (structure.structureType == STRUCTURE_STORAGE))}}); 
+                }
+                else
+                {
+                    target = creep.room.storage; //Carrying resources other then energy so must deposit to storage
+                }
             
                 if(target)
                 {
