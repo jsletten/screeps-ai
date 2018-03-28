@@ -17,26 +17,21 @@ module.exports = {
 
         if(spawn.room == target.room)
         {
-            //1 MOVE part for every 2 CARRY parts
             maxEnergy = Math.min(maxEnergy, 450);
-            numberOfParts = Math.floor(maxEnergy / 150) * 3;
-            for (let i = 0; i < ((numberOfParts/3)*2); i++) {
-                body.push(CARRY);
-            }
-            for (let i = 0; i < (numberOfParts/3); i++) {
-                body.push(MOVE);
-            }
         }
         else
         {
-            //1x CARRY - 1X MOVE
-            numberOfParts = Math.floor(maxEnergy / 100) * 2;
-            numberOfParts = Math.min(numberOfParts, 24); // limit haul capacity to 600
-            for (let i = 0; i < numberOfParts/2; i++)
-            {
-                body.push(CARRY);
-                body.push(MOVE);
-            }
+            maxEnergy = Math.min(maxEnergy, 900)
+        }
+
+        numberOfParts = Math.floor(maxEnergy / 150) * 3;
+
+        //1 MOVE part for every 2 CARRY parts
+        for (let i = 0; i < ((numberOfParts/3)*2); i++) {
+            body.push(CARRY);
+        }
+        for (let i = 0; i < (numberOfParts/3); i++) {
+            body.push(MOVE);
         }
 
         var result = spawn.createCreep(body, undefined, {role: 'containerHauler', containerID: containerID, homeRoom: homeRoom});
