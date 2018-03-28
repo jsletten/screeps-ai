@@ -61,7 +61,7 @@ module.exports.loop = function () {
 
         if(Game.flags.reserveFlag)
         {
-            if(Game.flags.reserveFlag.room.controller.reservation.ticksToEnd > 4000)
+            if(Game.flags.reserveFlag.room.controller.reservation && Game.flags.reserveFlag.room.controller.reservation.ticksToEnd > 4000)
             {
                 spawnClaimer = false;
             }
