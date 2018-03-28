@@ -13,17 +13,17 @@ module.exports = {
         body.push(WORK);
         body.push(WORK);
 
-        body.push(CARRY);
-        body.push(CARRY);
+        body.push(MOVE);
+        body.push(MOVE);
+        body.push(MOVE);
+        body.push(MOVE);
+        body.push(MOVE);
+        body.push(MOVE);
+        body.push(MOVE);
+        body.push(MOVE);
 
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
+        body.push(CARRY);
+        body.push(CARRY);
 
         var result = spawn.createCreep(body, undefined, {role: 'wallMiner', homeRoom: homeRoom});
         console.log('Spawning new WallMiner(' + numberOfParts + '): ' + result);
