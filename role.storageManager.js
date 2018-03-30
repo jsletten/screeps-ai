@@ -4,7 +4,7 @@ module.exports = {
         var maxEnergy
         var numberOfParts;
 
-        maxEnergy = spawn.room.energyCapacityAvailable;
+        maxEnergy = spawn.room.energyAvailable;
         
         //1 MOVE part for every 2 CARRY parts
         maxEnergy = Math.min(maxEnergy, 1200);
