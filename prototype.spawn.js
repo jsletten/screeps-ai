@@ -118,7 +118,8 @@ StructureSpawn.prototype.createLocalHarvesters =
             {
                 for(let creep in linkHarvesters)
                 {
-                    if((linkHarvesters[creep].memory.targetID == source.id) && (linkHarvesters[creep].memory.targetRoom == targetRoom))
+                    let linkHarvester = linkHarvesters[creep];
+                    if((linkHarvester.memory.targetID == source.id) && (linkHarvester.memory.targetRoom == targetRoom) && (linkHarvester.ticksToLive > 25))
                     {
                         sourceFound = true;
                     }
