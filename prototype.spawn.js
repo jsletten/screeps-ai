@@ -77,7 +77,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
             }
         }
         
-        if(extractors.length > 0)
+        if(extractors.length > 0 && extractors[0].mineral.ticksToRegeneration == undefined)
         {
             this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
         }
