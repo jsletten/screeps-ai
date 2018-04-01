@@ -216,7 +216,7 @@ StructureSpawn.prototype.executeLinks =
     function ()
     {
         let storageLink;
-        let links = this.pos.findInRange(FIND_MY_STRUCTURES, 10, {filter: (structure) => { 
+        let links = this.room.storage.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
             return (structure.structureType == STRUCTURE_LINK)}});
         
         if(links.length > 0)
