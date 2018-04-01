@@ -1,5 +1,5 @@
 module.exports = {
-    spawnCreep: function(spawn, linkID = null) {
+    spawnCreep: function(spawn) {
         var body = [];
         var maxEnergy
         var numberOfParts;
@@ -16,14 +16,14 @@ module.exports = {
             body.push(MOVE);
         }
        
-        var newName = spawn.createCreep(body, undefined, {role: 'storageManager', linkID: linkID});
+        var newName = spawn.createCreep(body, undefined, {role: 'storageManager'});
         console.log('Spawning new storageManager(' + numberOfParts +'): ' + newName);  
         return newName;
     },
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
-            var link = Game.getObjectById(creep.memory.linkID);
+            let link = creep.room.storage.link;
 
             if (link && link.energy > 0)  //Withdraw from Link
             {

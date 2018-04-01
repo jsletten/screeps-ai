@@ -53,18 +53,8 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     }
                     
                     if(storageManagers.length < 1)
-                    {
-                        let links = this.pos.findInRange(FIND_MY_STRUCTURES, 10, {filter: (structure) => { 
-                            return (structure.structureType == STRUCTURE_LINK)}});
-                        
-                        if(links.length > 0)
-                        {
-                            Globals.roles['storageManager'].spawnCreep(this, links[0].id);
-                        }
-                        else
-                        {
-                            Globals.roles['storageManager'].spawnCreep(this);
-                        }
+                    {                        
+                        Globals.roles['storageManager'].spawnCreep(this);
                     }
                 }
                 else

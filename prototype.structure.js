@@ -24,6 +24,22 @@ Object.defineProperty(StructureContainer.prototype, 'creeps', {
     configurable: true
 });
 
+Object.defineProperty(StructureSource.prototype, 'link', {
+    get: function() {
+        if (!this._link) {
+            let results = this.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_LINK) }});
+            if(results.length > 0)
+            {
+                this._link = results[0];
+            }
+        }
+        return this._link;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Object.defineProperty(Source.prototype, 'link', {
     get: function() {
         if (!this._link) {
