@@ -24,7 +24,7 @@ module.exports = {
             body.push(MOVE);
         }
 
-        let newName = spawn.spawnCreep(body, 'LH-' + targetID, {memory: memory});
+        let newName = spawn.spawnCreep(body, 'LH-' + Game.time, {memory: memory});
         console.log('Spawning new ' + role + ' target: ' + targetRoom + '(' + targetID + '): ' + newName);     
 
         //return {body: body, memory: memory};
