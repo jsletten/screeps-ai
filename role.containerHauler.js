@@ -43,6 +43,11 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
+            if(creep.room.name == creep.memory.homeRoom && creep.ticksToLive < 100)
+            {
+                creep.suicide();
+            }
+
             let target = Game.getObjectById(creep.memory.containerID);
                     
             for(resourceType in target.store) 

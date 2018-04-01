@@ -13,6 +13,17 @@ Object.defineProperty(StructureExtractor.prototype, 'mineral', {
     configurable: true
 });
 
+Object.defineProperty(StructureContainer.prototype, 'creeps', {
+    get: function() {
+        if (!this._creeps) {          
+            this._creeps = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHauler' && creep.memory.containerID == this.id);
+        }
+        return this._creeps;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Object.defineProperty(Source.prototype, 'link', {
     get: function() {
         if (!this._link) {
