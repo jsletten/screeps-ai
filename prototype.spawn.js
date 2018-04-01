@@ -86,7 +86,10 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
         this.createHaulers(Globals.creepsByRole('containerHauler'), containers);
 
-        this.createHarvesters(Globals.creepsByRole('containerHarvester', this.room.name), this.room.name);
+        //this.createHarvesters(Globals.creepsByRole('containerHarvester', this.room.name), this.room.name);
+        this.createLocalHarvesters();
+        
+
 
         if(this.spawning) {
             var spawningCreep = Game.creeps[this.spawning.name];
@@ -99,6 +102,50 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
     };
 
+StructureSpawn.prototype.createLocalHarvesters =
+    function()
+    {
+        let targetRoom = this.room.name;
+        let linkHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'linkHarvester' && creep.room == this.room);
+        let containerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester' && creep.room == this.room);
+
+        for(let sourceIndex in this.room.sources)
+        {
+            let sourceFound = false;
+            let source = this.room.sources[sourceIndex];
+
+            if(source.link)
+            {
+                for(let creep in linkHarvesters)
+                {
+                    if((linkHarvesters[creep].memory.targetID == source.id) && (linkHarvesters[creep].memory.targetRoom == targetRoom))
+                    {
+                        sourceFound = true;
+                    }
+                }
+
+                if(sourceFound)
+                {
+                    Globals.roles['linkHarvester'].spawnCreep(this, source.id, targetRoom, source.link.id);
+                }
+            }
+            else
+            {
+                for(let creep in containerHarvesters)
+                {
+                    if((containerHarvesters[creep].memory.targetIndex == sourceIndex) && (containerHarvesters[creep].memory.targetRoom == targetRoom))
+                    {
+                        sourceFound = true;
+                    }
+                }
+
+                if(sourceFound == false)
+                {
+                    Globals.roles['containerHarvester'].spawnCreep(this, sourceIndex, false, targetRoom, harvestEnergy);
+                }
+            }
+        }
+    }
 
 StructureSpawn.prototype.createHarvesters =
     function (harvesters, targetRoom, numberOfTargets = 2, harvestEnergy = true) 
