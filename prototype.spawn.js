@@ -76,17 +76,17 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                 }
             }
         }
-    
-        //Check to see if we need to spawn more haulers
-        //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
-        this.createHaulers(Globals.creepsByRole('containerHauler'), containers);
-
-        this.createHarvesters(Globals.creepsByRole('containerHarvester'), this.room.name);
         
         if(extractors.length > 0)
         {
             this.createHarvesters(Globals.creepsByRole('mineralHarvester'), this.room.name, 1, false);
         }
+
+        //Check to see if we need to spawn more haulers
+        //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
+        this.createHaulers(Globals.creepsByRole('containerHauler'), containers);
+
+        this.createHarvesters(Globals.creepsByRole('containerHarvester'), this.room.name);
 
         if(this.spawning) {
             var spawningCreep = Game.creeps[this.spawning.name];
