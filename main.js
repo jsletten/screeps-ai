@@ -4,6 +4,7 @@
 require('prototype.creep');
 require('prototype.spawn');
 require('prototype.room');
+require('prototype.structure');
 var Globals = require('globals');
 var roleTower = require('role.tower');
 
