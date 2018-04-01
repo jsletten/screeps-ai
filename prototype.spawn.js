@@ -13,7 +13,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         
         let hostiles = this.room.find(FIND_HOSTILE_CREEPS);
         let extractors = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTRACTOR) }});
-        let containers = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
+        let containers = this.room.containers;
         
         // Spawn New Creeps
         if (containers.length > 0)

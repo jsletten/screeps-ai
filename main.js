@@ -3,6 +3,7 @@
 // import modules
 require('prototype.creep');
 require('prototype.spawn');
+require('prototype.room');
 var Globals = require('globals');
 var roleTower = require('role.tower');
 
@@ -59,6 +60,7 @@ module.exports.loop = function () {
     {
         let spawnClaimer = true;
 
+        //TODO need to check for controller incase flag exists but no visibility to room
         if(Game.flags.reserveFlag)
         {
             if(Game.flags.reserveFlag.room.controller.reservation && Game.flags.reserveFlag.room.controller.reservation.ticksToEnd > 4000)
