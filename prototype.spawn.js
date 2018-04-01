@@ -124,7 +124,7 @@ StructureSpawn.prototype.createLocalHarvesters =
                     }
                 }
 
-                if(sourceFound)
+                if(!sourceFound)
                 {
                     Globals.roles['linkHarvester'].spawnCreep(this, source.id, targetRoom, source.link.id);
                 }
@@ -139,7 +139,7 @@ StructureSpawn.prototype.createLocalHarvesters =
                     }
                 }
 
-                if(sourceFound == false)
+                if(!sourceFound)
                 {
                     Globals.roles['containerHarvester'].spawnCreep(this, sourceIndex, false, targetRoom, harvestEnergy);
                 }
