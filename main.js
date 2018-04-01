@@ -28,7 +28,7 @@ module.exports.loop = function () {
     {
         let targetRoom = Game.flags.mineFlag1.pos.roomName;
 
-        spawn1.createHarvesters(Globals.creepsByRole('containerHarvester'), targetRoom);
+        spawn1.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom);
 
         if(Globals.creepsByRole('guard', targetRoom) < 2)
         {

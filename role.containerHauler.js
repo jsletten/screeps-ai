@@ -21,7 +21,7 @@ module.exports = {
         }
         else
         {
-            maxEnergy = Math.min(maxEnergy, 900)
+            maxEnergy = Math.min(maxEnergy, 900);
         }
 
         numberOfParts = Math.floor(maxEnergy / 150) * 3;
