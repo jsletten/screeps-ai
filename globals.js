@@ -13,7 +13,8 @@ module.exports = {
         mineralHarvester: require('role.containerHarvester'),
         healer: require('role.healer'),
         guard: require('role.guard'),
-        fixer: require('role.fixer')
+        fixer: require('role.fixer'),
+        linkHarvester: require('role.linkHarvester')
     },
     
     creepsByRole: function(role, targetRoom = null)
