@@ -25,7 +25,7 @@ module.exports = {
         }
 
         let newName = spawn.spawnCreep(body, undefined, {memory: memory});
-        console.log('Spawning new ' + role + '(' + numberOfParts + ') target: ' + targetRoom + '(' + targetID + '): ' + newName);     
+        console.log('Spawning new ' + role + ' target: ' + targetRoom + '(' + targetID + '): ' + newName);     
 
         //return {body: body, memory: memory};
     },
