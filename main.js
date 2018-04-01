@@ -41,7 +41,7 @@ module.exports.loop = function () {
 
         if(Game.flags.mineFlag1.room)
         {       
-            let containers = Game.flags.mineFlag1.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
+            let containers = Game.flags.mineFlag1.room.containers;
             spawn1.createHaulers(Globals.creepsByRole('containerHauler'), containers);
         }
     }
@@ -51,7 +51,7 @@ module.exports.loop = function () {
 
         if(Game.flags.mineFlag2.room)
         {       
-            let containers = Game.flags.mineFlag2.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) }});
+            let containers = Game.flags.mineFlag2.room.containers;
             spawn1.createHaulers(Globals.creepsByRole('containerHauler'), containers);
         }
     }
