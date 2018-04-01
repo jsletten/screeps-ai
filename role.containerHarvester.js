@@ -19,8 +19,8 @@ module.exports = {
         else
         {
             role = 'mineralHarvester';
-            // make sure the creep is not too big (more than 50 parts))
-            numberOfParts = Math.min(numberOfParts, 49);
+            // make sure the creep is not too big )
+            numberOfParts = Math.min(numberOfParts, 48);
         }        
 
         //1 MOVE part for every 2 WORK parts
@@ -37,7 +37,9 @@ module.exports = {
         var newName = spawn.createCreep(body, undefined, {role: role, targetIndex: targetIndex, targetRoom: targetRoom});
         console.log('Spawning new ' + role + '(' + numberOfParts + ') target: ' + targetRoom + '(' + targetIndex + '): ' + newName);     
         
-        return;
+        //let memory = {role: role, targetIndex: targetIndex, targetRoom: targetRoom};
+
+        //return {body: body, memory: memory};;
     },
     
     /** @param {Creep} creep **/
@@ -56,7 +58,7 @@ module.exports = {
 
             if(creep.memory.role == 'containerHarvester')
             {
-                target = creep.room.find(FIND_SOURCES)[creep.memory.targetIndex];
+                target = creep.room.sources[creep.memory.targetIndex];
             }
             else
             {
