@@ -21,39 +21,39 @@ module.exports.loop = function () {
     console.log('Time:' + Game.time + ' H:' + Globals.creepsByRole('containerHauler').length + ' CH:' + Globals.creepsByRole('containerHarvester').length);
 
         //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
-    let spawn = Game.spawns['Spawn3'];
+    let remoteSpawn = Game.spawns['Spawn3'];
 
     
     if(Game.flags.mineFlag1)
     {
         let targetRoom = Game.flags.mineFlag1.pos.roomName;
 
-        spawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom);
+        remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom);
 
         if(Globals.creepsByRole('guard', targetRoom) < 2)
         {
-            Globals.roles['guard'].spawnCreep(spawn, targetRoom)
+            Globals.roles['guard'].spawnCreep(remoteSpawn, targetRoom)
         }
 
         if(Globals.creepsByRole('fixer', targetRoom) < 1)
         {
-            Globals.roles['fixer'].spawnCreep(spawn, targetRoom)
+            Globals.roles['fixer'].spawnCreep(remoteSpawn, targetRoom)
         }
 
         if(Game.flags.mineFlag1.room)
         {       
             let containers = Game.flags.mineFlag1.room.containers;
-            spawn.createHaulers(Globals.creepsByRole('containerHauler'), containers);
+            remoteSpawn.createHaulers(Globals.creepsByRole('containerHauler'), containers);
         }
     }
     if(Game.flags.mineFlag2)
     {
-        spawn.createHarvesters(Globals.creepsByRole('containerHarvester'), Game.flags.mineFlag2.pos.roomName);
+        remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester'), Game.flags.mineFlag2.pos.roomName);
 
         if(Game.flags.mineFlag2.room)
         {       
             let containers = Game.flags.mineFlag2.room.containers;
-            spawn.createHaulers(Globals.creepsByRole('containerHauler'), containers);
+            remoteSpawn.createHaulers(Globals.creepsByRole('containerHauler'), containers);
         }
     }
 
@@ -72,7 +72,7 @@ module.exports.loop = function () {
 
         if(spawnClaimer)
         {
-            Globals.roles['claimer'].spawnCreep(spawn);
+            Globals.roles['claimer'].spawnCreep(remoteSpawn);
         }
     }
 
@@ -90,7 +90,7 @@ module.exports.loop = function () {
 
     if(Game.flags.attackFlag && Globals.creepsByRole('attacker').length < 5)
     {
-        Globals.roles['attacker'].spawnCreep(spawn, Game.flags.attackFlag.pos.roomName);
+        Globals.roles['attacker'].spawnCreep(remoteSpawn, Game.flags.attackFlag.pos.roomName);
     }
 
     // TOWER!
@@ -105,7 +105,7 @@ module.exports.loop = function () {
     //Run spawn logic
     for (let name in Game.spawns)
     {
-        var spawn = Game.spawns[name];
+        let spawn = Game.spawns[name];
         let hostiles = spawn.room.find(FIND_HOSTILE_CREEPS);
 
         console.log('Spawn:' + name);
