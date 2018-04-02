@@ -48,7 +48,14 @@ module.exports.loop = function () {
     }
     if(Game.flags.mineFlag2)
     {
-        remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester'), Game.flags.mineFlag2.pos.roomName);
+        let targetRoom = Game.flags.mineFlag2.pos.roomName;
+
+        remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom, 1);
+
+        if(Globals.creepsByRole('guard', targetRoom) < 1)
+        {
+            Globals.roles['guard'].spawnCreep(remoteSpawn, targetRoom)
+        }
 
         if(Game.flags.mineFlag2.room)
         {       
