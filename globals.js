@@ -14,7 +14,8 @@ module.exports = {
         healer: require('role.healer'),
         guard: require('role.guard'),
         fixer: require('role.fixer'),
-        linkHarvester: require('role.linkHarvester')
+        linkHarvester: require('role.linkHarvester'),
+        linkUnloader: require('role.linkUnloader')
     },
     
     creepsByRole: function(role, targetRoom = null)

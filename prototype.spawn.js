@@ -10,6 +10,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
         let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
         let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager' && creep.room == this.room);
+        let linkUnloaders = _.filter(Game.creeps, (creep) => creep.memory.role == 'linkUnloader' && creep.room == this.room);
         
         let hostiles = this.room.find(FIND_HOSTILE_CREEPS);
         let extractors = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTRACTOR) }});
@@ -50,6 +51,11 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     if(upgraders.length < numberOfUpgraders)
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
+                    }
+
+                    if(this.room.storage.link && linkUnloaders.length < 1)
+                    {
+                        Globals.roles['linkUnloader'].spawnCreep(this);
                     }
                     
                     if(storageManagers.length < 1)

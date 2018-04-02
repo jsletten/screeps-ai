@@ -7,7 +7,7 @@ module.exports = {
         maxEnergy = spawn.room.energyAvailable;
         
         //1 MOVE part for every 2 CARRY parts
-        maxEnergy = Math.min(maxEnergy, 1200);
+        maxEnergy = Math.min(maxEnergy, 600);
         numberOfParts = Math.floor(maxEnergy / 150) * 3;
         for (let i = 0; i < ((numberOfParts/3)*2); i++) {
             body.push(CARRY);
@@ -23,19 +23,9 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
-            let link = creep.room.storage.link;
 
-            if (link && link.energy > 0)  //Withdraw from Link
-            {
-                if(creep.withdraw(link, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(link);
-                }
-            }
-            else //Withdraw from Storage
-            {
-                if(creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(creep.room.storage);
-                }
+            if(creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(creep.room.storage);
             }
         }
         else 
