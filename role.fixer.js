@@ -37,14 +37,24 @@ module.exports = {
             }
             else
             {
-                //Fix closest damaged structure
-                let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => {
-                    return ((object.hits < object.hitsMax) && (object.hits < 500000))}});
-            
-                if(target)
+                let  targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+
+                if(targets.length > 0) {
+                    if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
+                    }
+                }
+                else
                 {
-                    if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                    //Fix closest damaged structure
+                    let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => {
+                        return ((object.hits < object.hitsMax) && (object.hits < 500000))}});
+                
+                    if(target)
+                    {
+                        if(creep.repair(target) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(target);
+                        }
                     }
                 }
             }
