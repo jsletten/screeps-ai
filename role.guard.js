@@ -40,7 +40,7 @@ module.exports = {
             
             if(target)
             {
-                if(creep.Attack(target) == ERR_NOT_IN_RANGE) {
+                if(creep.attack(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
                 }
             }
