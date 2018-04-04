@@ -1,10 +1,12 @@
 module.exports = {
     spawnCreep: function(spawn, containerID, emergencySpawn, homeRoom = 'E32N13') 
     {
-        var target = Game.getObjectById(containerID);
-        var body = [];
-        var maxEnergy
-        var numberOfParts;
+        //TODO: Rename ContainerHauler to ContainerTransport
+        let target = Game.getObjectById(containerID);
+        let memory = {role: 'containerHauler', containerID: containerID, homeRoom: homeRoom};
+        let body = [];
+        let maxEnergy
+        let numberOfParts;
 
         if(emergencySpawn)
         {
@@ -34,10 +36,11 @@ module.exports = {
             body.push(MOVE);
         }
 
-        var result = spawn.createCreep(body, undefined, {role: 'containerHauler', containerID: containerID, homeRoom: homeRoom});
-        console.log('Spawning new ContainerHauler(' + numberOfParts + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + result);
         
-        return;
+        let newName = spawn.spawnCreep(body, 'CT-' + Game.time, {memory: memory});
+        console.log('Spawning new ContainerHauler(' + numberOfParts + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + newName);
+        
+        //return {body: body, memory: memory};
     },
     
     /** @param {Creep} creep **/
