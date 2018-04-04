@@ -8,11 +8,11 @@ module.exports = {
         maxEnergy = spawn.room.energyCapacityAvailable;
 
         //1x CARRY - 1X MOVE
-        numberOfParts = Math.floor(maxEnergy / 200) * 2;
-        numberOfParts = Math.min(numberOfParts, 16); // limit guard size for now
+        numberOfParts = Math.floor(maxEnergy / 130) * 2;
+        numberOfParts = Math.min(numberOfParts, 20); // limit guard size for now
         for (let i = 0; i < numberOfParts/2; i++)
         {
-            body.push(RANGED_ATTACK);
+            body.push(ATTACK);
             body.push(MOVE);
         }
 
@@ -40,7 +40,7 @@ module.exports = {
             
             if(target)
             {
-                if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
+                if(creep.Attack(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
                 }
             }
