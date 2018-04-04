@@ -49,19 +49,43 @@ module.exports = {
             }
 
             let target = Game.getObjectById(creep.memory.containerID);
-                    
-            for(resourceType in target.store) 
+                 
+            if(_.sum(target.store) < 100)
             {
-                if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                //Act as Cleaner
+                target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+
+                if(target) {
+                    creep.say('Resource!');
+                    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
+                }
+                else 
+                {
+                    target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {filter: (tombstone) => { 
+                        return (_.sum(tombstone.store) > 0)}}); 
+                
+                    if(target)
+                    {
+                        for(resourceType in target.store) 
+                        {
+                            if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(target);
+                            }
+                        }
+                    }
                 }
             }
-
-            let found = target.pos.lookFor(LOOK_ENERGY);
-            if(found.length) 
+            else
             {
-                let result = creep.pickup(found[0]);
-                console.log('Pickup Energy: ' + result);
+                //Get resources from container
+                for(resourceType in target.store) 
+                {
+                    if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
+                }
             }
         }
         else {
