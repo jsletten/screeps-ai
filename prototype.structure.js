@@ -24,6 +24,28 @@ Object.defineProperty(StructureContainer.prototype, 'creeps', {
     configurable: true
 });
 
+Object.defineProperty(StructureContainer.prototype, 'hasEnergy', {
+    get: function() {
+        if (!this._hasEnergy) {          
+            this._hasEnergy = this.store[RESOURCE_ENERGY] > 0;
+        }
+        return this._hasEnergy;
+    },
+    enumerable: false,
+    configurable: true
+});
+
+Object.defineProperty(StructureContainer.prototype, 'hasResource', {
+    get: function() {
+        if (!this._hasResource) {          
+            this._hasResource = _.sum(this.store) > 0;
+        }
+        return this._hasResource;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Object.defineProperty(StructureStorage.prototype, 'link', {
     get: function() {
         if (!this._link) {
