@@ -7,7 +7,10 @@ module.exports = {
         body.push(CARRY);
         body.push(CARRY);
         body.push(MOVE);
-       
+        body.push(CARRY);
+        body.push(CARRY);
+        body.push(MOVE);
+        
         let newName = spawn.spawnCreep(body, 'LU-' + Game.time, {memory: memory});
         console.log('Spawning new ' + role + ': ' + newName);     
 
