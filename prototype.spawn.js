@@ -8,9 +8,11 @@ function ()
 
     if(spawnObject)
     {
-        let result = this.spawnCreep(spawnObject.body, spawnObject.memory.role + '-' + Game.time, {memory: spawnObject.memory});
+        let name = spawnObject.memory.role + '-' + Game.time;
+        let result = this.spawnCreep(spawnObject.body, name, {memory: spawnObject.memory});
         if (result == OK)
         {
+            console.log('Spawning ' + name);
             this.room.memory.spawnQueue.shift();
         }
     }
