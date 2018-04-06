@@ -59,7 +59,7 @@ Room.prototype.executeLinks =
                 let linksWithEnergy = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
                     return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
                 
-                for(var link in linksWithEnergy)
+                for(let link in linksWithEnergy)
                 {
                     if(linksWithEnergy[link].id != storageLink.id)
                     {
@@ -105,6 +105,7 @@ Room.prototype.executeLinks =
             
             console.log('RoomBasedSpawn:' + name);
         
-            spawn.spawnNextInQueue();        
+            spawn.spawnNextInQueue();
+            spawn.spawnCreepsIfNecessary();   
         }
     };

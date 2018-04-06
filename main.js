@@ -102,7 +102,7 @@ module.exports.loop = function () {
         Globals.roles['attacker'].spawnCreep(remoteSpawn, Game.flags.attackFlag.pos.roomName);
     }
     */
-   
+
     if(Game.flags.tankFlag && Globals.creepsByRole('tank').length < 1)
     {
         Globals.roles['tank'].spawnCreep(Game.spawns['Spawn2'], Game.flags.tankFlag.pos.roomName);
@@ -122,16 +122,6 @@ module.exports.loop = function () {
         let room = Game.rooms[roomName];
         room.executeLinks();
         room.executeDefenses();
-    }
-
-    //Run spawn logic
-    for (let name in Game.spawns)
-    {
-        let spawn = Game.spawns[name];
-        
-
-        console.log('Spawn:' + name);
-    
-        spawn.spawnCreepsIfNecessary();        
+        room.executeSpawns();
     }
 }
