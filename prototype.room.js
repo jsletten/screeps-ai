@@ -76,7 +76,8 @@ Room.prototype.executeLinks =
     function ()
     {    
         let hostiles = this.find(FIND_HOSTILE_CREEPS);
-        let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
+        let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker' && creep.room == this);
+        let queuedAttackers = _.filter(this.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
 
         //If more than 10 hostiles are in the room we are in trouble, activate SafeMode!
         if(hostiles.length > 10)
@@ -84,7 +85,7 @@ Room.prototype.executeLinks =
             this.controller.activateSafeMode();
         }
 
-        if(hostiles.length > 0 && attackers.length < 10)
+        if(hostiles.length > 0 && (attackers.length + queuedAttackers) < 10)
         {
             this.addToSpawnQueue(Globals.roles['attacker'].spawnCreep(this.name));
         }
