@@ -44,24 +44,27 @@ Room.prototype.executeLinks =
     function ()
     {
         let storageLink;
-        let links = this.storage.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
-            return (structure.structureType == STRUCTURE_LINK)}});
-        
-        if(links.length > 0)
+        if(this.storage)
         {
-            storageLink = links[0];
-        }
-        
-        if(storageLink)
-        {        
-            let linksWithEnergy = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
-              
-            for(var link in linksWithEnergy)
+            let links = this.storage.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_LINK)}});
+            
+            if(links.length > 0)
             {
-                if(linksWithEnergy[link].id != storageLink.id)
+                storageLink = links[0];
+            }
+            
+            if(storageLink)
+            {        
+                let linksWithEnergy = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                    return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
+                
+                for(var link in linksWithEnergy)
                 {
-                    linksWithEnergy[link].transferEnergy(storageLink);
+                    if(linksWithEnergy[link].id != storageLink.id)
+                    {
+                        linksWithEnergy[link].transferEnergy(storageLink);
+                    }
                 }
             }
         }
