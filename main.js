@@ -22,7 +22,6 @@ module.exports.loop = function () {
 
         //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
     let remoteSpawn = Game.spawns['Spawn3'];
-
     
     if(Game.flags.mineFlag1)
     {
@@ -95,13 +94,11 @@ module.exports.loop = function () {
         }
     }
 
-    //TODO: Fix this to add spawnCreep request to global queue as it will error as written
-    /*
+    //TODO: Fix this to add spawnCreep request to global queue instead of hard coding to one room
     if(Game.flags.attackFlag && Globals.creepsByRole('attacker').length < 5)
     {
-        Globals.roles['attacker'].spawnCreep(remoteSpawn, Game.flags.attackFlag.pos.roomName);
+        remoteSpawn.room.addToSpawnQueue(Globals.roles['attacker'].spawnCreep(Game.flags.attackFlag.pos.roomName));
     }
-    */
 
     if(Game.flags.tankFlag && Globals.creepsByRole('tank').length < 1)
     {
