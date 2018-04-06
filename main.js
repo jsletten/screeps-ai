@@ -95,11 +95,14 @@ module.exports.loop = function () {
         }
     }
 
+    //TODO: Fix this to add spawnCreep request to global queue as it will error as written
+    /*
     if(Game.flags.attackFlag && Globals.creepsByRole('attacker').length < 5)
     {
         Globals.roles['attacker'].spawnCreep(remoteSpawn, Game.flags.attackFlag.pos.roomName);
     }
-
+    */
+   
     if(Game.flags.tankFlag && Globals.creepsByRole('tank').length < 1)
     {
         Globals.roles['tank'].spawnCreep(Game.spawns['Spawn2'], Game.flags.tankFlag.pos.roomName);
@@ -109,26 +112,26 @@ module.exports.loop = function () {
     roleTower.run();
 
     //Run creep logic
-    for (let name in Game.creeps) 
+    for (let creepName in Game.creeps) 
     {
-        Game.creeps[name].runRole();
+        Game.creeps[creepName].runRole();
+    }
+
+    for (let roomName in Game.rooms)
+    {
+        let room = Game.rooms[roomName];
+        room.executeLinks();
+        room.executeDefenses();
     }
 
     //Run spawn logic
     for (let name in Game.spawns)
     {
         let spawn = Game.spawns[name];
-        let hostiles = spawn.room.find(FIND_HOSTILE_CREEPS);
+        
 
         console.log('Spawn:' + name);
     
-        Game.spawns[name].executeLinks();
-        Game.spawns[name].spawnCreepsIfNecessary();
-
-        //If more than 10 hostiles are in the room we are in trouble, activate SafeMode!
-        if(hostiles.length > 10)
-        {
-            spawn.room.controller.activateSafeMode();
-        }        
+        spawn.spawnCreepsIfNecessary();        
     }
 }

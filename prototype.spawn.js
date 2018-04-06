@@ -1,5 +1,21 @@
 var Globals = require('globals');
 
+StructureSpawn.prototype.spawnNextInQueue =
+function ()
+{
+    this.room.memory.spawnQueue = this.room.memory.spawnQueue || [];
+    let spawnObject = this.room.memory.spawnQueue[0];
+
+    if(spawnObject)
+    {
+        let result = this.spawnCreep(spawnObject.body, spawnObject.memory.role + '-' + Game.time, {memory: spawnObject.memory});
+        if (result == OK)
+        {
+            this.room.memory.spawnQueue.shift();
+        }
+    }
+};
+
 StructureSpawn.prototype.spawnCreepsIfNecessary =
     function () 
     {
@@ -7,12 +23,10 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.room == this.room);
         let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.room == this.room);
         let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner' && creep.room == this.room);
-        let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker');
         let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
         let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager' && creep.room == this.room);
         let linkUnloaders = _.filter(Game.creeps, (creep) => creep.memory.role == 'linkUnloader' && creep.room == this.room);
         
-        let hostiles = this.room.find(FIND_HOSTILE_CREEPS);
         let extractors = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTRACTOR) }});
         let containers = this.room.containers;
         
@@ -34,11 +48,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                 if(cleaners.length < 1)
                 {
                     Globals.roles['cleaner'].spawnCreep(this);
-                }
-    
-                if(hostiles.length > 0 && attackers.length < 10)
-                {
-                    Globals.roles['attacker'].spawnCreep(this, this.room.name);
                 }
                 
                 //Only spawn upgraders & builders if we've built containers and creeps to harvest&haul.
@@ -80,6 +89,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
         //Check to see if we need to spawn more haulers
         //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
+        //TODO: Why are we still geting 2 haulers for extractors
         this.createHaulers(Globals.creepsByRole('containerHauler'), containers);
 
         //this.createHarvesters(Globals.creepsByRole('containerHarvester', this.room.name), this.room.name);
@@ -191,33 +201,6 @@ StructureSpawn.prototype.createHaulers =
             {
                 //TODO: Only spawn 2nd hauler if a harvester exists for the node.
                 Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0), this.room.name);
-            }
-        }
-    };
-
-StructureSpawn.prototype.executeLinks =
-    function ()
-    {
-        let storageLink;
-        let links = this.room.storage.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
-            return (structure.structureType == STRUCTURE_LINK)}});
-        
-        if(links.length > 0)
-        {
-            storageLink = links[0];
-        }
-        
-        if(storageLink)
-        {        
-            let linksWithEnergy = this.room.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
-              
-            for(var link in linksWithEnergy)
-            {
-                if(linksWithEnergy[link].id != storageLink.id)
-                {
-                    linksWithEnergy[link].transferEnergy(storageLink);
-                }
             }
         }
     };

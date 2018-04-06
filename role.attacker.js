@@ -1,10 +1,16 @@
-var roleAttacker = {
-    
-    spawnCreep: function(spawn, targetRoom) 
+module.exports = {
+    spawnCreep: function(targetRoom) 
     {
-        var newName = spawn.createCreep([MOVE,MOVE,ATTACK,ATTACK], undefined,{role: 'attacker', targetRoom: targetRoom}); 
-        console.log('Spawning new Attacker: ' + newName);
-        return newName;
+        let body = [];
+
+        body.push(MOVE);
+        body.push(MOVE);
+        body.push(ATTACK);
+        body.push(ATTACK);
+
+        let memory = {role: 'Attacker', targetRoom: targetRoom};        
+                
+        return {memory: memory, body: body};
     },
     
     /** @param {Creep} creep **/
@@ -30,5 +36,3 @@ var roleAttacker = {
         }
     }
 };
-
-module.exports = roleAttacker;
