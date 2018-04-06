@@ -33,7 +33,7 @@ module.exports = {
     {            
         creep.heal(creep);
         
-        if(creep.hits < 500)
+        if(creep.getActiveBodyparts(TOUGH) == 0)
         {
             if(Game.flags.rallyFlag)
             {

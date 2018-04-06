@@ -1,39 +1,35 @@
 module.exports = {
     spawnCreep: function(spawn, homeRoom = 'E32N13') 
     {
-        var body = [];
-        var maxEnergy
-        var numberOfParts;
-        //maxEnergy = spawn.room.energyCapacityAvailable - 100;
-
-        body.push(WORK);
-        body.push(WORK);
-        body.push(WORK);
-        body.push(WORK);
-        body.push(WORK);
-        body.push(WORK);
-
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
-        body.push(MOVE);
+        let body = [];
+        let maxEnergy
+        let numberOfParts;
+        maxEnergy = spawn.room.energyCapacityAvailable - 150;
 
         body.push(CARRY);
         body.push(CARRY);
-
-        var result = spawn.createCreep(body, undefined, {role: 'wallMiner', homeRoom: homeRoom});
-        console.log('Spawning new WallMiner(' + numberOfParts + '): ' + result);
+        body.push(MOVE);
         
-        return;
+        numberOfParts = Math.floor(maxEnergy / 160) * 3;
+
+        for (let i = 0; i < numberOfParts/3; i++)
+        {
+            body.push(WORK);
+            body.push(MOVE);
+        }
+        for (let i = 0; i < numberOfParts/3; i++)
+        {
+            body.push(TOUGH);
+        }
+
+        let memory = {role: 'wallMiner', homeRoom: homeRoom};
+        let result = spawn.spawnCreep(body, 'WM-' + Game.time, {memory: memory});
+        console.log('Spawning new WallMiner(' + numberOfParts + '): ' + result);
     },
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(_.sum(creep.carry) < creep.carryCapacity && Game.flags.attackWall) 
+        if(_.sum(creep.carry) < creep.carryCapacity && Game.flags.attackWall && creep.getActiveBodyparts(TOUGH) > 1) 
         {
             if(Game.flags.attackWall.room != creep.room)
             {
