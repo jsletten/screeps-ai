@@ -1,3 +1,5 @@
+var Globals = require('globals');
+
 Object.defineProperty(Room.prototype, 'sources', {
     get: function() {
             // If we dont have the value stored locally
