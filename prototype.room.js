@@ -105,7 +105,7 @@ Room.prototype.executeLinks =
         {
             let spawn = this.spawns[name];
             
-            console.log('RoomBasedSpawn:' + name);
+            console.log('RoomBasedSpawn:' + this.spawns[name].name);
         
             spawn.spawnNextInQueue();
             spawn.spawnCreepsIfNecessary();   
