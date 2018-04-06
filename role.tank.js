@@ -8,9 +8,14 @@ module.exports = {
         maxEnergy = spawn.room.energyCapacityAvailable;
 
         //1x HEAL - 1X MOVE
-        numberOfParts = Math.floor(maxEnergy / 300) * 2;
+        numberOfParts = Math.floor(maxEnergy / 310) * 3;
         //numberOfParts = Math.min(numberOfParts, 4); // limit healer size for now
-        for (let i = 0; i < numberOfParts/2; i++)
+
+        for (let i = 0; i < numberOfParts/3; i++)
+        {
+            body.push(TOUGH);
+        }
+        for (let i = 0; i < numberOfParts/3; i++)
         {
             body.push(HEAL);
             body.push(MOVE);
