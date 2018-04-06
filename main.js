@@ -100,7 +100,7 @@ module.exports.loop = function () {
         Globals.roles['attacker'].spawnCreep(remoteSpawn, Game.flags.attackFlag.pos.roomName);
     }
 
-    if(Game.flags.tankFlag && Globals.creepsByRole('tank').length < 2)
+    if(Game.flags.tankFlag && Globals.creepsByRole('tank').length < 1)
     {
         Globals.roles['tank'].spawnCreep(Game.spawns['Spawn2'], Game.flags.tankFlag.pos.roomName);
     }
