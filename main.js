@@ -93,7 +93,7 @@ module.exports.loop = function () {
             Globals.roles['healer'].spawnCreep(Game.spawns['Spawn2'], targetRoom)
         }
     }
-    let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
+    let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.memory.role == 'attacker');
     //TODO: Fix this to add spawnCreep request to global queue instead of hard coding to one room
     if(Game.flags.attackFlag && (Globals.creepsByRole('attacker').length + queuedAttackers.length) < 5)
     {
