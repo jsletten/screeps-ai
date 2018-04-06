@@ -21,7 +21,7 @@ module.exports = {
             body.push(MOVE);
         }
 
-        let memory = {role: 'tank', targetRoom: targetRoom};
+        let memory = {role: 'tank', targetRoom: targetRoom, homeRoom: spawn.room.name};
         let result = spawn.spawnCreep(body, 'TK-' + Game.time, {memory: memory});
         console.log('Spawning new Tank(' + numberOfParts + '): targetRoom(' + targetRoom + '): ' + result);
         
@@ -33,9 +33,19 @@ module.exports = {
     {            
         creep.heal(creep);
         
-        if(Game.flags.tankFlag)
+        if(creep.hits < 500)
         {
-            creep.moveTo(Game.flags.tankFlag);
+            if(Game.flags.rallyFlag)
+            {
+                creep.moveTo(Game.flags.rallyFlag);
+            }
         }
+        else if(creep.hits == creep.hitsMax)
+        {
+            if(Game.flags.tankFlag)
+            {
+                creep.moveTo(Game.flags.tankFlag);
+            }
+        }  
     }
 };
