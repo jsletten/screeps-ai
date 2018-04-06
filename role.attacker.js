@@ -8,7 +8,7 @@ module.exports = {
         body.push(ATTACK);
         body.push(ATTACK);
 
-        let memory = {role: 'Attacker', targetRoom: targetRoom};        
+        let memory = {role: 'attacker', targetRoom: targetRoom};        
                 
         return {memory: memory, body: body};
     },
