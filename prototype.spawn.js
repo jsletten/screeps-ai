@@ -150,7 +150,7 @@ StructureSpawn.prototype.createLocalHarvesters =
 
                 if(!sourceFound)
                 {
-                    Globals.roles['containerHarvester'].spawnCreep(this, sourceIndex, false, targetRoom, harvestEnergy);
+                    Globals.roles['containerHarvester'].spawnCreep(this, sourceIndex, false, targetRoom, true);
                 }
             }
         }
