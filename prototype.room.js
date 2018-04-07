@@ -85,10 +85,10 @@ Room.prototype.executeLinks =
             this.controller.activateSafeMode();
         }
 
-        if(hostiles.length > 0 && (attackers.length + queuedAttackers.length) < 10)
-        {
-            this.addToSpawnQueue(Globals.roles['attacker'].spawnCreep(this.name));
-        }
+        // if(hostiles.length > 0 && (attackers.length + queuedAttackers.length) < 5)
+        // {
+        //     this.addToSpawnQueue(Globals.roles['attacker'].spawnCreep(this.name));
+        // }
     };
 
     Room.prototype.addToSpawnQueue = 
