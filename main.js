@@ -18,7 +18,7 @@ module.exports.loop = function () {
     }
     
     //Log current stats
-    console.log('Time:' + Game.time + ' H:' + Globals.creepsByRole('containerHauler').length + ' CH:' + Globals.creepsByRole('containerHarvester').length);
+    console.log('Time:' + Game.time + ' CT:' + Globals.creepsByRole('containerTransport').length + ' CH:' + Globals.creepsByRole('containerHarvester').length);
 
         //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
     let remoteSpawn = Game.spawns['Spawn3'];
@@ -42,7 +42,7 @@ module.exports.loop = function () {
         if(Game.flags.mineFlag1.room)
         {       
             let containers = Game.flags.mineFlag1.room.containers;
-            remoteSpawn.createHaulers(Globals.creepsByRole('containerHauler'), containers);
+            remoteSpawn.createTransports(Globals.creepsByRole('containerTransport'), containers);
         }
     }
     if(Game.flags.mineFlag2)
@@ -59,7 +59,7 @@ module.exports.loop = function () {
         if(Game.flags.mineFlag2.room)
         {       
             let containers = Game.flags.mineFlag2.room.containers;
-            remoteSpawn.createHaulers(Globals.creepsByRole('containerHauler'), containers);
+            remoteSpawn.createTransports(Globals.creepsByRole('containerTransport'), containers);
         }
     }
 

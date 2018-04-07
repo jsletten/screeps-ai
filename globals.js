@@ -2,7 +2,7 @@ module.exports = {
     roles: {
         basicWorker: require('role.basicWorker'),
         containerHarvester: require('role.containerHarvester'),
-        containerHauler: require('role.containerHauler'),
+        containerTransport: require('role.containerTransport'),
         upgrader: require('role.upgrader'),
         builder: require('role.builder'),
         cleaner: require('role.cleaner'),

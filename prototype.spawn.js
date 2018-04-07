@@ -36,7 +36,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         if (containers.length > 0)
         {
             //TODO: Make this code more room aware.  Intent was to protect economy before adding extra roles but it isn't multi-room aware
-            if(Globals.creepsByRole('containerHarvester').length >= 1 && Globals.creepsByRole('containerHauler').length >= containers.length )
+            if(Globals.creepsByRole('containerHarvester').length >= 1 && Globals.creepsByRole('containerTransport').length >= containers.length )
             {
                 if(builders.length < 1) 
                 {
@@ -89,10 +89,10 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
             this.createHarvesters(Globals.creepsByRole('mineralHarvester', this.room.name), this.room.name, 1, false);
         }
 
-        //Check to see if we need to spawn more haulers
-        //TODO: Make this room multi-room aware.  Don't want both rooms spawning haulers for remote rooms.
-        //TODO: Why are we still geting 2 haulers for extractors
-        this.createHaulers(Globals.creepsByRole('containerHauler'), containers);
+        //Check to see if we need to spawn more transports
+        //TODO: Make this room multi-room aware.  Don't want both rooms spawning transports for remote rooms.
+        //TODO: Why are we still geting 2 transports for extractors
+        this.createTransports(Globals.creepsByRole('containerTransport'), containers);
 
         //this.createHarvesters(Globals.creepsByRole('containerHarvester', this.room.name), this.room.name);
         this.createLocalHarvesters();
@@ -186,23 +186,23 @@ StructureSpawn.prototype.createHarvesters =
         }
     };
 
-StructureSpawn.prototype.createHaulers = 
-    function (containerHaulers, containers)
+StructureSpawn.prototype.createTransports = 
+    function (containerTransports, containers)
     {
         for(var container in containers )
         {
             let extractors = containers[container].pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
                 return (structure.structureType == STRUCTURE_EXTRACTOR)}});
     
-            //Only spawn 1 hauler for containers next to extractors.
-            if(extractors.length > 0 && containers[container].creeps.length < 1)
+            //Only spawn 1 transport for containers next to extractors.
+            if(extractors.length > 0 && containers[container].transports.length < 1)
             {
-                Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0), this.room.name);
+                Globals.roles['containerTransport'].spawnCreep(this, containers[container].id, (containerTransports.length == 0), this.room.name);
             }
-            else if(extractors.length == 0 && containers[container].creeps.length < 2)
+            else if(extractors.length == 0 && containers[container].transports.length < 2)
             {
-                //TODO: Only spawn 2nd hauler if a harvester exists for the node.
-                Globals.roles['containerHauler'].spawnCreep(this, containers[container].id, (containerHaulers.length == 0), this.room.name);
+                //TODO: Only spawn 2nd transport if a harvester exists for the node.
+                Globals.roles['containerTransport'].spawnCreep(this, containers[container].id, (containerTransports.length == 0), this.room.name);
             }
         }
     };
