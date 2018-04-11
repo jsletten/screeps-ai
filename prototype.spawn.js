@@ -8,6 +8,7 @@ function ()
 
     if(creepMemory)
     {
+        console.log('Attempting to spawn new ' + creep.Memory.role)
         let name = creepMemory.role + '-' + Game.time;
         let body = Globals.roles[creepMemory.role].buildBody(this.room.energyCapacityAvailable);
 
