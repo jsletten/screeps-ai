@@ -26,15 +26,16 @@ module.exports.loop = function () {
     if(Game.flags.mineFlag1)
     {
         let targetRoom = Game.flags.mineFlag1.pos.roomName;
+        let queuedGuardCount = remoteSpawn.room.spawnQueueCount['guard']
 
         remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom);
 
-        if(Globals.creepsByRole('guard', targetRoom) < 2)
+        if((Globals.creepsByRole('guard', targetRoom).length + queuedGuardCount) < 1)
         {
-            Globals.roles['guard'].spawnCreep(remoteSpawn, targetRoom)
+            remoteSpawn.room.addToSpawnQueue({role: 'guard', targetRoom: targetRoom});
         }
 
-        if(Globals.creepsByRole('fixer', targetRoom) < 1)
+        if(Globals.creepsByRole('fixer', targetRoom).length < 1)
         {
             Globals.roles['fixer'].spawnCreep(remoteSpawn, targetRoom)
         }
@@ -51,7 +52,7 @@ module.exports.loop = function () {
 
         remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom, 1);
 
-        if(Globals.creepsByRole('guard', targetRoom) < 1)
+        if(Globals.creepsByRole('guard', targetRoom).length < 1)
         {
             Globals.roles['guard'].spawnCreep(remoteSpawn, targetRoom)
         }
@@ -88,16 +89,16 @@ module.exports.loop = function () {
 
         let targetRoom = Game.flags.attackWall.pos.roomName;
 
-        if(Globals.creepsByRole('healer', targetRoom) < 2)
+        if(Globals.creepsByRole('healer', targetRoom).length < 2)
         {
             Globals.roles['healer'].spawnCreep(Game.spawns['Spawn2'], targetRoom)
         }
     }
-    let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.memory.role == 'attacker');
+    let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
     //TODO: Fix this to add spawnCreep request to global queue instead of hard coding to one room
     if(Game.flags.attackFlag && (Globals.creepsByRole('attacker').length + queuedAttackers.length) < 5)
     {
-        remoteSpawn.room.addToSpawnQueue(Globals.roles['attacker'].spawnCreep(Game.flags.attackFlag.pos.roomName));
+        remoteSpawn.room.addToSpawnQueue({role: 'attacker', targetRoom: Game.flags.attackFlag.pos.roomName});
     }
 
     if(Game.flags.tankFlag && Globals.creepsByRole('tank').length < 1)

@@ -1,16 +1,20 @@
 module.exports = {
     spawnCreep: function(targetRoom) 
     {
+        //DO NOT USE
+    },
+
+    buildBody: function(maxEnergy) 
+    {
         let body = [];
 
+        //TODO: Dynamically create based on maxEnergy
         body.push(MOVE);
         body.push(MOVE);
         body.push(ATTACK);
         body.push(ATTACK);
 
-        let memory = {role: 'attacker', targetRoom: targetRoom};        
-                
-        return {memory: memory, body: body};
+        return body;
     },
     
     /** @param {Creep} creep **/

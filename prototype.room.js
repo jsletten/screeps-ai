@@ -42,6 +42,14 @@ Object.defineProperty(Room.prototype, 'spawns', {
     configurable: true
 });
 
+Object.defineProperty(Room.prototype, 'spawnQueueCount', {
+    get: function() {
+        return _.countBy(this.memory.spawnQueue, (queuedCreep) => queuedCreep.role);
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Room.prototype.executeLinks =
     function ()
     {
@@ -72,7 +80,7 @@ Room.prototype.executeLinks =
     {    
         let hostiles = this.find(FIND_HOSTILE_CREEPS);
         let attackers = _.filter(Game.creeps, (creep) => creep.memory.role == 'attacker' && creep.room == this);
-        let queuedAttackers = _.filter(this.memory.spawnQueue, (queuedCreep) => queuedCreep.memory.role == 'attacker');
+        let queuedAttackers = _.filter(this.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
 
         //If more than 10 hostiles are in the room we are in trouble, activate SafeMode!
         if(hostiles.length > 10)
@@ -87,10 +95,10 @@ Room.prototype.executeLinks =
     };
 
     Room.prototype.addToSpawnQueue = 
-    function (spawnObject)
+    function (creepMemory)
     {
         this.memory.spawnQueue = this.memory.spawnQueue || [];
-        this.memory.spawnQueue.push(spawnObject);
+        this.memory.spawnQueue.push(creepMemory);
     };
 
     Room.prototype.executeSpawns = 

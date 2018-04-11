@@ -24,6 +24,17 @@ Object.defineProperty(StructureContainer.prototype, 'transports', {
     configurable: true
 });
 
+Object.defineProperty(StructureContainer.prototype, 'harvesters', {
+    get: function() {
+        if (!this._creeps) {          
+            this._creeps = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerHarvester' && creep.memory.containerID == this.id);
+        }
+        return this._creeps;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Object.defineProperty(StructureContainer.prototype, 'hasEnergy', {
     get: function() {
         if (!this._hasEnergy) {          
@@ -79,6 +90,22 @@ Object.defineProperty(Source.prototype, 'link', {
 });
 
 Object.defineProperty(Source.prototype, 'container', {
+    get: function() {
+        if (!this._container) {
+            let results = this.pos.findInRange(FIND_STRUCTURES, 1, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_CONTAINER) }});
+            if(results.length > 0)
+            {
+                this._container = results[0];
+            }
+        }
+        return this._container;
+    },
+    enumerable: false,
+    configurable: true
+});
+
+Object.defineProperty(Mineral.prototype, 'container', {
     get: function() {
         if (!this._container) {
             let results = this.pos.findInRange(FIND_STRUCTURES, 1, {filter: (structure) => { 

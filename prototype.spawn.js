@@ -4,12 +4,14 @@ StructureSpawn.prototype.spawnNextInQueue =
 function ()
 {
     this.room.memory.spawnQueue = this.room.memory.spawnQueue || [];
-    let spawnObject = this.room.memory.spawnQueue[0];
+    let creepMemory = this.room.memory.spawnQueue[0];
 
-    if(spawnObject)
+    if(creepMemory)
     {
-        let name = spawnObject.memory.role + '-' + Game.time;
-        let result = this.spawnCreep(spawnObject.body, name, {memory: spawnObject.memory});
+        let name = creepMemory.role + '-' + Game.time;
+        let body = Globals.roles[creepMemory.role].buildBody(this.room.energyCapacityAvailable);
+
+        let result = this.spawnCreep(body, name, {memory: creepMemory});
         if (result == OK)
         {
             console.log('Spawning ' + name);
@@ -99,8 +101,9 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         
 
 
-        if(this.spawning) {
-            var spawningCreep = Game.creeps[this.spawning.name];
+        if(this.spawning) 
+        {
+            let spawningCreep = Game.creeps[this.spawning.name];
             this.room.visual.text(
                 spawningCreep.memory.role,
                 this.pos.x + 1,
