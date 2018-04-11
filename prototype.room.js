@@ -42,13 +42,12 @@ Object.defineProperty(Room.prototype, 'spawns', {
     configurable: true
 });
 
-Object.defineProperty(Room.prototype, 'spawnQueueCount', {
-    get: function() {
-        return _.countBy(this.memory.spawnQueue, (queuedCreep) => queuedCreep.role);
-    },
-    enumerable: false,
-    configurable: true
-});
+Room.prototype.spawnQueueCount =
+    function (role)
+    {
+        let queuedCreepCount = _.countBy(this.memory.spawnQueue, (queuedCreep) => queuedCreep.role);
+        return queuedCreepCount[role] || 0;
+    }
 
 Room.prototype.executeLinks =
     function ()

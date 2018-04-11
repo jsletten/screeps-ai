@@ -26,7 +26,7 @@ module.exports.loop = function () {
     if(Game.flags.mineFlag1)
     {
         let targetRoom = Game.flags.mineFlag1.pos.roomName;
-        let queuedGuardCount = remoteSpawn.room.spawnQueueCount['guard']
+        let queuedGuardCount = remoteSpawn.room.spawnQueueCount('guard');
 
         remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom);
 
