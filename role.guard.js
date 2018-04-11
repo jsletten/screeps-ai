@@ -1,14 +1,4 @@
 module.exports = {
-    spawnCreep: function(spawn, targetRoom) 
-    {
-        let body = this.buildBody(spawn.room.energyCapacityAvailable);
-
-        let result = spawn.createCreep(body, undefined, {role: 'guard', targetRoom: targetRoom});
-        console.log('Spawning new guard(' + numberOfParts + '): targetRoom(' + targetRoom + '): ' + result);
-        
-        return;
-    },
-
     buildBody: function(maxEnergy) 
     {
         let body = [];

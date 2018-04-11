@@ -46,23 +46,6 @@ module.exports.loop = function () {
             remoteSpawn.createTransports(Globals.creepsByRole('containerTransport'), containers);
         }
     }
-    if(Game.flags.mineFlag2)
-    {
-        let targetRoom = Game.flags.mineFlag2.pos.roomName;
-
-        remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom, 1);
-
-        if(Globals.creepsByRole('guard', targetRoom).length < 1)
-        {
-            Globals.roles['guard'].spawnCreep(remoteSpawn, targetRoom)
-        }
-
-        if(Game.flags.mineFlag2.room)
-        {       
-            let containers = Game.flags.mineFlag2.room.containers;
-            remoteSpawn.createTransports(Globals.creepsByRole('containerTransport'), containers);
-        }
-    }
 
     if((Game.flags.claimFlag || Game.flags.reserveFlag) && Globals.creepsByRole('claimer').length < 1)
     {
