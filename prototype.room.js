@@ -45,16 +45,11 @@ Object.defineProperty(Room.prototype, 'spawns', {
 Room.prototype.executeLinks =
     function ()
     {
-        let storageLink;
         if(this.storage)
         {
+            let storageLink = this.storage.link;
             let links = this.storage.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
                 return (structure.structureType == STRUCTURE_LINK)}});
-            
-            if(links.length > 0)
-            {
-                storageLink = links[0];
-            }
             
             if(storageLink)
             {        
