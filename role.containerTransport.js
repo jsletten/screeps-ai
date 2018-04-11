@@ -25,6 +25,20 @@ module.exports = {
             maxEnergy = Math.min(maxEnergy, 900);
         }
 
+        body = this.buildBody(maxEnergy);
+        
+        let newName = spawn.spawnCreep(body, 'CT-' + Game.time, {memory: memory});
+        console.log('Spawning new ' + memory.role + '(' + numberOfParts + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + newName);
+        
+        //return {body: body, memory: memory};
+    },
+
+    buildBody: function(maxEnergy) 
+    {
+        let body = [];
+        let maxEnergy
+        let numberOfParts;
+
         numberOfParts = Math.floor(maxEnergy / 150) * 3;
 
         //1 MOVE part for every 2 CARRY parts
@@ -34,12 +48,7 @@ module.exports = {
         for (let i = 0; i < (numberOfParts/3); i++) {
             body.push(MOVE);
         }
-
-        
-        let newName = spawn.spawnCreep(body, 'CT-' + Game.time, {memory: memory});
-        console.log('Spawning new ' + memory.role + '(' + numberOfParts + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + newName);
-        
-        //return {body: body, memory: memory};
+        return body;
     },
     
     /** @param {Creep} creep **/

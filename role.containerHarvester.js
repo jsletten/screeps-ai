@@ -1,27 +1,43 @@
 module.exports = {
     spawnCreep: function(spawn, targetIndex, emergencySpawn, targetRoom = 'E32N13', harvestEnergy = true) 
     {
-        var body = [];
-        var maxEnergy = spawn.room.energyCapacityAvailable - 50;
-        var numberOfParts = Math.floor(maxEnergy / 250) * 3;
-        var role = 'containerHarvester';
+        let body = [];
+        let maxEnergy = spawn.room.energyCapacityAvailable;
+        let role = 'containerHarvester';
 
         if(emergencySpawn)
         {
-            numberOfParts = 3;
+            maxEnergy = 300;
         }
 
         if(harvestEnergy)
         {
             //Energy Harvesters don't need more then 6 WORK parts to keep up with node respawn.
-            numberOfParts = Math.min(numberOfParts, 9);
+            maxEnergy = Math.min(maxEnergy, 800);
         }
         else
         {
             role = 'mineralHarvester';
-            // make sure the creep is not too big )
-            numberOfParts = Math.min(numberOfParts, 48);
         }        
+
+        body = this.buildBody(maxEnergy);
+        let newName = spawn.createCreep(body, undefined, {role: role, targetIndex: targetIndex, targetRoom: targetRoom});
+        console.log('Spawning new ' + role + '(' + numberOfParts + ') target: ' + targetRoom + '(' + targetIndex + '): ' + newName);     
+        
+        //let memory = {role: role, targetIndex: targetIndex, targetRoom: targetRoom};
+
+        //return {body: body, memory: memory};;
+    },
+    
+    buildBody: function(maxEnergy) 
+    {
+        let body = [];
+
+        maxEnergy = maxEnergy -50; //Account for single CARRY part.
+        let numberOfParts = Math.floor(maxEnergy / 250) * 3;
+        
+        // make sure the creep is not too big
+        numberOfParts = Math.min(numberOfParts, 48);
 
         //1 MOVE part for every 2 WORK parts
         for (let i = 0; i < ((numberOfParts/3)*2); i++) {
@@ -33,15 +49,10 @@ module.exports = {
 
         //Add the single CARRY part
         body.push(CARRY);
-
-        var newName = spawn.createCreep(body, undefined, {role: role, targetIndex: targetIndex, targetRoom: targetRoom});
-        console.log('Spawning new ' + role + '(' + numberOfParts + ') target: ' + targetRoom + '(' + targetIndex + '): ' + newName);     
         
-        //let memory = {role: role, targetIndex: targetIndex, targetRoom: targetRoom};
-
-        //return {body: body, memory: memory};;
+        return body;
     },
-    
+
     /** @param {Creep} creep **/
     run: function(creep) {
         if (creep.room.name != creep.memory.targetRoom)
