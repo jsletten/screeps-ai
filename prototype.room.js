@@ -107,3 +107,33 @@ Room.prototype.executeLinks =
             spawn.spawnCreepsIfNecessary();   
         }
     };
+
+    Room.prototype.creepsByRole = 
+    function(role, targetRoom = null)
+    {
+        let results;
+        if(targetRoom)
+        {
+            results = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.room == this && creep.memory.targetRoom == targetRoom);  
+        }
+        else
+        {
+            results = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.room == this);
+        }
+        return results;
+    };
+
+    Room.prototype.creepCountByRole = 
+    function(role, targetRoom = null)
+    {
+        let count;
+        if(targetRoom)
+        {
+            count = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.room == this && creep.memory.targetRoom == targetRoom).length;  
+        }
+        else
+        {
+            count = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.room == this).length;
+        }
+        return count;
+    };

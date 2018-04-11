@@ -23,14 +23,6 @@ function ()
 StructureSpawn.prototype.spawnCreepsIfNecessary =
     function () 
     {
-        let basicWorkers = _.filter(Game.creeps, (creep) => creep.memory.role == 'basicWorker' && creep.room == this.room);
-        let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.room == this.room);
-        let builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.room == this.room);
-        let cleaners = _.filter(Game.creeps, (creep) => creep.memory.role == 'cleaner' && creep.room == this.room);
-        let wallMiners = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallMiner');
-        let storageManagers = _.filter(Game.creeps, (creep) => creep.memory.role == 'storageManager' && creep.room == this.room);
-        let linkUnloaders = _.filter(Game.creeps, (creep) => creep.memory.role == 'linkUnloader' && creep.room == this.room);
-        
         let extractors = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTRACTOR) }});
         let containers = this.room.containers;
         
@@ -38,9 +30,9 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         if (containers.length > 0)
         {
             //TODO: Make this code more room aware.  Intent was to protect economy before adding extra roles but it isn't multi-room aware
-            if(Globals.creepsByRole('containerHarvester').length >= 1 && Globals.creepsByRole('containerTransport').length >= containers.length )
+            if(Globals.creepCountByRole('containerHarvester') >= 1 && Globals.creepCountByRole('containerTransport') >= containers.length )
             {
-                if(builders.length < 1) 
+                if(this.room.creepCountByRole('builder') < 1) 
                 {
                     let sites = this.room.find(FIND_CONSTRUCTION_SITES);
                     if(sites.length > 0) 
@@ -49,7 +41,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     }
                 }
     
-                if(cleaners.length < 1)
+                if(this.room.creepCountByRole('cleaner') < 1)
                 {
                     Globals.roles['cleaner'].spawnCreep(this);
                 }
@@ -59,26 +51,26 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                 //TODO: Update this code to prevent it from killing economy.
                 if(this.room.storage)
                 {
-                    let numberOfUpgraders = Math.min(Math.floor(this.room.storage.store[RESOURCE_ENERGY] / 75000), 8);
+                    let maxNumberOfUpgraders = Math.min(Math.floor(this.room.storage.store[RESOURCE_ENERGY] / 75000), 8);
 
-                    if(upgraders.length < numberOfUpgraders)
+                    if(this.room.creepCountByRole('upgrader') < maxNumberOfUpgraders)
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
                     }
 
-                    if(this.room.storage.link && linkUnloaders.length < 1)
+                    if(this.room.storage.link && this.room.creepCountByRole('linkUnloader') < 1)
                     {
                         Globals.roles['linkUnloader'].spawnCreep(this);
                     }
                     
-                    if(storageManagers.length < 1)
+                    if(this.room.creepCountByRole('storageManager') < 1)
                     {                        
                         Globals.roles['storageManager'].spawnCreep(this);
                     }
                 }
                 else
                 {
-                    if (upgraders.length < 2)
+                    if (this.room.creepCountByRole('upgrader') < 2)
                     {
                         Globals.roles['upgrader'].spawnCreep(this);
                     }
