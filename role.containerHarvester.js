@@ -22,7 +22,7 @@ module.exports = {
 
         body = this.buildBody(maxEnergy);
         let newName = spawn.createCreep(body, undefined, {role: role, targetIndex: targetIndex, targetRoom: targetRoom});
-        console.log('Spawning new ' + role + '(' + numberOfParts + ') target: ' + targetRoom + '(' + targetIndex + '): ' + newName);     
+        console.log('Spawning new ' + role + '(' + maxEnergy + ') target: ' + targetRoom + '(' + targetIndex + '): ' + newName);     
         
         //let memory = {role: role, targetIndex: targetIndex, targetRoom: targetRoom};
 
