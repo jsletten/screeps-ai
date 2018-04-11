@@ -31,6 +31,21 @@ module.exports = {
         {
             results = _.filter(Game.creeps, (creep) => creep.memory.role == role);
         }
-        return results
+        return results;
+    },
+
+    creepCountByRole: function(role, targetRoom = null)
+    {
+        let count;
+        if(targetRoom)
+        {
+            //console.log('creepsByRole - targetRoom:' + targetRoom);
+            count = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.targetRoom == targetRoom).length;  
+        }
+        else
+        {
+            count = _.filter(Game.creeps, (creep) => creep.memory.role == role).length;
+        }
+        return count;
     }
 };
