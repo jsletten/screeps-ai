@@ -94,14 +94,6 @@ module.exports = {
                         for(const resourceType in creep.carry) {
                             creep.transfer(container, resourceType);
                         }
-
-                        let links = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
-                            return ((structure.structureType == STRUCTURE_LINK) && (structure.energy < structure.energyCapacity)) }});
-                        
-                        if(links.length > 0)
-                        {
-                            creep.transfer(links[0], RESOURCE_ENERGY);
-                        }
                     }
                 }
                 else
