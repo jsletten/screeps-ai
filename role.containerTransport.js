@@ -5,7 +5,6 @@ module.exports = {
         let memory = {role: 'containerTransport', containerID: containerID, homeRoom: homeRoom};
         let body = [];
         let maxEnergy
-        let numberOfParts;
 
         if(emergencySpawn)
         {
@@ -28,7 +27,7 @@ module.exports = {
         body = this.buildBody(maxEnergy);
         
         let newName = spawn.spawnCreep(body, 'CT-' + Game.time, {memory: memory});
-        console.log('Spawning new ' + memory.role + '(' + numberOfParts + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + newName);
+        console.log('Spawning new ' + memory.role + '(' + maxEnergy + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + newName);
         
         //return {body: body, memory: memory};
     },
