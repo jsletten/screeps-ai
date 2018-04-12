@@ -1,11 +1,17 @@
 module.exports = {
     spawnCreep: function(spawn) {
-        var body = [];
-        var maxEnergy
-        var numberOfParts;
+        let body = this.buildBody(spawn.room.energyAvailable);
+        let memory = {role: 'storageManager'}
 
-        maxEnergy = spawn.room.energyAvailable;
-        
+        let newName = spawn.spawnCreep(body, memory.role + '-' + Game.time, {memory: memory});
+        console.log('Spawning new ' + memory.role + ': ' + newName);
+    },
+
+    buildBody: function(maxEnergy) 
+    {
+        let body = [];
+        let numberOfParts;
+
         //1 MOVE part for every 2 CARRY parts
         maxEnergy = Math.min(maxEnergy, 600);
         numberOfParts = Math.floor(maxEnergy / 150) * 3;
@@ -15,11 +21,10 @@ module.exports = {
         for (let i = 0; i < (numberOfParts/3); i++) {
             body.push(MOVE);
         }
-       
-        var newName = spawn.createCreep(body, undefined, {role: 'storageManager'});
-        console.log('Spawning new storageManager(' + numberOfParts +'): ' + newName);  
-        return newName;
+
+        return body;
     },
+
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {
