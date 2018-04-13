@@ -27,27 +27,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         let extractors = this.room.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_EXTRACTOR) }});
         let containers = this.room.containers;
         
-        // Spawn New Creeps
-        if (containers.length > 0)
-        {
-            //TODO: Make this code more room aware.  Intent was to protect economy before adding extra roles but it isn't multi-room aware
-            if(Globals.creepCountByRole('containerHarvester') >= 1 && Globals.creepCountByRole('containerTransport') >= containers.length )
-            {
-                if(this.room.creepCountByRole('builder') < 1) 
-                {
-                    let sites = this.room.find(FIND_CONSTRUCTION_SITES);
-                    if(sites.length > 0) 
-                    {
-                        Globals.roles['builder'].spawnCreep(this, this.room.name);
-                    }
-                }
-    
-                if(this.room.creepCountByRole('cleaner') < 1)
-                {
-                    Globals.roles['cleaner'].spawnCreep(this);
-                }
-            }
-        }
         
         if(extractors.length > 0 && extractors[0].mineral.ticksToRegeneration == undefined)
         {

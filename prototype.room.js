@@ -90,6 +90,20 @@ Room.prototype.executeLinks =
     function ()
     {
 
+        if(this.creepCountByRole('builder') + this.spawnQueueCount('builder') < 1) 
+        {
+            let sites = this.find(FIND_CONSTRUCTION_SITES);
+            if(sites.length > 0) 
+            {
+                this.addToSpawnQueue({role: 'builder', targetRoom: this.name});
+            }
+        }
+
+        if(this.creepCountByRole('cleaner') + this.spawnQueueCount('cleaner') < 1)
+        {
+            this.addToSpawnQueue({role: 'cleaner'});
+        }
+
         if(this.storage)
         {
             let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 75000), 4);
