@@ -1,29 +1,20 @@
 var roleBuilder = {
+    buildBody: function(maxEnergy)
+    {
+        let body = [];
 
-    spawnCreep: function(spawn, targetRoom = 'E32N13') {
-        //TODO: Spawn builder dynamically
-        if(spawn.room.energyCapacityAvailable >= 1000)
+        let numberOfParts = Math.floor(maxEnergy / 200) * 3;
+
+        for (let i = 0; i < numberOfParts/3; i++)
         {
-            var newName = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE], undefined, {role: 'builder', targetRoom: targetRoom});
-            console.log('Spawning new builder(x-large): ' + newName);  
+            body.push(WORK);
+            body.push(CARRY);
+            body.push(MOVE);
         }
-        else if(spawn.room.energyCapacityAvailable >= 600)
-        {
-            var newName = spawn.createCreep([WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'builder', targetRoom: targetRoom});
-            console.log('Spawning new builder(large): ' + newName);  
-        }
-        else if(spawn.room.energyCapacityAvailable >= 400)
-        {
-            var newName = spawn.createCreep([WORK,WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'builder', targetRoom: targetRoom});
-            console.log('Spawning new builder(med): ' + newName);  
-        }
-        else
-        {
-            var newName = spawn.createCreep([WORK,CARRY,MOVE], undefined, {role: 'builder', targetRoom: targetRoom});
-            console.log('Spawning new builder(small): ' + newName);
-        }
-        return;
+
+        return body;
     },
+
     /** @param {Creep} creep **/
     run: function(creep) {       
         if(creep.carry[RESOURCE_ENERGY] > 0) {
