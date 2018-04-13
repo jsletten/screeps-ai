@@ -102,10 +102,14 @@ module.exports.loop = function () {
     {
         let room = Game.rooms[roomName];
         
-        room.spawnCreepsIfNecessary();
+        if(room.controller.my)
+        {
+            room.spawnCreepsIfNecessary();
         
-        room.executeLinks();
-        room.executeDefenses();
-        room.executeSpawns();
+            room.executeLinks();
+            room.executeDefenses();
+            room.executeSpawns();
+        }
+        
     }
 }
