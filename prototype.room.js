@@ -86,6 +86,38 @@ Room.prototype.executeLinks =
         }
     };
 
+    Room.prototype.spawnCreepsIfNecessary =
+    function ()
+    {
+
+        if(this.storage)
+        {
+            let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 75000), 4);
+
+            if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < maxNumberOfUpgraders)
+            {
+                this.addToSpawnQueue({role: 'upgrader'});
+            }
+
+            if(this.storage.link && (this.creepCountByRole('linkUnloader') + this.spawnQueueCount('linkUnloader')) < 1)
+            {
+                this.addToSpawnQueue({role: 'linkUnloader'});
+            }
+
+            if((this.creepCountByRole('storageManager') + this.spawnQueueCount('storageManager')) < 1)
+            {
+                this.addToSpawnQueue({role: 'storageManager'});
+            }
+        }
+        else
+        {
+            if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 2)
+            {
+                this.addToSpawnQueue({role: 'upgrader'});
+            }
+        }
+    };
+
     Room.prototype.addToSpawnQueue = 
     function (creepMemory)
     {

@@ -1,21 +1,16 @@
 module.exports = {
-    spawnCreep: function(spawn) {
+    buildBody: function(maxEnergy)
+    {
         let body = [];
-        let role = 'linkUnloader';
-        let memory = {role: role};
-
         body.push(CARRY);
         body.push(CARRY);
         body.push(MOVE);
         body.push(CARRY);
         body.push(CARRY);
         body.push(MOVE);
-        
-        let newName = spawn.spawnCreep(body, 'LU-' + Game.time, {memory: memory});
-        console.log('Spawning new ' + role + ': ' + newName);     
-
-        //return {body: body, memory: memory};
+        return body;
     },
+
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {

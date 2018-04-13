@@ -1,12 +1,4 @@
 module.exports = {
-    spawnCreep: function(spawn) {
-        let body = this.buildBody(spawn.room.energyAvailable);
-        let memory = {role: 'storageManager'}
-
-        let newName = spawn.spawnCreep(body, memory.role + '-' + Game.time, {memory: memory});
-        console.log('Spawning new ' + memory.role + ': ' + newName);
-    },
-
     buildBody: function(maxEnergy) 
     {
         let body = [];

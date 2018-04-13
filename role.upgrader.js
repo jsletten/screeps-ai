@@ -1,14 +1,11 @@
 module.exports = {
-    spawnCreep: function(spawn) {
-
+    buildBody: function(maxEnergy)
+    {
         let body = [];
-        let maxEnergy = spawn.room.energyCapacityAvailable;
-
         maxEnergy -= 150; //reserve energy for CARRY/MOVE
         body.push(CARRY);
         body.push(CARRY);
         body.push(MOVE);
-        
 
         //2x WORK - 1x MOVE
         let numberOfParts = Math.floor(maxEnergy / 250) * 3;
@@ -28,22 +25,20 @@ module.exports = {
             }
         }
 
-        let newName = spawn.createCreep(body, undefined, {role: 'upgrader'});
-        console.log('Spawning new upgrader(' + numberOfParts + '): ' + newName);
-
-        return;
+        return body;
     },
+
     /** @param {Creep} creep **/
     run: function(creep) {
         if(creep.carry.energy == 0) 
         {    
             let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 0)}});            
+                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 50)}});            
             
             if(!target)
             {
                 target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy > 0))}});            
+                    return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy >= 50))}});            
             }
             
             if(target && (creep.ticksToLive > 50))
