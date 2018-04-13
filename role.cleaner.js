@@ -1,9 +1,11 @@
 module.exports = {
-    spawnCreep: function(spawn) {
-        var newName = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'cleaner'});
-        console.log('Spawning new cleaner: ' + newName);  
-        return newName;
+    buildBody: function(maxEnergy)
+    {
+        let body = [CARRY,CARRY,CARRY,CARRY,MOVE,MOVE];
+
+        return body;
     },
+
     /** @param {Creep} creep **/
     run: function(creep) {
         if(_.sum(creep.carry)  == 0) {

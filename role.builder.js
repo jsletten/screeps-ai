@@ -1,4 +1,4 @@
-var roleBuilder = {
+module.exports = {
     buildBody: function(maxEnergy)
     {
         let body = [];
@@ -64,5 +64,3 @@ var roleBuilder = {
     }
     
 };
-
-module.exports = roleBuilder;
