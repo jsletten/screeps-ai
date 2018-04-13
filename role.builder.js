@@ -3,7 +3,7 @@ module.exports = {
     {
         let body = [];
 
-        let numberOfParts = Math.floor(maxEnergy / 200) * 3;
+        let numberOfParts =  Math.min(Math.floor(maxEnergy / 200) * 3, 48);
 
         for (let i = 0; i < numberOfParts/3; i++)
         {
