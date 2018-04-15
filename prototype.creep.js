@@ -8,7 +8,7 @@ Creep.prototype.runRole =
         // {
         //     this.memory.targetID = this.memory.targetID || this.memory.containerID;
         // }
-        //console.log('name: ' + this.name + ' role: ' + this.memory.role);
+        console.log('name: ' + this.name + ' role: ' + this.memory.role);
         Globals.roles[this.memory.role].run(this);
     };
 
