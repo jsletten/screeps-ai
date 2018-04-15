@@ -20,6 +20,29 @@ Object.defineProperty(Room.prototype, 'sources', {
     configurable: true
 });
 
+Object.defineProperty(Room.prototype, 'mineral', {
+    get: function() 
+    {
+        if (!this._mineral) 
+        {
+            if (!this.memory.mineralID) 
+            {
+                let results = this.find(FIND_MINERALS);
+                if(results.length > 0)
+                {
+                    this.memory.mineralID = results[0];
+                }
+            }
+        }
+        
+        this._mineral = Game.getObjectById(this.memory.mineralID);
+
+        return this._mineral;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Object.defineProperty(Room.prototype, 'containers', {
     get: function() {
         if (!this._containers) {
@@ -55,19 +78,17 @@ Room.prototype.executeLinks =
         if(this.storage)
         {
             let storageLink = this.storage.link;
-            let links = this.storage.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_LINK)}});
             
-            if(storageLink)
+            if(this.storage.link)
             {        
                 let linksWithEnergy = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
                     return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
                 
                 for(let link in linksWithEnergy)
                 {
-                    if(linksWithEnergy[link].id != storageLink.id)
+                    if(linksWithEnergy[link].id != this.storage.link.id)
                     {
-                        linksWithEnergy[link].transferEnergy(storageLink);
+                        linksWithEnergy[link].transferEnergy(this.storage.link);
                     }
                 }
             }
@@ -132,6 +153,59 @@ Room.prototype.executeLinks =
         }
     };
 
+    Room.prototype.spawnResourceCreeps =
+    function()
+    {
+        for(let sourceIndex in this.sources)
+        {
+            let source = this.sources[sourceIndex];
+
+            if(source.link)
+            {
+                if(!source.harvester && this.spawnQueueCount('linkHarvester') < 1)
+                {
+                    this.addToSpawnQueue({role: 'linkHarvester', targetID: source.id, targetRoom: source.room.name});
+                }
+            }
+            else
+            {
+                if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
+                {
+                    this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
+                }
+
+                if(source.container)
+                {
+                    if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+                    {
+                        this.addToSpawnQueue({role: 'containerTransport', containerID: source.container.id, homeRoom: this.name});
+                    }
+                }  
+            }
+        }
+
+        for(let mineralIndex in this.minerals)
+        {
+            let mineral = this.minerals[mineralIndex];
+
+            if(mineral.extractor && mineral.ticksToRegeneration == undefined)
+            {
+                if(!mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
+                {
+                    this.addToSpawnQueue({role: 'mineralHarvester', targetID: source.id, targetRoom: source.room.name});
+                }
+
+                if(mineral.container)
+                {
+                    if((mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+                    {
+                        this.addToSpawnQueue({role: 'containerTransport', targetID: mineral.container.id, homeRoom: this.name});
+                    }
+                }
+            }
+        }
+    };
+
     Room.prototype.addToSpawnQueue = 
     function (creepMemory)
     {
@@ -150,7 +224,6 @@ Room.prototype.executeLinks =
             console.log('RoomBasedSpawn:' + this.spawns[name].name);
         
             spawn.spawnNextInQueue();
-            spawn.spawnCreepsIfNecessary();   
         }
     };
 

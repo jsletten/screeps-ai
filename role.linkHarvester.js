@@ -1,11 +1,9 @@
-module.exports = {
-    spawnCreep: function(spawn, targetID, targetRoom, linkID, emergencySpawn = false) 
+module.exports = {  
+    buildBody: function(maxEnergy) 
     {
         let body = [];
-        let role = 'linkHarvester';
-        let memory = {role: role, targetID: targetID, targetRoom: targetRoom, linkID: linkID};
 
-        if(emergencySpawn)
+        if(maxEnergy < 700)
         {
             body.push(WORK);
             body.push(CARRY);
@@ -24,12 +22,9 @@ module.exports = {
             body.push(MOVE);
         }
 
-        let newName = spawn.spawnCreep(body, 'LH-' + Game.time, {memory: memory});
-        console.log('Spawning new ' + role + ' target: ' + targetRoom + '(' + targetID + '): ' + newName);     
-
-        //return {body: body, memory: memory};
+        return body;
     },
-    
+
     /** @param {Creep} creep **/
     run: function(creep) 
     {
@@ -43,14 +38,13 @@ module.exports = {
         else
         {
             let target = Game.getObjectById(creep.memory.targetID);
-            let link = Game.getObjectById(creep.memory.linkID);;
             
             if(creep.harvest(target) == ERR_NOT_IN_RANGE) 
             {
                 creep.moveTo(target);
             }
 
-            creep.transfer(link, RESOURCE_ENERGY);        
+            creep.transfer(target.link, RESOURCE_ENERGY);        
         }
     }
 };
