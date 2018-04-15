@@ -2,7 +2,7 @@ module.exports = {
     buildBody: function(maxEnergy) 
     {
         let body = [];
-
+        maxEnergy = Math.min(maxEnergy, 1050);
         maxEnergy = maxEnergy -50; //Account for single CARRY part.
         let numberOfParts = Math.floor(maxEnergy / 250) * 3;
         
