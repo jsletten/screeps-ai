@@ -5,9 +5,17 @@ module.exports = {
         let numberOfParts;
 
         //1x CARRY - 1X MOVE
-        numberOfParts = Math.floor(maxEnergy / 130) * 2;
-        numberOfParts = Math.min(numberOfParts, 20); // limit guard size for now
-        for (let i = 0; i < numberOfParts/2; i++)
+        numberOfParts = Math.floor(maxEnergy / 330) * 4;
+        numberOfParts = Math.min(numberOfParts, 16); // limit guard size for now
+
+        
+        for (let i = 0; i < numberOfParts/4; i++)
+        {
+            body.push(RANGED_ATTACK)
+            body.push(MOVE);
+        }
+
+        for (let i = 0; i < numberOfParts/4; i++)
         {
             body.push(ATTACK);
             body.push(MOVE);
@@ -34,6 +42,8 @@ module.exports = {
             
             if(target)
             {
+                creep.rangedAttack(target);
+
                 if(creep.attack(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
                 }
