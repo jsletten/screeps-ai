@@ -64,30 +64,8 @@ module.exports = {
         }
         else
         {
-            var target;
-            var container;
-
-            if(creep.memory.role == 'containerHarvester')
-            {
-                target = creep.room.sources[creep.memory.targetIndex];
-            }
-            else
-            {
-                target = creep.room.find(FIND_MINERALS)[creep.memory.targetIndex];
-            }
-
-            if(creep.memory.containerID)
-            {
-                container = Game.getObjectById(creep.memory.containerID);
-            }
-            else
-            {
-                container = target.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(target, 1)) }});
-                if(container) 
-                {
-                    creep.memory.containerID = container.id;
-                }
-            }
+            var target = Game.getObjectById(creep.memory.targetID);
+            var container = target.container;
             
             if(container)
             {
