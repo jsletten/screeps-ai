@@ -1,7 +1,7 @@
 Object.defineProperty(StructureContainer.prototype, 'transports', {
     get: function() {
         if (!this._transports) {          
-            this._transports = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerTransport' && creep.memory.containerID == this.id);
+            this._transports = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerTransport' && creep.memory.targetID == this.id);
         }
         return this._transports || [];
     },
@@ -34,7 +34,7 @@ Object.defineProperty(StructureContainer.prototype, 'hasResource', {
 Object.defineProperty(StructureLink.prototype, 'harvester', {
     get: function() {
         if (!this._linkHarvester) {        
-            let results = _.filter(Game.creeps, (creep) => creep.memory.role == 'linkHarvester' && creep.memory.containerID == this.id);
+            let results = _.filter(Game.creeps, (creep) => creep.memory.role == 'linkHarvester' && creep.memory.targetID == this.id);
             if(results.length > 0)
             {
                 this._linkHarvester = results[0];
