@@ -1,7 +1,7 @@
 module.exports = {
     spawnCreep: function(spawn, targetID, emergencySpawn, homeRoom = 'E32N13') 
     {
-        let target = Game.getObjectById(containerID);
+        let target = Game.getObjectById(targetID);
         let memory = {role: 'containerTransport', targetID: targetID, homeRoom: homeRoom};
         let body = [];
         let maxEnergy
