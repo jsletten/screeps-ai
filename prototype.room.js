@@ -195,7 +195,7 @@ Room.prototype.executeLinks =
 
                 if(this.mineral.container)
                 {
-                    if((mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+                    if((this.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
                     {
                         this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
                     }
