@@ -190,7 +190,7 @@ Room.prototype.executeLinks =
             {
                 if(!this.mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
                 {
-                    this.addToSpawnQueue({role: 'mineralHarvester', targetID: source.id, targetRoom: source.room.name});
+                    this.addToSpawnQueue({role: 'mineralHarvester', targetID: this.mineral.id, targetRoom: this.mineral.room.name});
                 }
 
                 if(this.mineral.container)
