@@ -139,7 +139,7 @@ Object.defineProperty(Mineral.prototype, 'extractor', {
     configurable: true
 });
 
-Object.defineProperty(StructureExtractor.prototype, 'container', {
+Object.defineProperty(Mineral.prototype, 'container', {
     get: function() {
         if (!this._container) {
             let results = this.pos.findInRange(FIND_STRUCTURES, 1, {filter: (structure) => { 
