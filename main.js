@@ -28,7 +28,6 @@ module.exports.loop = function () {
         let targetRoom = Game.flags.mineFlag1.pos.roomName;
         let queuedGuardCount = remoteSpawn.room.spawnQueueCount('guard');
 
-        remoteSpawn.createHarvesters(Globals.creepsByRole('containerHarvester', targetRoom), targetRoom);
 
         if((Globals.creepCountByRole('guard', targetRoom) + queuedGuardCount) < 1)
         {
@@ -42,8 +41,23 @@ module.exports.loop = function () {
 
         if(Game.flags.mineFlag1.room)
         {       
-            let containers = Game.flags.mineFlag1.room.containers;
-            remoteSpawn.createTransports(Globals.creepsByRole('containerTransport'), containers);
+            for(let sourceIndex in Game.flags.mineFlag1.room.sources)
+            {
+                let source = Game.flags.mineFlag1.room.sources[sourceIndex];
+
+                    if(!source.harvester && remoteSpawn.room.spawnQueueCount('containerHarvester') < 1)
+                    {
+                        remoteSpawn.room.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
+                    }
+
+                    if(source.container)
+                    {
+                        if((source.container.transports.length + remoteSpawn.room.spawnQueueCount('containerTransport')) < 2)
+                        {
+                            remoteSpawn.room.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: remoteSpawn.room.name});
+                        }
+                    }  
+            }
         }
     }
 

@@ -1,34 +1,4 @@
-module.exports = {
-    spawnCreep: function(spawn, targetIndex, emergencySpawn, targetRoom = 'E32N13', harvestEnergy = true) 
-    {
-        let body = [];
-        let maxEnergy = spawn.room.energyCapacityAvailable;
-        let role = 'containerHarvester';
-
-        if(emergencySpawn)
-        {
-            maxEnergy = 300;
-        }
-
-        if(harvestEnergy)
-        {
-            //Energy Harvesters don't need more then 6 WORK parts to keep up with node respawn.
-            maxEnergy = Math.min(maxEnergy, 800);
-        }
-        else
-        {
-            role = 'mineralHarvester';
-        }        
-
-        body = this.buildBody(maxEnergy);
-        let newName = spawn.createCreep(body, undefined, {role: role, targetIndex: targetIndex, targetRoom: targetRoom});
-        console.log('Spawning new ' + role + '(' + maxEnergy + ') target: ' + targetRoom + '(' + targetIndex + '): ' + newName);     
-        
-        //let memory = {role: role, targetIndex: targetIndex, targetRoom: targetRoom};
-
-        //return {body: body, memory: memory};;
-    },
-    
+module.exports = {   
     buildBody: function(maxEnergy) 
     {
         let body = [];
