@@ -35,9 +35,9 @@ module.exports = {
     buildBody: function(maxEnergy) 
     {
         let body = [];
-        let numberOfParts;
+        let numberOfParts = Math.floor(maxEnergy / 150) * 3;;
 
-        numberOfParts = Math.floor(maxEnergy / 150) * 3;
+        maxEnergy = Math.min(maxEnergy, 900);
 
         //1 MOVE part for every 2 CARRY parts
         for (let i = 0; i < ((numberOfParts/3)*2); i++) {
