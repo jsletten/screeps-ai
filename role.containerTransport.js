@@ -1,8 +1,8 @@
 module.exports = {
-    spawnCreep: function(spawn, containerID, emergencySpawn, homeRoom = 'E32N13') 
+    spawnCreep: function(spawn, targetID, emergencySpawn, homeRoom = 'E32N13') 
     {
         let target = Game.getObjectById(containerID);
-        let memory = {role: 'containerTransport', containerID: containerID, homeRoom: homeRoom};
+        let memory = {role: 'containerTransport', targetID: targetID, homeRoom: homeRoom};
         let body = [];
         let maxEnergy
 
@@ -27,7 +27,7 @@ module.exports = {
         body = this.buildBody(maxEnergy);
         
         let newName = spawn.spawnCreep(body, 'CT-' + Game.time, {memory: memory});
-        console.log('Spawning new ' + memory.role + '(' + maxEnergy + '): containerID(' + containerID  + ') homeRoom(' + homeRoom + '): ' + newName);
+        console.log('Spawning new ' + memory.role + '(' + maxEnergy + '): targetID(' + targetID  + ') homeRoom(' + homeRoom + '): ' + newName);
         
         //return {body: body, memory: memory};
     },
@@ -57,7 +57,7 @@ module.exports = {
                 creep.suicide();
             }
 
-            let target = Game.getObjectById(creep.memory.containerID);
+            let target = Game.getObjectById(creep.memory.targetID);
                  
             if(_.sum(target.store) < 100)
             {
