@@ -30,7 +30,7 @@ Object.defineProperty(Room.prototype, 'mineral', {
                 let results = this.find(FIND_MINERALS);
                 if(results.length > 0)
                 {
-                    this.memory.mineralID = results[0];
+                    this.memory.mineralID = results[0].id;
                 }
             }
         }
