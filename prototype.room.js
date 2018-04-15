@@ -184,23 +184,18 @@ Room.prototype.executeLinks =
             }
         }
 
-        for(let mineralIndex in this.minerals)
+        if(this.mineral.extractor && this.mineral.ticksToRegeneration == undefined)
         {
-            let mineral = this.minerals[mineralIndex];
-
-            if(mineral.extractor && mineral.ticksToRegeneration == undefined)
+            if(!this.mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
             {
-                if(!mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
-                {
-                    this.addToSpawnQueue({role: 'mineralHarvester', targetID: source.id, targetRoom: source.room.name});
-                }
+                this.addToSpawnQueue({role: 'mineralHarvester', targetID: source.id, targetRoom: source.room.name});
+            }
 
-                if(mineral.container)
+            if(this.mineral.container)
+            {
+                if((mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
                 {
-                    if((mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
-                    {
-                        this.addToSpawnQueue({role: 'containerTransport', targetID: mineral.container.id, homeRoom: this.name});
-                    }
+                    this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
                 }
             }
         }
