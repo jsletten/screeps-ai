@@ -184,18 +184,21 @@ Room.prototype.executeLinks =
             }
         }
 
-        if(this.mineral.extractor && this.mineral.ticksToRegeneration == undefined)
+        if(this.mineral)
         {
-            if(!this.mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
+            if(this.mineral.extractor && this.mineral.ticksToRegeneration == undefined)
             {
-                this.addToSpawnQueue({role: 'mineralHarvester', targetID: source.id, targetRoom: source.room.name});
-            }
-
-            if(this.mineral.container)
-            {
-                if((mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+                if(!this.mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
                 {
-                    this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
+                    this.addToSpawnQueue({role: 'mineralHarvester', targetID: source.id, targetRoom: source.room.name});
+                }
+
+                if(this.mineral.container)
+                {
+                    if((mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+                    {
+                        this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
+                    }
                 }
             }
         }
