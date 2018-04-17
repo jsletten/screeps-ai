@@ -6,7 +6,7 @@ module.exports = {
 
         //1x CARRY - 1X MOVE
         numberOfParts = Math.floor(maxEnergy / 330) * 4;
-        numberOfParts = Math.min(numberOfParts, 16); // limit guard size for now
+        numberOfParts = Math.min(numberOfParts, 48); // limit guard size for now
 
         
         for (let i = 0; i < numberOfParts/4; i++)
