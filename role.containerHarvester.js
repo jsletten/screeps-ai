@@ -48,8 +48,8 @@ module.exports = {
                     }
                     else
                     {
-                        creep.say('Harvesting: ' + creep.harvest(target));
-                        
+                        console.log('Harvesting: ' + creep.harvest(target));
+
                         for(const resourceType in creep.carry) {
                             creep.transfer(container, resourceType);
                         }
