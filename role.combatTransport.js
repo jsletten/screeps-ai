@@ -17,7 +17,7 @@ module.exports = {
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(_.sum((creep.carry) < creep.carryCapacity) && (creep.room.name != creep.memory.homeRoom))
+        if((_.sum(creep.carry) < creep.carryCapacity) && (creep.room.name != creep.memory.homeRoom))
         {
             //Find Energy to withdraw
             let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
