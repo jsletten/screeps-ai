@@ -9,7 +9,7 @@ module.exports = {
 
         //1x HEAL - 1X MOVE
         numberOfParts = Math.floor(maxEnergy / 310) * 3;
-        //numberOfParts = Math.min(numberOfParts, 4); // limit healer size for now
+        numberOfParts = Math.min(numberOfParts, 48); // limit healer size for now
 
         for (let i = 0; i < numberOfParts/3; i++)
         {
