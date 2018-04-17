@@ -92,9 +92,9 @@ module.exports.loop = function () {
         }
     }
 
-    if(Game.flags.dismantleWall && Globals.creepCountByRole('wallDismantler') < 3)
+    if(Game.flags.dismantleWall && (Globals.creepCountByRole('wallDismantler') + remoteSpawn.room.spawnQueueCount('wallDismantler') < 3))
     {
-        Globals.roles['wallDismantler'].spawnCreep(remoteSpawn);
+        remoteSpawn.room.addToSpawnQueue({role: 'wallDismantler', homeRoom: remoteSpawn.room.name});
     }
 
     let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');

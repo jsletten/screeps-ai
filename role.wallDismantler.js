@@ -19,6 +19,21 @@ module.exports = {
         let result = spawn.spawnCreep(body, 'WD-' + Game.time, {memory: memory});
         console.log('Spawning new wallDismantler(' + numberOfParts + '): ' + result);
     },
+
+    buildBody: function(maxEnergy)
+    {
+        let body = [];
+        let numberOfParts = Math.floor(maxEnergy / 150) * 2;
+        numberOfParts = Math.min(numberOfParts, 50); 
+
+        for (let i = 0; i < numberOfParts/2; i++)
+        {
+            body.push(WORK);
+            body.push(MOVE);
+        }
+
+        return body;
+    },
     
     /** @param {Creep} creep **/
     run: function(creep) {
