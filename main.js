@@ -149,7 +149,7 @@ module.exports.loop = function () {
     {
         let room = Game.rooms[roomName];
         
-        if(room.controller.my)
+        if(room.controller && room.controller.my)
         {      
             room.executeLinks();
             room.executeDefenses();
