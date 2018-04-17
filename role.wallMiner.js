@@ -11,6 +11,7 @@ module.exports = {
         body.push(MOVE);
         
         numberOfParts = Math.floor(maxEnergy / 160) * 3;
+        numberOfParts = Math.min(numberOfParts, 45); // limit healer size for now
 
         for (let i = 0; i < numberOfParts/3; i++)
         {
