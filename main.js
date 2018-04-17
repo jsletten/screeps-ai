@@ -82,13 +82,13 @@ module.exports.loop = function () {
 
     if(Game.flags.attackWall && Globals.creepCountByRole('wallMiner') < 3)
     {
-        Globals.roles['wallMiner'].spawnCreep(Game.spawns['Spawn2']);
+        Globals.roles['wallMiner'].spawnCreep(remoteSpawn);
 
         let targetRoom = Game.flags.attackWall.pos.roomName;
 
-        if(Globals.creepCountByRole('healer', targetRoom) < 2)
+        if(Globals.creepCountByRole('healer', targetRoom) < 1)
         {
-            Globals.roles['healer'].spawnCreep(Game.spawns['Spawn2'], targetRoom)
+            Globals.roles['healer'].spawnCreep(remoteSpawn, targetRoom)
         }
     }
     let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
