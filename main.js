@@ -107,7 +107,7 @@ module.exports.loop = function () {
     //Settle a new colony!
     let path = [];
     path.push({x:12,y:43,roomName:'E32N14'});
-    path.push({x:4,y:38,roomName:'E32N15'});
+    path.push({x:2,y:25,roomName:'E32N15'});
     path.push({x:47,y:24,roomName:'E31N15'});
     path.push({x:45,y:45,roomName:'E30N15'});
     path.push({x:30,y:45,roomName:'E30N14'});
@@ -115,16 +115,16 @@ module.exports.loop = function () {
     path.push({x:20,y:45,roomName:'E30N12'});
     path.push({x:20,y:45,roomName:'E30N11'});
     path.push({x:20,y:45,roomName:'E30N10'});
-    path.push({x:20,y:45,roomName:'E30N09'});
-    path.push({x:20,y:45,roomName:'E30N08'});
-    path.push({x:20,y:45,roomName:'E30N07'});
-    path.push({x:20,y:45,roomName:'E30N06'});
-    path.push({x:33,y:33,roomName:'E29N06'});
-    path.push({x:45,y:34,roomName:'E28N06'});
-    path.push({x:20,y:45,roomName:'E28N07'});
-    path.push({x:5,y:45,roomName:'E27N07'});
-    path.push({x:11,y:22,roomName:'E26N07'});
-    path.push({x:45,y:22,roomName:'E25N07'});
+    path.push({x:20,y:45,roomName:'E30N9'});
+    path.push({x:20,y:45,roomName:'E30N8'});
+    path.push({x:20,y:45,roomName:'E30N7'});
+    path.push({x:20,y:45,roomName:'E30N6'});
+    path.push({x:33,y:33,roomName:'E29N6'});
+    path.push({x:45,y:34,roomName:'E28N6'});
+    path.push({x:20,y:45,roomName:'E28N7'});
+    path.push({x:5,y:45,roomName:'E27N7'});
+    path.push({x:11,y:22,roomName:'E26N7'});
+    path.push({x:45,y:22,roomName:'E25NS7'});
 
     if(Game.flags.settlerFlag && (Globals.creepCountByRole('settler') + remoteSpawn.room.spawnQueueCount('settler') < 1))
     {
