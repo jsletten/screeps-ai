@@ -14,7 +14,7 @@ var roleTower = {
                         tower.attack(closestHostile);
                     }
                     else {
-                        var damagedCreeps = tower.room.find(FIND_MY_CREEPS, {filter: object => object.hits < object.hitsMax});
+                        var damagedCreeps = tower.room.find(FIND_MY_CREEPS, {filter: object => object.hits < object.hitsMax && object.memory.role != 'tank'});
                         damagedCreeps.sort((a,b) => a.hits - b.hits);
 
                         if(damagedCreeps.length > 0) {
