@@ -16,7 +16,9 @@ module.exports = {
         fixer: require('role.fixer'),
         linkHarvester: require('role.linkHarvester'),
         linkUnloader: require('role.linkUnloader'),
-        tank: require('role.tank')
+        tank: require('role.tank'),
+        settler: require('role.settler'),
+        remoteClaimer: require('role.remoteClaimer')
     },
     
     creepsByRole: function(role, targetRoom = null)
