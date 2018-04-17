@@ -68,7 +68,7 @@ module.exports.loop = function () {
         //TODO need to check for controller incase flag exists but no visibility to room
         if(Game.flags.reserveFlag)
         {
-            if(Game.flags.reserveFlag.room.controller.reservation && Game.flags.reserveFlag.room.controller.reservation.ticksToEnd > 2000)
+            if(creep.room.controller.owner == undefined && Game.flags.reserveFlag.room.controller.reservation && Game.flags.reserveFlag.room.controller.reservation.ticksToEnd > 2000)
             {
                 spawnClaimer = false;
             }
