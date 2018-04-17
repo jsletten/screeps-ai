@@ -33,6 +33,10 @@ module.exports.loop = function () {
         {
             remoteSpawn.room.addToSpawnQueue({role: 'guard', targetRoom: targetRoom});
         }
+        if(Globals.creepCountByRole('healer', targetRoom) < 2)
+        {
+            Globals.roles['healer'].spawnCreep(remoteSpawn, targetRoom)
+        }
 
         if(Globals.creepCountByRole('fixer', targetRoom) < 1)
         {
