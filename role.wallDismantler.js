@@ -44,11 +44,20 @@ module.exports = {
         }
         else
         {
+            let target;
             var found = Game.flags.dismantleWall.pos.lookFor(LOOK_STRUCTURES);
             if(found.length) 
             {
-                if(creep.dismantle(found[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(found[0]);
+                target = found[0];
+            }
+            else{
+                target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES)
+            }
+
+            if(target)
+            {
+                if(creep.dismantle(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
                 }
                 creep.say('Knock!');
             }
