@@ -67,6 +67,7 @@ module.exports = {
             }
             else
             {
+                console.log('Go to work!');
                 // find exit to target room
                 let exit = creep.room.findExitTo(creep.memory.targetRoom);
                 // move to exit
@@ -77,6 +78,7 @@ module.exports = {
         else {
             if(creep.room.name != creep.memory.homeRoom)
             {
+                console.log('Go Home!');
                 // find exit to target room
                 let exit = creep.room.findExitTo(creep.memory.homeRoom);
                 // move to exit
