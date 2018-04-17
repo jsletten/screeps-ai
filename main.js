@@ -64,7 +64,7 @@ module.exports.loop = function () {
         {
             remoteSpawn.room.addToSpawnQueue({role: 'guard', targetRoom: targetRoom});
         }
-        if(Globals.creepCountByRole('healer', targetRoom) < 2)
+        if(Globals.creepCountByRole('healer', targetRoom) < 1)
         {
             Globals.roles['healer'].spawnCreep(remoteSpawn, targetRoom)
         }
@@ -101,15 +101,16 @@ module.exports.loop = function () {
         }
     }
 
-    // if(Game.flags.dismantleWall && (Globals.creepCountByRole('wallDismantler') + remoteSpawn.room.spawnQueueCount('wallDismantler') < 3))
-    // {
-    //     remoteSpawn.room.addToSpawnQueue({role: 'wallDismantler', homeRoom: remoteSpawn.room.name});
-    // }
+    let dismantleWallSpawn = Game.spawns['Spawn4'];
+    if(Game.flags.dismantleWall && (Globals.creepCountByRole('wallDismantler') + dismantleWallSpawn.room.spawnQueueCount('wallDismantler') < 3))
+    {
+        dismantleWallSpawn.room.addToSpawnQueue({role: 'wallDismantler', homeRoom: dismantleWallSpawn.room.name});
+    }
 
-    // if(Game.flags.dismantleWall && (Globals.creepCountByRole('combatTransport') + remoteSpawn.room.spawnQueueCount('combatTransport') < 3))
-    // {
-    //     remoteSpawn.room.addToSpawnQueue({role: 'combatTransport', homeRoom: remoteSpawn.room.name, targetRoom: Game.flags.dismantleWall.pos.roomName});
-    // }
+    if(Game.flags.dismantleWall && (Globals.creepCountByRole('combatTransport') + dismantleWallSpawn.room.spawnQueueCount('combatTransport') < 1))
+    {
+        dismantleWallSpawn.room.addToSpawnQueue({role: 'combatTransport', homeRoom: dismantleWallSpawn.room.name, targetRoom: Game.flags.dismantleWall.pos.roomName});
+    }
 
     let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
     //TODO: Fix this to add spawnCreep request to global queue instead of hard coding to one room
