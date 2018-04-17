@@ -36,7 +36,7 @@ module.exports.loop = function () {
 
         if(Globals.creepCountByRole('fixer', targetRoom) < 1)
         {
-            //Globals.roles['fixer'].spawnCreep(remoteSpawn, targetRoom)
+            Globals.roles['fixer'].spawnCreep(remoteSpawn, targetRoom)
         }
 
         if(Game.flags.mineFlag1.room)
