@@ -65,6 +65,22 @@ module.exports.loop = function () {
         }
     }
 
+    if(Game.flags.defendRoom)
+    {
+        let targetRoom = Game.flags.defendRoom.pos.roomName;
+        let queuedGuardCount = remoteSpawn.room.spawnQueueCount('guard');
+
+
+        if((Globals.creepCountByRole('guard', targetRoom) + queuedGuardCount) < 2)
+        {
+            remoteSpawn.room.addToSpawnQueue({role: 'guard', targetRoom: targetRoom});
+        }
+        if(Globals.creepCountByRole('healer', targetRoom) < 2)
+        {
+            Globals.roles['healer'].spawnCreep(remoteSpawn, targetRoom)
+        }
+    }
+
     if((Game.flags.claimFlag || Game.flags.reserveFlag) && Globals.creepCountByRole('claimer') < 1)
     {
         let spawnClaimer = true;
