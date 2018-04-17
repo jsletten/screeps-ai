@@ -17,6 +17,21 @@ var roleClaimer = {
         console.log('Spawning new Claimer(' + numberOfParts + ')');
         return;
     },
+
+    buildBody: function(maxEnergy)
+    {
+        let body = [];
+        let numberOfParts = Math.floor(maxEnergy /650) * 2;
+        numberOfParts = Math.min(numberOfParts, 50);
+
+        for (let i = 0; i < numberOfParts/2; i++)
+        {
+            body.push(CLAIM);
+            body.push(MOVE);
+        }
+
+        return body;
+    },
     
     /** @param {Creep} creep **/
     run: function(creep) 
