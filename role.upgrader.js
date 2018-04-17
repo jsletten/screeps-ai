@@ -33,7 +33,7 @@ module.exports = {
         if(creep.carry.energy == 0) 
         {    
             let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 50)}});            
+                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 100)}});            
             
             if(!target)
             {
