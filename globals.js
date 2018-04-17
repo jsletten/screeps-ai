@@ -19,7 +19,8 @@ module.exports = {
         tank: require('role.tank'),
         settler: require('role.settler'),
         remoteClaimer: require('role.remoteClaimer'),
-        wallDismantler: require('role.wallDismantler')
+        wallDismantler: require('role.wallDismantler'),
+        combatTransport: require('role.combatTransport')
     },
     
     creepsByRole: function(role, targetRoom = null)
