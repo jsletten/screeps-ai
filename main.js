@@ -26,17 +26,6 @@ module.exports.loop = function () {
     if(Game.flags.mineFlag1)
     {
         let targetRoom = Game.flags.mineFlag1.pos.roomName;
-        let queuedGuardCount = remoteSpawn.room.spawnQueueCount('guard');
-
-
-        if((Globals.creepCountByRole('guard', targetRoom) + queuedGuardCount) < 2)
-        {
-            remoteSpawn.room.addToSpawnQueue({role: 'guard', targetRoom: targetRoom});
-        }
-        if(Globals.creepCountByRole('healer', targetRoom) < 2)
-        {
-            Globals.roles['healer'].spawnCreep(remoteSpawn, targetRoom)
-        }
 
         if(Globals.creepCountByRole('fixer', targetRoom) < 1)
         {
