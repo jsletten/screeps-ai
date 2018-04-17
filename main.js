@@ -97,7 +97,7 @@ module.exports.loop = function () {
         remoteSpawn.room.addToSpawnQueue({role: 'wallDismantler', homeRoom: remoteSpawn.room.name});
     }
 
-    if(Game.flags.dismantleWall && (Globals.creepCountByRole('combatTransport') + remoteSpawn.room.spawnQueueCount('combatTransport') < 1))
+    if(Game.flags.dismantleWall && (Globals.creepCountByRole('combatTransport') + remoteSpawn.room.spawnQueueCount('combatTransport') < 3))
     {
         remoteSpawn.room.addToSpawnQueue({role: 'combatTransport', homeRoom: remoteSpawn.room.name, targetRoom: Game.flags.dismantleWall.pos.roomName});
     }
