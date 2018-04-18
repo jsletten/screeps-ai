@@ -22,7 +22,7 @@ module.exports = {
             //Find Energy to withdraw
             let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                 return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && _.sum(structure.store) > 0)}});            
-            console.log('Target Found! ' + target.id);
+                
             if(target)
             {
                 for(resourceType in target.store) 
