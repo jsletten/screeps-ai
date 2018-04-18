@@ -28,8 +28,7 @@ module.exports = {
             if(creep.carry[RESOURCE_ENERGY]  == 0) 
             {
                 //FILL AT CONTAINER
-                let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] > 0))}});            
+                let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] > 0))});            
                 
                 if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
@@ -37,9 +36,9 @@ module.exports = {
             }
             else
             {
-                let  targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+                let  targets = creep.room.find(FIND_CONSTRUCTION_SITES, {filter: object => object.owner == undefined});
 
-                if(targets.length > 0 && targets[0].owner  == undefined) {
+                if(targets.length > 0) {
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                     }
@@ -47,8 +46,7 @@ module.exports = {
                 else
                 {
                     //Fix closest damaged structure
-                    let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => {
-                        return ((object.hits < object.hitsMax) && (object.hits < 500000))}});
+                    let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => ((object.hits < object.hitsMax) && (object.hits < 500000))});
                 
                     if(target)
                     {
