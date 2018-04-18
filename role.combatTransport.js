@@ -22,7 +22,7 @@ module.exports = {
             //Find Energy to withdraw
             let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                 return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && _.sum(structure.store) > 0)}});            
-                
+
             if(target)
             {
                 for(resourceType in target.store) 
@@ -35,9 +35,11 @@ module.exports = {
             else
             {
                 //Act as Cleaner
-                target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+                resources = creep.room.find(FIND_DROPPED_RESOURCES);
 
-                if(target) {
+                if(resources.length > 0) {
+                    resources = resources.sort(function(a, b){return b - a});
+                    target = resources[0];
                     creep.say('Resource!');
                     if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target);
