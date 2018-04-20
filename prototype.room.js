@@ -136,12 +136,12 @@ Room.prototype.executeLinks =
 
             if(this.storage.link && (this.creepCountByRole('linkUnloader') + this.spawnQueueCount('linkUnloader')) < 1)
             {
-                this.addToSpawnQueue({role: 'linkUnloader'});
+                this.addToSpawnQueue({role: 'linkUnloader'}, true);
             }
 
             if((this.creepCountByRole('storageManager') + this.spawnQueueCount('storageManager')) < 1)
             {
-                this.addToSpawnQueue({role: 'storageManager'});
+                this.addToSpawnQueue({role: 'storageManager'}, true);
             }
         }
         else
@@ -204,10 +204,18 @@ Room.prototype.executeLinks =
     };
 
     Room.prototype.addToSpawnQueue = 
-    function (creepMemory)
+    function (creepMemory, spawnNext = false)
     {
         this.memory.spawnQueue = this.memory.spawnQueue || [];
-        this.memory.spawnQueue.push(creepMemory);
+
+        if(spawnNext)
+        {
+            this.memory.spawnQueue.unshift(creepMemory);
+        }
+        else
+        {
+            this.memory.spawnQueue.push(creepMemory);
+        }
     };
 
     Room.prototype.executeSpawns = 
@@ -218,7 +226,7 @@ Room.prototype.executeLinks =
         {
             let spawn = this.spawns[name];
             
-            console.log('RoomBasedSpawn:' + this.spawns[name].name);
+            console.log('RoomBasedSpawn:' + this.spawns[name].name + this.memory.spawnQueue.length);
         
             spawn.spawnNextInQueue();
         }
