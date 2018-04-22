@@ -35,6 +35,7 @@ module.exports = {
                         {
                             creep.moveTo(creep.room.controller);
                         }
+                        creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.")
                     }
                     else if(!creep.room.controller.my) 
                     {
