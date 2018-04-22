@@ -164,14 +164,14 @@ Room.prototype.executeLinks =
             {
                 if(!source.harvester && this.spawnQueueCount('linkHarvester') < 1)
                 {
-                    this.addToSpawnQueue({role: 'linkHarvester', targetID: source.id, targetRoom: source.room.name});
+                    this.addToSpawnQueue({role: 'linkHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                 }
             }
             else
             {
                 if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
                 {
-                    this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
+                    this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                 }
 
                 if(source.container)
