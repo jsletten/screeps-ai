@@ -44,11 +44,11 @@ module.exports = {
                         }
                     }
                 }
-            }
-            else
-            {
-                console.log('remoteClaimer(' + creep.name + ') using fallback movement...')
-                creep.moveTo(Game.flags.claimFlag);
+                else
+                {
+                    console.log('remoteClaimer(' + creep.name + ') using fallback movement...')
+                    creep.moveTo(Game.flags.remoteClaimFlag);
+                }
             }
         }
     }
