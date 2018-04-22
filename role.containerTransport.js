@@ -56,7 +56,7 @@ module.exports = {
                 creep.suicide();
             }
 
-            let target = Game.getObjectById(creep.memory.targetID);
+            let target = Game.getObjectById(creep.memory.containerID);
                  
             if(target && _.sum(target.store) < 100)
             {
