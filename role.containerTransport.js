@@ -110,7 +110,7 @@ module.exports = {
                 
                 if(_.sum(creep.carry) == creep.carry[RESOURCE_ENERGY]) //Only energy so deposit anywhere
                 {
-                    target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (structure) => { 
+                    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
                         return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))
                             || (structure.structureType == STRUCTURE_STORAGE))}}); 
                 }
