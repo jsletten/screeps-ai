@@ -57,7 +57,7 @@ Object.defineProperty(Room.prototype, 'containers', {
 Object.defineProperty(Room.prototype, 'spawns', {
     get: function() {
         if (!this._spawns) {
-            this._spawns = this.find(FIND_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) }});
+            this._spawns = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN) }});
         }
         return this._spawns;
     },
@@ -178,7 +178,7 @@ Room.prototype.executeLinks =
                 {
                     if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
                     {
-                        this.addToSpawnQueue({role: 'containerTransport', containerID: source.container.id, homeRoom: this.name});
+                        this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name});
                     }
                 }  
             }
