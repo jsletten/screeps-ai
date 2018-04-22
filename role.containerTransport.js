@@ -85,7 +85,7 @@ module.exports = {
                     }
                 }
             }
-            else
+            else if(target)
             {
                 //Get resources from container
                 for(resourceType in target.store) 
