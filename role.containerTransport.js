@@ -58,7 +58,7 @@ module.exports = {
 
             let target = Game.getObjectById(creep.memory.targetID);
                  
-            if(_.sum(target.store) < 100)
+            if(target && _.sum(target.store) < 100)
             {
                 //Act as Cleaner
                 target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
