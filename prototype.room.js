@@ -149,9 +149,9 @@ Room.prototype.executeLinks =
                 let spawnTerminalHauler = false;
                 for(resourceType in this.storage) 
                 {
-                    if(this.terminal.store[resourceType] < 5000)
+                    resourceAmount = this.terminal.store[resourceType] || 0;
+                    if(resourceAmount < 5000)
                     {
-                        console.log('resourceType: ' + resourceType);
                         spawnTerminalHauler = true;
                     }
                 }

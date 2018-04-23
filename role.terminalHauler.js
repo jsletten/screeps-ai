@@ -32,7 +32,6 @@ module.exports = {
             }
             else 
             {
-
                 if(creep.transfer(terminal, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
                 {
                     creep.moveTo(terminal, {visualizePathStyle: {stroke: '#ff0000'}});
@@ -45,7 +44,8 @@ module.exports = {
             {
                 for(resourceType in creep.room.storage) 
                 {
-                    if(terminal.store[resourceType] < 5000)
+                    resourceAmount = creep.room.terminal[resourceType] || 0;
+                    if(resourceAmount < 5000)
                     {
                         if(creep.withdraw(creep.room.storage, resourceType) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(creep.room.storage);
