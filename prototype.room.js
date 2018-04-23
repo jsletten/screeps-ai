@@ -151,6 +151,7 @@ Room.prototype.executeLinks =
                 {
                     if(this.terminal.store[resourceType] < 5000)
                     {
+                        console.log('resourceType: ' + resourceType);
                         spawnTerminalHauler = true;
                     }
                 }
