@@ -1,18 +1,24 @@
-var terminalHauler = {
-    
-    spawnCreep: function(allowSpawning) {
-        if(allowSpawning) {
-            var newName = Game.spawns['Spawn1'].createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE], undefined, {role: 'terminalHauler'});
-            console.log('Spawning new bigHarvester: ' + newName);
-            return newName;
+module.exports = {
+    buildBody: function(maxEnergy) 
+    {
+        maxEnergy = Math.min(maxEnergy, 900);
+        let body = [];
+        let numberOfParts = Math.floor(maxEnergy / 150) * 3;
+
+        //1 MOVE part for every 2 CARRY parts
+        for (let i = 0; i < ((numberOfParts/3)*2); i++) {
+            body.push(CARRY);
         }
+        for (let i = 0; i < (numberOfParts/3); i++) {
+            body.push(MOVE);
+        }
+        return body;
     },
-    
     /** @param {Creep} creep **/
     run: function(creep) {
         
         var terminal = creep.room.terminal;
-        if(terminal.store[RESOURCE_ENERGY] < 100000) // Make sure Terminal has enough energy to trade resources
+        if(terminal.store[RESOURCE_ENERGY] < 50000) // Make sure Terminal has enough energy to trade resources
         {
             if(_.sum(creep.carry) == 0) 
             {
@@ -33,27 +39,29 @@ var terminalHauler = {
                 }
             }
         }
-        else //Transfer minerals for sale.  Currently hard coded to RESOURCE_CATALYST
+        else //Transfer 5000 of each mineral to terminal
         {
             if(_.sum(creep.carry) == 0) 
             {
-               var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_STORAGE ) && (structure.store[RESOURCE_CATALYST] > 0)) });   
-                        
-                if(creep.withdraw(target, RESOURCE_CATALYST) == ERR_NOT_IN_RANGE) 
+                for(resourceType in creep.room.storage) 
                 {
-                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-                }
-                
+                    if(terminal.store[resourceType] < 5000)
+                    {
+                        if(creep.withdraw(creep.room.storage, resourceType) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(creep.room.storage);
+                        }
+                    }
+                }               
             }
             else 
             {
-                if(creep.transfer(terminal, RESOURCE_CATALYST) == ERR_NOT_IN_RANGE) 
+                for(resourceType in creep.carry) 
                 {
-                    creep.moveTo(terminal, {visualizePathStyle: {stroke: '#ff0000'}});
+                    if(creep.transfer(terminal, resourceType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(terminal);
+                    }
                 }
             }
         }
     }
 };
-
-module.exports = terminalHauler;

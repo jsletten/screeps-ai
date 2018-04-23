@@ -143,6 +143,23 @@ Room.prototype.executeLinks =
             {
                 this.addToSpawnQueue({role: 'storageManager'}, true);
             }
+
+            if((this.creepCountByRole('terminalHauler') + this.spawnQueueCount('terminalHauler')) < 1)
+            {
+                let spawnTerminalHauler = false;
+                for(resourceType in creep.room.storage) 
+                {
+                    if(terminal.store[resourceType] < 5000)
+                    {
+                        spawnTerminalHauler = true;
+                    }
+                }
+
+                if(spawnTerminalHauler)
+                {
+                    this.addToSpawnQueue({role: 'terminalHauler'});
+                }
+            }
         }
         else
         {
