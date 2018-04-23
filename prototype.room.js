@@ -147,9 +147,9 @@ Room.prototype.executeLinks =
             if((this.creepCountByRole('terminalHauler') + this.spawnQueueCount('terminalHauler')) < 1)
             {
                 let spawnTerminalHauler = false;
-                for(resourceType in creep.room.storage) 
+                for(resourceType in this.storage) 
                 {
-                    if(terminal.store[resourceType] < 5000)
+                    if(this.terminal.store[resourceType] < 5000)
                     {
                         spawnTerminalHauler = true;
                     }
