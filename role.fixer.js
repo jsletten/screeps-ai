@@ -46,7 +46,7 @@ module.exports = {
                 else
                 {
                     //Fix closest damaged structure
-                    let target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: object => ((object.hits < object.hitsMax) && (object.hits < 500000))});
+                    let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => ((object.hits < object.hitsMax) && (object.hits < 500000))});
                 
                     if(target)
                     {
