@@ -53,6 +53,7 @@ var roleClaimer = {
                         creep.moveTo(creep.room.controller);
                     }
                 }
+                creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.")
             }
             else
             {
@@ -75,6 +76,7 @@ var roleClaimer = {
                         creep.moveTo(creep.room.controller);
                     }
                 }
+                creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.")
             }
             else
             {
