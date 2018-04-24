@@ -2,13 +2,17 @@ module.exports = {
     buildBody: function(maxEnergy)
     {
         let body = [];
-        maxEnergy -= 100; //reserve energy for CARRY/MOVE
+        maxEnergy -= 300; //reserve energy for CARRY/MOVE
         body.push(CARRY);
         body.push(CARRY);
+        body.push(CARRY);
+        body.push(CARRY);
+        body.push(MOVE);
+        body.push(MOVE);
 
         //2x WORK - 1x MOVE
         let numberOfParts = Math.floor(maxEnergy / 150) * 2;
-        numberOfParts = Math.min(numberOfParts, 48); //creeps can't exceed 50 parts
+        numberOfParts = Math.min(numberOfParts, 44); //creeps can't exceed 50 parts
 
         for (let i = 0; i < numberOfParts/2; i++)
         {
