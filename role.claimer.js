@@ -6,6 +6,7 @@ var roleClaimer = {
         let maxEnergy = spawn.room.energyCapacityAvailable;
         //1x CLAIM - 1X MOVE
         let numberOfParts = Math.floor(maxEnergy /650) * 2;
+        numberOfParts = Math.min(numberOfParts, 10)
 
         for (let i = 0; i < numberOfParts/2; i++)
         {
