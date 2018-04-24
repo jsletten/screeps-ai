@@ -42,7 +42,7 @@ module.exports = {
         {
             if(_.sum(creep.carry) == 0) 
             {
-                for(resourceType in creep.room.storage) 
+                for(resourceType in creep.room.storage.store) 
                 {
                     resourceAmount = terminal.store[resourceType] || 0;
                     if(resourceAmount < 5000)
