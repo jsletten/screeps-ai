@@ -13,6 +13,18 @@ module.exports = {
         
         return;
     },
+
+    buildBody: function(maxEnergy) 
+    {
+        let body = [];
+ 
+        body.push(WORK);
+        body.push(CARRY);
+        body.push(MOVE);
+        body.push(MOVE);
+
+        return body;
+    },
     
     /** @param {Creep} creep **/
     run: function(creep) 
