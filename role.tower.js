@@ -25,7 +25,7 @@ var roleTower = {
                             damagedStructures.sort((a,b) => a.hits - b.hits);
                 
                             if(damagedStructures.length > 0) {
-                                if(damagedStructures[0].hits < 500000) {
+                                if(damagedStructures[0].hits < tower.room.controller.level * 100000) {
                                     tower.repair(damagedStructures[0]);
                                 }
                             }
