@@ -57,8 +57,13 @@ module.exports = {
                 }
                 else
                 {
+                    let maxRepairAmount = 100000;
+                    if(creep.room.controller)
+                    {
+                        maxRepairAmount = maxRepairAmount * creep.room.controller.level;
+                    }
                     //Fix closest damaged structure
-                    let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => ((object.hits < object.hitsMax) && (object.hits < 500000))});
+                    let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => ((object.hits < object.hitsMax) && (object.hits < maxRepairAmount))});
                 
                     if(target)
                     {
