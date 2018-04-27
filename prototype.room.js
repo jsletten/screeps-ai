@@ -144,7 +144,7 @@ Room.prototype.executeLinks =
                 this.addToSpawnQueue({role: 'storageManager'}, true);
             }
 
-            if((this.creepCountByRole('terminalHauler') + this.spawnQueueCount('terminalHauler')) < 1)
+            if(this.terminal && ((this.creepCountByRole('terminalHauler') + this.spawnQueueCount('terminalHauler')) < 1))
             {
                 let spawnTerminalHauler = false;
                 for(resourceType in this.storage) 
