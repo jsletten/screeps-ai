@@ -21,7 +21,7 @@ var roleTower = {
                             tower.heal(damagedCreeps[0]);
                         }
                         else {
-                            if(tower.room != 'E29N9')
+                            if(tower.room.name != 'E29N9')
                             {
                                 var damagedStructures = tower.room.find(FIND_STRUCTURES, {filter: object => object.hits < object.hitsMax});
                                 damagedStructures.sort((a,b) => a.hits - b.hits);
