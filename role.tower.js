@@ -1,35 +1,32 @@
-var roleTower = {
+module.exports = {
     
     run: function() {
-        var towers = _.filter(Game.structures, s => s.structureType == STRUCTURE_TOWER);
+        let towers = _.filter(Game.structures, s => s.structureType == STRUCTURE_TOWER);
 
         for(towerID in towers)
         {
-            var tower = towers[towerID];
+            let tower = towers[towerID];
         
             if(tower) {
                 if(tower.energy > 0) {
-                    var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+                    let closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
                     if(closestHostile) {
                         tower.attack(closestHostile);
                     }
                     else {
-                        var damagedCreeps = tower.room.find(FIND_MY_CREEPS, {filter: object => object.hits < object.hitsMax && object.memory.role != 'tank'});
+                        let damagedCreeps = tower.room.find(FIND_MY_CREEPS, {filter: object => object.hits < object.hitsMax && object.memory.role != 'tank'});
                         damagedCreeps.sort((a,b) => a.hits - b.hits);
 
                         if(damagedCreeps.length > 0) {
                             tower.heal(damagedCreeps[0]);
                         }
                         else {
-                            if(tower.room.name != 'E29N9')
-                            {
-                                var damagedStructures = tower.room.find(FIND_STRUCTURES, {filter: object => object.hits < object.hitsMax});
-                                damagedStructures.sort((a,b) => a.hits - b.hits);
-                    
-                                if(damagedStructures.length > 0) {
-                                    if(damagedStructures[0].hits < tower.room.controller.level * 100000) {
-                                        tower.repair(damagedStructures[0]);
-                                    }
+                            let damagedStructures = tower.room.find(FIND_STRUCTURES, {filter: object => object.hits < object.hitsMax});
+                            damagedStructures.sort((a,b) => a.hits - b.hits);
+                
+                            if(damagedStructures.length > 0) {
+                                if(damagedStructures[0].hits < tower.room.controller.level * 100000) {
+                                    tower.repair(damagedStructures[0]);
                                 }
                             }
                         }
@@ -38,6 +35,5 @@ var roleTower = {
             }
         }
     }
-}
+};
 
-module.exports = roleTower;
