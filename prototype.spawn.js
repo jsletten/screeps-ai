@@ -12,7 +12,14 @@ function ()
         let spawnEnergy = this.room.energyCapacityAvailable;
         if(creepMemory.role == 'storageManager' || creepMemory.role == 'containerHarvester' || creepMemory.role == 'containerTransport' || creepMemory.role == 'linkHarvester')
         {
-            spawnEnergy = this.room.energyAvailable;
+            if(this.room.energyAvailable < 200)
+            {
+                spawnEnergy = 200;
+            }
+            else
+            {
+                spawnEnergy = this.room.energyAvailable;
+            }
         }
 
         let body = Globals.roles[creepMemory.role].buildBody(spawnEnergy);
