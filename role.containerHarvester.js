@@ -2,23 +2,32 @@ module.exports = {
     buildBody: function(maxEnergy) 
     {
         let body = [];
-        maxEnergy = Math.min(maxEnergy, 1050);
-        maxEnergy = maxEnergy -50; //Account for single CARRY part.
-        let numberOfParts = Math.floor(maxEnergy / 250) * 3;
         
-        // make sure the creep is not too big
-        numberOfParts = Math.min(numberOfParts, 48);
-
-        //1 MOVE part for every 2 WORK parts
-        for (let i = 0; i < ((numberOfParts/3)*2); i++) {
-            body.push(WORK);
-        }
-        for (let i = 0; i < (numberOfParts/3); i++) {
-            body.push(MOVE);
-        }
-
         //Add the single CARRY part
         body.push(CARRY);
+        
+        if(maxEnergy < 300)
+        {
+            body.push(WORK);
+            body.push(MOVE);
+        }
+        else
+        {
+            maxEnergy = Math.min(maxEnergy, 1050);
+            maxEnergy = maxEnergy -50; //Account for single CARRY part.
+            let numberOfParts = Math.floor(maxEnergy / 250) * 3;
+            
+            // make sure the creep is not too big
+            numberOfParts = Math.min(numberOfParts, 48);
+
+            //1 MOVE part for every 2 WORK parts
+            for (let i = 0; i < ((numberOfParts/3)*2); i++) {
+                body.push(WORK);
+            }
+            for (let i = 0; i < (numberOfParts/3); i++) {
+                body.push(MOVE);
+            }
+        }
         
         return body;
     },
