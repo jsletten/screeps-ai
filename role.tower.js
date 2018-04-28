@@ -21,12 +21,15 @@ var roleTower = {
                             tower.heal(damagedCreeps[0]);
                         }
                         else {
-                            var damagedStructures = tower.room.find(FIND_STRUCTURES, {filter: object => object.hits < object.hitsMax});
-                            damagedStructures.sort((a,b) => a.hits - b.hits);
-                
-                            if(damagedStructures.length > 0) {
-                                if(damagedStructures[0].hits < tower.room.controller.level * 100000) {
-                                    tower.repair(damagedStructures[0]);
+                            if(tower.room != 'E29N9')
+                            {
+                                var damagedStructures = tower.room.find(FIND_STRUCTURES, {filter: object => object.hits < object.hitsMax});
+                                damagedStructures.sort((a,b) => a.hits - b.hits);
+                    
+                                if(damagedStructures.length > 0) {
+                                    if(damagedStructures[0].hits < tower.room.controller.level * 100000) {
+                                        tower.repair(damagedStructures[0]);
+                                    }
                                 }
                             }
                         }
