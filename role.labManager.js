@@ -29,12 +29,21 @@ module.exports = {
                     creep.moveTo(creep.room.terminal);
                 }
             }
-            else 
+            else if(creep.carry[target.memory.storeMineralType] > 0) 
             {
-                    if(creep.transfer(target, target.memory.storeMineralType) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                if(creep.transfer(target, target.memory.storeMineralType) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
+            }
+            else
+            {
+                //Empty other resources to make room for new mineral
+                for(resourceType in creep.carry) 
+                {
+                    if(creep.transfer(creep.room.terminal, resourceType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(creep.room.terminal);
                     }
-
+                }
             }
         }
         /* Fill ENERGY for LABS???
