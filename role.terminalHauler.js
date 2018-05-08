@@ -45,7 +45,7 @@ module.exports = {
                 for(resourceType in creep.room.storage.store) 
                 {
                     resourceAmount = terminal.store[resourceType] || 0;
-                    if(resourceAmount < 5000)
+                    if(resourceAmount < 6000)
                     {
                         if(creep.withdraw(creep.room.storage, resourceType) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(creep.room.storage);

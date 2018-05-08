@@ -120,10 +120,13 @@ Room.prototype.executeTerminal =
                 {      
                     for(resourceType in this.terminal.store) 
                     {
-                        let remoteResourceAmount =  room.terminal.store[resourceType] || 0;
-                        if(remoteResourceAmount < 5000)
+                        if(this.terminal.store[resourceType] > 5000)
                         {
-                            this.terminal.send(resourceType, 5000 - remoteResourceAmount, roomName);
+                            let remoteResourceAmount =  room.terminal.store[resourceType] || 0;
+                            if(remoteResourceAmount < 5000)
+                            {
+                                this.terminal.send(resourceType, 5000 - remoteResourceAmount, roomName);
+                            }
                         }
                     }  
                 }
