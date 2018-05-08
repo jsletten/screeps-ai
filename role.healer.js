@@ -28,25 +28,27 @@ module.exports = {
         if(creep.room.name != creep.memory.targetRoom)
         {
             // find exit to target room
-            var exit = creep.room.findExitTo(creep.memory.targetRoom);
+            let exit = creep.room.findExitTo(creep.memory.targetRoom);
             creep.moveTo(creep.pos.findClosestByRange(exit));
-        }
-    
-        var target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
-            filter: function(object) {
-                return object.hits < object.hitsMax;
-            }
-        });
-        
-        if(target)
-        {
-            if(creep.heal(target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target);
-            }
         }
         else
         {
-            creep.moveTo(25,25); //TODO make this smarter
+            let target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+                filter: function(object) {
+                    return object.hits < object.hitsMax;
+                }
+            });
+            
+            if(target)
+            {
+                if(creep.heal(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
+            }
+            else
+            {
+                creep.moveTo(25,25); //TODO make this smarter
+            }
         }
     }
 };
