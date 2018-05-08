@@ -169,3 +169,68 @@ Object.defineProperty(StructureExtractor.prototype, 'mineral', {
     enumerable: false,
     configurable: true
 });
+
+Object.defineProperty(StructureLab.prototype, 'memory', {
+    configurable: true,
+    get: function() {
+        if(_.isUndefined(Memory.myLabsMemory)) {
+            Memory.myLabsMemory = {};
+        }
+        if(!_.isObject(Memory.myLabsMemory)) {
+            return undefined;
+        }
+        return Memory.myLabsMemory[this.id] = 
+                Memory.myLabsMemory[this.id] || {};
+    },
+    set: function(value) {
+        if(_.isUndefined(Memory.myLabsMemory)) {
+            Memory.myLabsMemory = {};
+        }
+        if(!_.isObject(Memory.myLabsMemory)) {
+            throw new Error('Could not set source memory');
+        }
+        Memory.myLabsMemory[this.id] = value;
+    }
+});
+
+Object.defineProperty(StructureLab.prototype, 'createMineralType', {
+    get: function() 
+    {
+        if (!this._createMineralType) 
+        {
+            if (!this.memory.createMineralType) 
+            {
+                this._createMineralType = undefined;
+            }
+            else
+            {
+                this._createMineralType = this.memory.createMineralType;
+            }
+        }
+        
+        return this._createMineralType;
+    },
+    enumerable: false,
+    configurable: true
+});
+
+Object.defineProperty(StructureLab.prototype, 'storeMineralType', {
+    get: function() 
+    {
+        if (!this._storeMineralType) 
+        {
+            if (!this.memory.storeMineralType) 
+            {
+                this._storeMineralType = undefined;
+            }
+            else
+            {
+                this._storeMineralType = this.memory.storeMineralType;
+            }
+        }
+        
+        return this._storeMineralType;
+    },
+    enumerable: false,
+    configurable: true
+});

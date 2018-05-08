@@ -65,6 +65,17 @@ Object.defineProperty(Room.prototype, 'spawns', {
     configurable: true
 });
 
+Object.defineProperty(Room.prototype, 'labs', {
+    get: function() {
+        if (!this._labs) {
+            this._labs = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { return (structure.structureType == STRUCTURE_LAB) }});
+        }
+        return this._labs;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Room.prototype.spawnQueueCount =
     function (role)
     {
@@ -142,6 +153,11 @@ Room.prototype.executeLinks =
             if((this.creepCountByRole('storageManager') + this.spawnQueueCount('storageManager')) < 1)
             {
                 this.addToSpawnQueue({role: 'storageManager'}, true);
+            }
+
+            if(this.labs.length > 0 && ((this.creepCountByRole('labManager') + this.spawnQueueCount('labManager')) < 1))
+            {
+                this.addToSpawnQueue({role: 'labManager'}, true);
             }
 
             if(this.terminal && ((this.creepCountByRole('terminalHauler') + this.spawnQueueCount('terminalHauler')) < 1))
