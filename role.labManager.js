@@ -48,7 +48,7 @@ module.exports = {
         }
         else
         {
-            target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount > 100) && structure.memory.createMineralType)});
+            target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount > 0) && structure.memory.createMineralType)});
             if(target)
             {
                 if(_.sum(creep.carry)  == 0) 
