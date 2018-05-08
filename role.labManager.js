@@ -21,26 +21,22 @@ module.exports = {
     run: function(creep) {
         
         let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount < structure.mineralCapacity) && structure.memory.storeMineralType)});
-        
-        if(_.sum(creep.carry)  == 0) 
+        if(target)
         {
-            if(creep.withdraw(creep.room.terminal, target.memory.storeMineralType) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.terminal);
-            }
-        }
-        else 
-        {
-            if(target)
+            if(_.sum(creep.carry)  == 0) 
             {
-                if(creep.transfer(target, target.memory.storeMineralType) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                if(creep.withdraw(creep.room.terminal, target.memory.storeMineralType) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(creep.room.terminal);
                 }
             }
-            else if(creep.transfer(creep.room.terminal, target.memory.storeMineralType) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.terminal);
+            else 
+            {
+                    if(creep.transfer(target, target.memory.storeMineralType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
+
             }
         }
-
         /* Fill ENERGY for LABS???
         let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount < structure.mineralCapacity))});
         
