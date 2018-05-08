@@ -106,7 +106,38 @@ Room.prototype.executeLinks =
         }
     };
 
-    Room.prototype.executeDefenses =
+
+Room.prototype.executeTerminal =
+    function()
+    {
+        if(this.terminal && !this.terminal.cooldown)
+        {
+            for (let roomName in Game.rooms)
+            {
+                let room = Game.rooms[roomName];
+                
+                if(room != this && room.controller && room.controller.my && room.terminal)
+                {      
+                    for(resourceType in this.terminal.store) 
+                    {
+                        let remoteResourceAmount =  room.terminal.store[resourceType] || 0;
+                        if(remoteResourceAmount < 5000)
+                        {
+                            this.terminal.send(resourceType, 5000 - remoteResourceAmount, roomName);
+                        }
+                    }  
+                }
+            }
+        }
+    };
+
+Room.prototype.executeLabs =
+    function()
+    {
+
+    };
+
+Room.prototype.executeDefenses =
     function ()
     {    
         let hostiles = this.find(FIND_HOSTILE_CREEPS);
@@ -118,7 +149,7 @@ Room.prototype.executeLinks =
         }
     };
 
-    Room.prototype.spawnCreepsIfNecessary =
+Room.prototype.spawnCreepsIfNecessary =
     function ()
     {
 
@@ -187,7 +218,7 @@ Room.prototype.executeLinks =
         }
     };
 
-    Room.prototype.spawnResourceCreeps =
+Room.prototype.spawnResourceCreeps =
     function()
     {
         for(let sourceIndex in this.sources)
@@ -237,7 +268,7 @@ Room.prototype.executeLinks =
         }
     };
 
-    Room.prototype.addToSpawnQueue = 
+Room.prototype.addToSpawnQueue = 
     function (creepMemory, spawnNext = false)
     {
         this.memory.spawnQueue = this.memory.spawnQueue || [];
@@ -252,7 +283,7 @@ Room.prototype.executeLinks =
         }
     };
 
-    Room.prototype.executeSpawns = 
+Room.prototype.executeSpawns = 
     function ()
     {
         //Run spawn logic
@@ -266,7 +297,7 @@ Room.prototype.executeLinks =
         }
     };
 
-    Room.prototype.creepsByRole = 
+Room.prototype.creepsByRole = 
     function(role, targetRoom = null)
     {
         let results;
@@ -281,7 +312,7 @@ Room.prototype.executeLinks =
         return results;
     };
 
-    Room.prototype.creepCountByRole = 
+Room.prototype.creepCountByRole = 
     function(role, targetRoom = null)
     {
         let count;

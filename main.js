@@ -166,11 +166,11 @@ module.exports.loop = function () {
         if(room.controller && room.controller.my)
         {      
             room.executeLinks();
+            room.executeTerminal();
             room.executeDefenses();
             room.spawnCreepsIfNecessary();
             room.spawnResourceCreeps();
             room.executeSpawns();
         }
-        
     }
 }
