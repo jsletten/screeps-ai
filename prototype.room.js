@@ -134,7 +134,20 @@ Room.prototype.executeTerminal =
 Room.prototype.executeLabs =
     function()
     {
+        for(let x = 0; x < this.labs.length; x++)
+        {
+            let targetLab = this.labs[x];
+            if(targetLab.memory.createMineralType)
+            {
+                let lab1 = targetLab.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => (structure.structureType == STRUCTURE_LAB && structure.mineralType == Globals.mineralDescriptions[targetLab.memory.createMineralType].component1)})[0];
+                let lab2 = targetLab.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => (structure.structureType == STRUCTURE_LAB && structure.mineralType == Globals.mineralDescriptions[targetLab.memory.createMineralType].component2)})[0];
 
+                if(lab1 && lab2)
+                {
+                    targetLab.runReaction(lab1, lab2);
+                }
+            }
+        }
     };
 
 Room.prototype.executeDefenses =

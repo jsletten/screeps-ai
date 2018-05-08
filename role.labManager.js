@@ -20,7 +20,7 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
         
-        let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount < structure.mineralCapacity) && structure.memory.storeMineralType)});
+        let target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount < structure.mineralCapacity) && structure.memory.storeMineralType)});
         if(target)
         {
             if(_.sum(creep.carry)  == 0) 
