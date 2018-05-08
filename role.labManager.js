@@ -20,7 +20,7 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
         
-        let target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount < structure.mineralCapacity) && structure.memory.storeMineralType)});
+        let target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount < (structure.mineralCapacity - 100)) && structure.memory.storeMineralType)});
         if(target)
         {
             if(_.sum(creep.carry)  == 0) 
@@ -40,8 +40,37 @@ module.exports = {
                 //Empty other resources to make room for new mineral
                 for(resourceType in creep.carry) 
                 {
-                    if(creep.transfer(creep.room.terminal, resourceType) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(creep.room.terminal);
+                    if(creep.transfer(creep.room.storage, resourceType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(creep.room.storage);
+                    }
+                }
+            }
+        }
+        else
+        {
+            target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_LAB) && (structure.mineralAmount > 100) && structure.memory.createMineralType)});
+            if(target)
+            {
+                if(_.sum(creep.carry)  == 0) 
+                {
+                    if(creep.withdraw(target, target.memory.createMineralType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
+                }
+                else if(creep.carry[target.memory.createMineralType] > 0) 
+                {
+                    if(creep.transfer(creep.room.storage, target.memory.createMineralType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(creep.room.storage);
+                    }
+                }
+                else
+                {
+                    //Empty other resources to make room for new mineral
+                    for(resourceType in creep.carry) 
+                    {
+                        if(creep.transfer(creep.room.storage, resourceType) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(creep.room.storage);
+                        }
                     }
                 }
             }
