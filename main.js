@@ -167,6 +167,7 @@ module.exports.loop = function () {
         {      
             room.executeLinks();
             room.executeTerminal();
+            room.executeLabs();
             room.executeDefenses();
             room.spawnCreepsIfNecessary();
             room.spawnResourceCreeps();
