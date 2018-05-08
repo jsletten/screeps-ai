@@ -32,9 +32,11 @@ module.exports = {
             }
             else 
             {
-                if(creep.transfer(terminal, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
+                for(resourceType in creep.carry) 
                 {
-                    creep.moveTo(terminal, {visualizePathStyle: {stroke: '#ff0000'}});
+                    if(creep.transfer(terminal, resourceType) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(terminal);
+                    }
                 }
             }
         }
