@@ -256,6 +256,11 @@ Room.prototype.spawnResourceCreeps =
                     this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                 }
 
+                if(this.controller && this.controller.level == 1 && (this.creepCountByRole('containerHarvester') + this.containerHarvester('upgrader')) < 2)
+                {
+                    this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
+                }
+
                 if(source.container)
                 {
                     if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
