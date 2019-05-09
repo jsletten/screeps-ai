@@ -112,11 +112,14 @@ module.exports.loop = function () {
         dismantleWallSpawn.room.addToSpawnQueue({role: 'combatTransport', homeRoom: dismantleWallSpawn.room.name, targetRoom: Game.flags.dismantleWall.pos.roomName});
     }
 
-    let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
-    //TODO: Fix this to add spawnCreep request to global queue instead of hard coding to one room
-    if(Game.flags.attackFlag && (Globals.creepCountByRole('attacker') + queuedAttackers.length) < 5)
+    if(remoteSpawn)
     {
-        remoteSpawn.room.addToSpawnQueue({role: 'attacker', targetRoom: Game.flags.attackFlag.pos.roomName});
+        let queuedAttackers = _.filter(remoteSpawn.room.memory.spawnQueue, (queuedCreep) => queuedCreep.role == 'attacker');
+        //TODO: Fix this to add spawnCreep request to global queue instead of hard coding to one room
+        if(Game.flags.attackFlag && (Globals.creepCountByRole('attacker') + queuedAttackers.length) < 5)
+        {
+            remoteSpawn.room.addToSpawnQueue({role: 'attacker', targetRoom: Game.flags.attackFlag.pos.roomName});
+        }
     }
 
     if(Game.flags.tankFlag && Globals.creepCountByRole('tank') < 1)
