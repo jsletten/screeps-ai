@@ -256,16 +256,18 @@ Room.prototype.spawnResourceCreeps =
                     this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                 }
 
-                if(this.controller && this.controller.level == 1 && (this.creepCountByRole('containerHarvester') + this.spawnQueueCount('containerHarvester')) < 2)
-                {
-                    this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
-                }
-
                 if(source.container)
                 {
                     if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
                     {
                         this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name});
+                    }
+                }
+                else
+                {
+                    if(this.controller && this.controller.level == 1 && (this.creepCountByRole('containerHarvester') + this.spawnQueueCount('containerHarvester')) < 3)
+                    {
+                        this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                     }
                 }  
             }
