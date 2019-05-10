@@ -265,10 +265,10 @@ Room.prototype.spawnResourceCreeps =
                 }
                 else
                 {
-                    if(this.controller && this.controller.level == 1 && (this.creepCountByRole('containerHarvester') + this.spawnQueueCount('containerHarvester')) < 3)
-                    {
-                        this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
-                    }
+                    // if(this.controller && this.controller.level == 1 && (this.creepCountByRole('containerHarvester') + this.spawnQueueCount('containerHarvester')) < 3)
+                    // {
+                    //     this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
+                    // }
                 }  
             }
         }
