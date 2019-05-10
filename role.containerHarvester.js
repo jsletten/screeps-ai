@@ -88,7 +88,14 @@ module.exports = {
                 {
                     if(creep.harvest(target) == ERR_NOT_IN_RANGE) 
                     {
-                        creep.moveTo(site);
+                        if(target.harvester == creep)
+                        {
+                            creep.moveTo(site);
+                        }
+                        else
+                        {
+                            creep.moveTo(target);
+                        }
                     }
                     creep.say('build');
                     creep.build(site)
