@@ -21,7 +21,7 @@ module.exports.loop = function () {
     console.log('Time:' + Game.time + ' CT:' + Globals.creepCountByRole('containerTransport') + ' CH:' + Globals.creepCountByRole('containerHarvester'));
 
         //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
-    let remoteSpawn = Game.spawns['Spawn3'];
+    let remoteSpawn = Game.spawns['Spawn1'];
     
     if(Game.flags.mineFlag1)
     {
