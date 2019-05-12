@@ -234,3 +234,63 @@ Object.defineProperty(StructureLab.prototype, 'storeMineralType', {
     enumerable: false,
     configurable: true
 });
+
+Object.defineProperty(StructureController.prototype, 'link', {
+    get: function() {
+        if (!this._link) {
+            let results = this.pos.findInRange(FIND_MY_STRUCTURES, 2, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_LINK) }});
+            if(results.length > 0)
+            {
+                this._link = results[0];
+            }
+        }
+        return this._link;
+    },
+    enumerable: false,
+    configurable: true
+});
+
+// Object.defineProperty(StructureContainer.prototype, 'memory', {
+//     configurable: true,
+//     get: function() {
+//         if(_.isUndefined(Memory.myControllersMemory)) {
+//             Memory.myControllersMemory = {};
+//         }
+//         if(!_.isObject(Memory.myControllersMemory)) {
+//             return undefined;
+//         }
+//         return Memory.myControllersMemory[this.id] = 
+//                 Memory.myControllersMemory[this.id] || {};
+//     },
+//     set: function(value) {
+//         if(_.isUndefined(Memory.myControllersMemory)) {
+//             Memory.myControllersMemory = {};
+//         }
+//         if(!_.isObject(Memory.myControllersMemory)) {
+//             throw new Error('Could not set source memory');
+//         }
+//         Memory.myControllersMemory[this.id] = value;
+//     }
+// });
+
+// Object.defineProperty(StructureContainer.prototype, 'storeType', {
+//     get: function() 
+//     {
+//         if (!this._storeType) 
+//         {
+//             if (!this.memory.storeType) 
+//             {
+//                 this._storeType = undefined;
+//             }
+//             else
+//             {
+//                 this._storeType = this.memory.storeType;
+//             }
+//         }
+        
+//         return this._storeType;
+//     },
+//     enumerable: false,
+//     configurable: true
+// });

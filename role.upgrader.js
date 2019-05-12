@@ -32,9 +32,14 @@ module.exports = {
     run: function(creep) {
         if(creep.carry.energy == 0) 
         {    
-            let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 100)}});            
+            let target = creep.room.controller.link;
             
+            if(!target)
+            {
+                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                    return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 100)}});            
+            }
+
             if(!target)
             {
                 target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 

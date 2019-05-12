@@ -87,9 +87,7 @@ Room.prototype.executeLinks =
     function ()
     {
         if(this.storage)
-        {
-            let storageLink = this.storage.link;
-            
+        {            
             if(this.storage.link)
             {        
                 let linksWithEnergy = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
@@ -97,10 +95,15 @@ Room.prototype.executeLinks =
                 
                 for(let link in linksWithEnergy)
                 {
-                    if(linksWithEnergy[link].id != this.storage.link.id)
+                    if(linksWithEnergy[link].id != this.storage.link.id && (!this.controller.link || this.controller.link.id != linksWithEnergy[link].id))
                     {
                         linksWithEnergy[link].transferEnergy(this.storage.link);
                     }
+                }
+
+                if(this.controller.link)
+                {
+                    this.storage.link.transferEnergy(this.controller.link)
                 }
             }
         }
