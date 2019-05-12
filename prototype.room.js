@@ -258,7 +258,7 @@ Room.prototype.spawnResourceCreeps =
 
                 if(source.container)
                 {
-                    if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+                    if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
                     {
                         this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name});
                     }
