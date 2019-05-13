@@ -24,9 +24,14 @@ module.exports = {
             }
             else
             {
-                //Withdraw from storage
-                if(creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(creep.room.storage);
+                let target = Game.getObjectById(creep.memory.targetID);
+
+                if(target && _.sum(target.store) < 1500)
+                {
+                    //Withdraw from storage
+                    if(creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(creep.room.storage);
+                    }
                 }
             }
         }
