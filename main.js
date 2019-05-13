@@ -45,7 +45,7 @@ module.exports.loop = function () {
 
                     if(source.container)
                     {
-                        if((source.container.transports.length + remoteSpawn.room.spawnQueueCount('containerTransport')) < 2)
+                        if((source.container.transports.length + remoteSpawn.room.spawnQueueCount('containerTransport')) < 3)
                         {
                             remoteSpawn.room.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: remoteSpawn.room.name});
                         }
