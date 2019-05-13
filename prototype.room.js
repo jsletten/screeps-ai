@@ -197,7 +197,7 @@ Room.prototype.spawnCreepsIfNecessary =
 
             if(this.controller && this.controller.container)
             {
-                if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < 1)
+                if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < maxNumberOfUpgraders)
                 {
                     this.addToSpawnQueue({role: 'upgraderTransport', targetID: this.controller.container.id, homeRoom: this.name});
                 }
