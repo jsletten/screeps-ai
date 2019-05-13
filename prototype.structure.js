@@ -251,6 +251,22 @@ Object.defineProperty(StructureController.prototype, 'link', {
     configurable: true
 });
 
+Object.defineProperty(StructureController.prototype, 'container', {
+    get: function() {
+        if (!this._container) {
+            let results = this.pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+                return (structure.structureType == STRUCTURE_CONTAINER) }});
+            if(results.length > 0)
+            {
+                this._container = results[0];
+            }
+        }
+        return this._container;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 // Object.defineProperty(StructureContainer.prototype, 'memory', {
 //     configurable: true,
 //     get: function() {
