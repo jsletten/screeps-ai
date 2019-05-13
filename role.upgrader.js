@@ -32,7 +32,7 @@ module.exports = {
     run: function(creep) {
         if(creep.carry.energy == 0) 
         {    
-            let target = creep.room.controller.link;
+            let target = creep.room.controller.link || creep.room.controller.container;
             
             if(!target)
             {
