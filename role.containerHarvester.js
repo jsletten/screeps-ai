@@ -58,7 +58,8 @@ module.exports = {
                     else
                     {
                         //console.log('Harvesting: ' + creep.harvest(target));
-
+                        creep.harvest(target);
+                        
                         for(const resourceType in creep.carry) {
                             creep.transfer(container, resourceType);
                         }
