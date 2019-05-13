@@ -4,6 +4,7 @@ module.exports = {
         containerHarvester: require('role.containerHarvester'),
         containerTransport: require('role.containerTransport'),
         upgrader: require('role.upgrader'),
+        upgraderTransport: require('role.upgraderTransport'),
         builder: require('role.builder'),
         cleaner: require('role.cleaner'),
         claimer: require('role.claimer'),
