@@ -97,7 +97,14 @@ Room.prototype.executeLinks =
                 {
                     if(linksWithEnergy[link].id != this.storage.link.id && (!this.controller.link || this.controller.link.id != linksWithEnergy[link].id))
                     {
-                        linksWithEnergy[link].transferEnergy(this.storage.link);
+                        if(this.controller.link && this.controller.link.energy < 400)
+                        {
+                            linksWithEnergy[link].transferEnergy(this.controller.link)
+                        }
+                        else
+                        {
+                            linksWithEnergy[link].transferEnergy(this.storage.link);
+                        }
                     }
                 }
 
