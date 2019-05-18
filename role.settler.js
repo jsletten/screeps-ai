@@ -40,27 +40,38 @@ module.exports = {
         }
         else
         {   
-            let targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
-            let source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
-
-            if(targets && source)
+            if(Game.flags.settlerFlag)
             {
-                if((_.sum(creep.carry)  == 0) || (_.sum(creep.carry) < creep.carryCapacity && creep.pos.inRangeTo(source, 1)))
+                if(creep.room == Game.flags.settlerFlag.room)
                 {
-                    if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                    let targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+                    let source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
+
+                    if(targets && source)
                     {
-                        creep.moveTo(source);
-                    }
-                }  
-                else
-                {
-                    if(targets.length > 0) 
-                    {
-                        if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) 
+                        if((_.sum(creep.carry)  == 0) || (_.sum(creep.carry) < creep.carryCapacity && creep.pos.inRangeTo(source, 1)))
                         {
-                            creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
+                            if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                            {
+                                creep.moveTo(source);
+                            }
+                        }  
+                        else
+                        {
+                            if(targets.length > 0) 
+                            {
+                                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) 
+                                {
+                                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
+                                }
+                            }
                         }
                     }
+                }
+                else
+                {
+                    console.log('remoteClaimer(' + creep.name + ') using fallback movement...')
+                    creep.moveTo(Game.flags.settlerFlag);
                 }
             }
         }
