@@ -245,16 +245,22 @@ Room.prototype.spawnCreepsIfNecessary =
         }
         else
         {
-            //TODO: Make this code aware of room level
-            if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 4)
-            {
-                this.addToSpawnQueue({role: 'upgrader'});
-            }
             if(this.controller && this.controller.container)
             {
-                if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < 1)
+                if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 2)
+                {
+                    this.addToSpawnQueue({role: 'upgrader'});
+                }
+                if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < 2)
                 {
                     this.addToSpawnQueue({role: 'upgraderTransport', targetID: this.controller.container.id, homeRoom: this.name});
+                }
+            }
+            else
+            {
+                if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 4)
+                {
+                    this.addToSpawnQueue({role: 'upgrader'});
                 }
             }
         }
