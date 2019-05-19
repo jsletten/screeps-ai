@@ -38,28 +38,31 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
-        if(Game.flags.dismantleWall.room != creep.room)
+        if(Game.flags.dismantleWall)
         {
-            creep.moveTo(Game.flags.dismantleWall);
-        }
-        else
-        {
-            let target;
-            var found = Game.flags.dismantleWall.pos.lookFor(LOOK_STRUCTURES);
-            if(found.length) 
+            if(Game.flags.dismantleWall.room != creep.room)
             {
-                target = found[0];
+                creep.moveTo(Game.flags.dismantleWall);
             }
-            else{
-                target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {filter: (structure) => structure.structureType != STRUCTURE_CONTROLLER})
-            }
-
-            if(target)
+            else
             {
-                if(creep.dismantle(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                let target;
+                var found = Game.flags.dismantleWall.pos.lookFor(LOOK_STRUCTURES);
+                if(found.length) 
+                {
+                    target = found[0];
                 }
-                creep.say('Knock!');
+                else{
+                    target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {filter: (structure) => structure.structureType != STRUCTURE_CONTROLLER})
+                }
+
+                if(target)
+                {
+                    if(creep.dismantle(target) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
+                    creep.say('Knock!');
+                }
             }
         }
 
