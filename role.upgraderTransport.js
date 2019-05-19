@@ -38,9 +38,22 @@ module.exports = {
 
                     if(target && _.sum(target.store) < 1500)
                     {
-                        //Withdraw from storage
-                        if(creep.withdraw(creep.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(creep.room.storage);
+
+                        let source = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                            return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 100 && structure.id != creep.memory.targetID)}});            
+                        
+                        if(!source)
+                        {
+                            source = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                                return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy > 0))}});            
+                        }
+
+                        if(source)
+                        {
+                            //Withdraw from storage
+                            if(creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(source);
+                            }
                         }
                     }
                 }
