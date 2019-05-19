@@ -70,7 +70,7 @@ module.exports = {
                 }
                 else
                 {
-                    console.log('remoteClaimer(' + creep.name + ') using fallback movement...')
+                    console.log('settler(' + creep.name + ') using fallback movement...')
                     creep.moveTo(Game.flags.settlerFlag);
                 }
             }
