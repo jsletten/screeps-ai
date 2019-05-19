@@ -91,7 +91,7 @@ module.exports = {
                 for(resourceType in target.store) 
                 {
                     if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {reusePath: 15});
                     }
                 }
             }
@@ -102,7 +102,7 @@ module.exports = {
                 // find exit to target room
                 let exit = creep.room.findExitTo(creep.memory.homeRoom);
                 // move to exit
-                creep.moveTo(creep.pos.findClosestByRange(exit));
+                creep.moveTo(creep.pos.findClosestByRange(exit), {reusePath: 15});
             }
             else
             {
