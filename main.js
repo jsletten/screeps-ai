@@ -75,7 +75,7 @@ module.exports.loop = function () {
         let spawnClaimer = true;
 
         //TODO need to check for controller incase flag exists but no visibility to room
-        if(Game.flags.reserveFlag && Game.flags.reserveFlag.room.controller)
+        if(Game.flags.reserveFlag && Game.flags.reserveFlag.room)
         {
             if(Game.flags.reserveFlag.room.controller.owner == undefined && Game.flags.reserveFlag.room.controller.reservation && Game.flags.reserveFlag.room.controller.reservation.ticksToEnd > 2000)
             {
