@@ -338,6 +338,12 @@ Room.prototype.addToSpawnQueue =
         }
     };
 
+    Room.prototype.clearSpawnQueue = 
+    function ()
+    {
+        this.memory.spawnQueue = [];
+    };    
+
 Room.prototype.executeSpawns = 
     function ()
     {
