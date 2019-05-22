@@ -422,7 +422,7 @@ Object.defineProperty(Room.prototype, 'remoteMineTargetRooms', {
 Room.prototype.spawnRemoteCreeps =
     function()
     {
-        if(Globals.creepCountByRole('remoteReserver') <1 )
+        if((Globals.creepCountByRole('remoteReserver') + this.spawnQueueCount('remoteReserver'))  <1 )
         {
             let spawnRemoteReserver = true;
 
