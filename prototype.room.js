@@ -338,7 +338,7 @@ Room.prototype.addToSpawnQueue =
         }
     };
 
-    Room.prototype.clearSpawnQueue = 
+Room.prototype.clearSpawnQueue = 
     function ()
     {
         this.memory.spawnQueue = [];
@@ -386,4 +386,59 @@ Room.prototype.creepCountByRole =
             count = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.room == this).length;
         }
         return count;
+    };
+
+ Room.prototype.addRemoteMineTarget = 
+    function (roomName)
+    {
+        this.memory.remoteMineTargetIds = this.memory.remoteMineTargetIds || [];
+
+        this.memory.remoteMineTargetIds.push(roomName);
+    };
+
+Room.prototype.clearRemoteMineTargets = 
+    function ()
+    {
+        this.memory.remoteMineTargetIds = [];
+    }; 
+
+Object.defineProperty(Room.prototype, 'remoteMineTargetRooms', {
+    get: function() {
+            // If we dont have the value stored locally
+        if (!this._remoteMineTargetRooms) {
+            //Make sure memory has been defined
+            this.memory.remoteMineTargetIds = this.memory.remoteMineTargetIds || [];
+           
+            // Get the room objects from the id's in memory and store them locally
+            this._remoteMineTargetRooms = this.memory.remoteMineTargetIds.map(roomName => Game.rooms(roomName));
+        }
+        // return the locally stored value
+        return this._remoteMineTargetRooms;
+    },
+    enumerable: false,
+    configurable: true
+});
+
+Room.prototype.spawnRemoteCreeps =
+    function()
+    {
+        if(Globals.creepCountByRole('remoteReserver') <1 )
+        {
+            let spawnRemoteReserver = true;
+
+            for(let roomIndex in this.remoteMineTargetRooms)
+            {
+                let remoteRoom = this.remoteMineTargetRooms[roomIndex];
+
+                if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
+                {
+                    spawnRemoteReserver = false;
+                }
+            
+                if(spawnRemoteReserver)
+                {
+                    this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoom.name})
+                }
+            }            
+        }
     };

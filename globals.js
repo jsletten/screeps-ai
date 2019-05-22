@@ -20,6 +20,7 @@ module.exports = {
         tank: require('role.tank'),
         settler: require('role.settler'),
         remoteClaimer: require('role.remoteClaimer'),
+        remoteReserver: require('role.remoteReserver'),
         wallDismantler: require('role.wallDismantler'),
         combatTransport: require('role.combatTransport'),
         terminalHauler: require('role.terminalHauler'),

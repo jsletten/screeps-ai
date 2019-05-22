@@ -174,6 +174,7 @@ module.exports.loop = function () {
             room.executeDefenses();
             room.spawnCreepsIfNecessary();
             room.spawnResourceCreeps();
+            room.spawnRemoteCreeps();
             room.executeSpawns();
         }
     }
