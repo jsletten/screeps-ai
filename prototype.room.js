@@ -410,7 +410,7 @@ Object.defineProperty(Room.prototype, 'remoteMineTargetRooms', {
             this.memory.remoteMineTargetIds = this.memory.remoteMineTargetIds || [];
            
             // Get the room objects from the id's in memory and store them locally
-            this._remoteMineTargetRooms = this.memory.remoteMineTargetIds.map(roomName => { return Game.rooms[roomName] });
+            this._remoteMineTargetRooms = this.memory.remoteMineTargetIds.map(roomName => { return Game.rooms[roomName].toString() });
             
         }
         // return the locally stored value
@@ -427,9 +427,10 @@ Room.prototype.spawnRemoteCreeps =
         {
             let spawnRemoteReserver = true;
 
-            for(let roomIndex in this.remoteMineTargetRooms)
+            for(let roomIndex in this.memory.remoteMineTargetIds)
             {
-                let remoteRoom = this.remoteMineTargetRooms[roomIndex];
+                let remoteRoomId = this.memory.remoteMineTargetIds[roomIndex];
+                let remoteRoom = Game.rooms[remoteRoomId];
 
                 if(remoteRoom)
                 {
@@ -437,11 +438,10 @@ Room.prototype.spawnRemoteCreeps =
                     {
                         spawnRemoteReserver = false;
                     }
-                
-                    if(spawnRemoteReserver)
-                    {
-                        this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoom.name})
-                    }
+                }
+                if(spawnRemoteReserver)
+                {
+                    this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoomId})
                 }
             }            
         }
