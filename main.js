@@ -23,36 +23,36 @@ module.exports.loop = function () {
         //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
     let remoteSpawn = Game.spawns['Spawn1'];
     
-    if(Game.flags.mineFlag1)
-    {
-        let targetRoom = Game.flags.mineFlag1.pos.roomName;
+    // if(Game.flags.mineFlag1)
+    // {
+    //     let targetRoom = Game.flags.mineFlag1.pos.roomName;
 
-        if(Globals.creepCountByRole('fixer', targetRoom) < 1)
-        {
-            Globals.roles['fixer'].spawnCreep(remoteSpawn, targetRoom)
-        }
+    //     if(Globals.creepCountByRole('fixer', targetRoom) < 1)
+    //     {
+    //         Globals.roles['fixer'].spawnCreep(remoteSpawn, targetRoom)
+    //     }
 
-        if(Game.flags.mineFlag1.room)
-        {       
-            for(let sourceIndex in Game.flags.mineFlag1.room.sources)
-            {
-                let source = Game.flags.mineFlag1.room.sources[sourceIndex];
+    //     if(Game.flags.mineFlag1.room)
+    //     {       
+    //         for(let sourceIndex in Game.flags.mineFlag1.room.sources)
+    //         {
+    //             let source = Game.flags.mineFlag1.room.sources[sourceIndex];
 
-                    if(!source.harvester && remoteSpawn.room.spawnQueueCount('containerHarvester') < 1)
-                    {
-                        remoteSpawn.room.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
-                    }
+    //                 if(!source.harvester && remoteSpawn.room.spawnQueueCount('containerHarvester') < 1)
+    //                 {
+    //                     remoteSpawn.room.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
+    //                 }
 
-                    if(source.container)
-                    {
-                        if((source.container.transports.length + remoteSpawn.room.spawnQueueCount('containerTransport')) < 3)
-                        {
-                            remoteSpawn.room.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: remoteSpawn.room.name});
-                        }
-                    }  
-            }
-        }
-    }
+    //                 if(source.container)
+    //                 {
+    //                     if((source.container.transports.length + remoteSpawn.room.spawnQueueCount('containerTransport')) < 3)
+    //                     {
+    //                         remoteSpawn.room.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: remoteSpawn.room.name});
+    //                     }
+    //                 }  
+    //         }
+    //     }
+    // }
 
     if(Game.flags.defendRoom)
     {

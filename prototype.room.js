@@ -423,26 +423,59 @@ Object.defineProperty(Room.prototype, 'remoteMineTargetRooms', {
 Room.prototype.spawnRemoteCreeps =
     function()
     {
-        if((Globals.creepCountByRole('remoteReserver') + this.spawnQueueCount('remoteReserver'))  <1 )
-        {
-            let spawnRemoteReserver = true;
-
             for(let roomIndex in this.memory.remoteMineTargetIds)
             {
                 let remoteRoomId = this.memory.remoteMineTargetIds[roomIndex];
                 let remoteRoom = Game.rooms[remoteRoomId];
+                let spawnRemoteReserver = true; //Reset for each remote room
 
-                if(remoteRoom)
+                console.log('spawnRemoteCreeps: ' + remoteRoomId);
+
+                //remoteReserver
+                if((Globals.creepCountByRole('remoteReserver', remoteRoomId) + this.spawnQueueCount('remoteReserver'))  <1 )
                 {
-                    if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
+                    if(remoteRoom)
                     {
-                        spawnRemoteReserver = false;
+                        if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
+                        {
+                            spawnRemoteReserver = false;
+                        }
+                    }
+                    if(spawnRemoteReserver)
+                    {
+                        this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoomId})
                     }
                 }
-                if(spawnRemoteReserver)
+
+                //TODO: Make this use Spawn Queue
+                //fixer
+                if(Globals.creepCountByRole('fixer', remoteRoomId) < 1)
                 {
-                    this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoomId})
+                    Globals.roles['fixer'].spawnCreep(this.spawns[0], remoteRoomId)
+                }
+
+                //Container Harvesters / Transports
+                if(remoteRoom)
+                {
+                    for(let sourceIndex in remoteRoom.sources)
+                    {
+                        let source = remoteRoom.sources[sourceIndex];
+        
+                            if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
+                            {
+                                this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
+                            }
+        
+                            if(source.container)
+                            {
+                                if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
+                                {
+                                    this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name});
+                                }
+                            }  
+                    }
+
                 }
             }            
-        }
+        
     };
