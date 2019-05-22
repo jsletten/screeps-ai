@@ -431,14 +431,17 @@ Room.prototype.spawnRemoteCreeps =
             {
                 let remoteRoom = this.remoteMineTargetRooms[roomIndex];
 
-                if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
+                if(remoteRoom)
                 {
-                    spawnRemoteReserver = false;
-                }
-            
-                if(spawnRemoteReserver)
-                {
-                    this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoom.name})
+                    if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
+                    {
+                        spawnRemoteReserver = false;
+                    }
+                
+                    if(spawnRemoteReserver)
+                    {
+                        this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoom.name})
+                    }
                 }
             }            
         }
