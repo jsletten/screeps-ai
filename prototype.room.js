@@ -410,7 +410,8 @@ Object.defineProperty(Room.prototype, 'remoteMineTargetRooms', {
             this.memory.remoteMineTargetIds = this.memory.remoteMineTargetIds || [];
            
             // Get the room objects from the id's in memory and store them locally
-            this._remoteMineTargetRooms = this.memory.remoteMineTargetIds.map(roomName => Game.rooms(roomName));
+            this._remoteMineTargetRooms = this.memory.remoteMineTargetIds.map(roomName => Game.rooms[roomName]);
+            
         }
         // return the locally stored value
         return this._remoteMineTargetRooms;
