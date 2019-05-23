@@ -67,7 +67,7 @@ module.exports = {
                 }
                 else
                 {
-                    creep.moveTo(container);
+                    creep.moveTo(container, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
             else
