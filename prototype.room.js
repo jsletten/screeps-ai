@@ -423,59 +423,73 @@ Object.defineProperty(Room.prototype, 'remoteMineTargetRooms', {
 Room.prototype.spawnRemoteCreeps =
     function()
     {
-            for(let roomIndex in this.memory.remoteMineTargetIds)
+        for(let roomIndex in this.memory.remoteMineTargetIds)
+        {
+            let remoteRoomId = this.memory.remoteMineTargetIds[roomIndex];
+            let remoteRoom = Game.rooms[remoteRoomId];
+            let spawnRemoteReserver = true; //Reset for each remote room
+
+            console.log('spawnRemoteCreeps: ' + remoteRoomId);
+
+            //remoteReserver
+            if((Globals.creepCountByRole('remoteReserver', remoteRoomId) + this.spawnQueueCount('remoteReserver'))  <1 )
             {
-                let remoteRoomId = this.memory.remoteMineTargetIds[roomIndex];
-                let remoteRoom = Game.rooms[remoteRoomId];
-                let spawnRemoteReserver = true; //Reset for each remote room
-
-                console.log('spawnRemoteCreeps: ' + remoteRoomId);
-
-                //remoteReserver
-                if((Globals.creepCountByRole('remoteReserver', remoteRoomId) + this.spawnQueueCount('remoteReserver'))  <1 )
-                {
-                    if(remoteRoom)
-                    {
-                        if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
-                        {
-                            spawnRemoteReserver = false;
-                        }
-                    }
-                    if(spawnRemoteReserver)
-                    {
-                        this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoomId})
-                    }
-                }
-
-                //TODO: Make this use Spawn Queue
-                //fixer
-                if(Globals.creepCountByRole('fixer', remoteRoomId) < 1)
-                {
-                    Globals.roles['fixer'].spawnCreep(this.spawns[0], remoteRoomId)
-                }
-
-                //Container Harvesters / Transports
                 if(remoteRoom)
                 {
-                    for(let sourceIndex in remoteRoom.sources)
+                    if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
                     {
-                        let source = remoteRoom.sources[sourceIndex];
-        
-                            if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
-                            {
-                                this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
-                            }
-        
-                            if(source.container)
-                            {
-                                if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
-                                {
-                                    this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name});
-                                }
-                            }  
+                        spawnRemoteReserver = false;
+                    }
+                }
+                if(spawnRemoteReserver)
+                {
+                    this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoomId})
+                }
+            }
+
+            
+            //fixer
+            if(Globals.creepCountByRole('fixer', remoteRoomId) < 1)
+            {
+                //TODO: Make this use Spawn Queue
+                Globals.roles['fixer'].spawnCreep(this.spawns[0], remoteRoomId)
+            }
+
+            //Container Harvesters / Transports
+            if(remoteRoom)
+            {
+                for(let sourceIndex in remoteRoom.sources)
+                {
+                    let source = remoteRoom.sources[sourceIndex];
+    
+                    if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
+                    {
+                        this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
                     }
 
+                    if(source.container)
+                    {
+                        if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
+                        {
+                            this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name});
+                        }
+                    }  
                 }
-            }            
-        
+
+                //Guards
+                //Only spawn if there is a container to defend to ease economy while getting a new room going
+                if(remoteRoom.sources[0].container)
+                { 
+                    if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < 2)
+                    {
+                        this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
+                    }
+                    if(Globals.creepCountByRole('healer', remoteRoomId) < 1)
+                    {
+                        //TODO: Make this use Spawn Queue
+                        Globals.roles['healer'].spawnCreep(this.spawns[0], remoteRoomId)
+                    }
+                }
+            }
+        }            
     };
