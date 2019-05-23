@@ -34,16 +34,26 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        
+        var target = Game.getObjectById(creep.memory.targetID);
+            
         if (creep.room.name != creep.memory.targetRoom)
         {
-            // find exit to target room
-            var exit = creep.room.findExitTo(creep.memory.targetRoom);
-            // move to exit
-            creep.moveTo(creep.pos.findClosestByRange(exit));
+            if(target)
+            {
+                creep.moveTo(target);
+            }
+            else
+            {
+                // find exit to target room
+                var exit = creep.room.findExitTo(creep.memory.targetRoom);
+                // move to exit
+                creep.moveTo(creep.pos.findClosestByRange(exit));
+            }
+            
         }
         else
         {
-            var target = Game.getObjectById(creep.memory.targetID);
             var container = target.container;
             
             if(container)
