@@ -480,7 +480,7 @@ Room.prototype.spawnRemoteCreeps =
                 //Only spawn if there is a container to defend to ease economy while getting a new room going
                 if(remoteRoom.sources[0].container)
                 { 
-                    if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < 2)
+                    if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < 1)
                     {
                         this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
                     }
