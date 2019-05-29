@@ -8,9 +8,11 @@ module.exports = {
         body.push(MOVE);
         body.push(MOVE);
 
-        let result = spawn.createCreep(body, undefined, {role: 'fixer', targetRoom: targetRoom});
-        console.log('Spawning new fixer: targetRoom(' + targetRoom + '): ' + result);
-        
+        if(spawn)
+        {
+            let result = spawn.createCreep(body, undefined, {role: 'fixer', targetRoom: targetRoom});
+            console.log('Spawning new fixer: targetRoom(' + targetRoom + '): ' + result);
+        }
         return;
     },
 
