@@ -25,7 +25,7 @@ module.exports = {
 
     run: function(creep) 
     {
-        if(creep.memory.path.length > 0)
+        if(creep.memory.path && creep.memory.path.length > 0)
         {
             let nextPos = new RoomPosition(creep.memory.path[0].x, creep.memory.path[0].y, creep.memory.path[0].roomName);
 
