@@ -42,11 +42,11 @@ module.exports = {
                         let source = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                             return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 100 && structure.id != creep.memory.targetID)}});            
                         
-                        if(!source)
-                        {
-                            source = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                                return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy > 0))}});            
-                        }
+                        // if(!source)
+                        // {
+                        //     source = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                        //         return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy > 0))}});            
+                        // }
 
                         if(source)
                         {
