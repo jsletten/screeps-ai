@@ -70,9 +70,9 @@ module.exports = {
                         //console.log('Harvesting: ' + creep.harvest(target));
                         creep.harvest(target);
 
-                        let extensions = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => {(structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
+                        let extensions = creep.pos.findInRange(FIND_STRUCTURES, 1, {filter: (structure) => {(structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
                         console.log('Harvester found extensions: ' + extensions.length);
-                        
+
                         if(creep.carry[RESOURCE_ENERGY] > 0 && extensions.length > 0) 
                         {
                             creep.transfer(extensions[0], RESOURCE_ENERGY);
