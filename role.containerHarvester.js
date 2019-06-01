@@ -70,7 +70,7 @@ module.exports = {
                         //console.log('Harvesting: ' + creep.harvest(target));
                         creep.harvest(target);
 
-                        let results = this.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
+                        let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
                             return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
 
                         if(creep.carry[RESOURCE_ENERGY] > 0 && results.length > 0) 
