@@ -69,9 +69,19 @@ module.exports = {
                     {
                         //console.log('Harvesting: ' + creep.harvest(target));
                         creep.harvest(target);
+
+                        let extensions = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => {(structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
                         
-                        for(const resourceType in creep.carry) {
-                            creep.transfer(container, resourceType);
+                        if(creep.carry[RESOURCE_ENERGY] > 0 && extensions.length > 0) 
+                        {
+                            creep.transfer(extensions[0], RESOURCE_ENERGY);
+                        }
+                        else
+                        {
+                            for(const resourceType in creep.carry) 
+                            {
+                                creep.transfer(container, resourceType);
+                            }
                         }
                     }
                 }
