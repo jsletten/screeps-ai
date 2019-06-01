@@ -443,7 +443,7 @@ Room.prototype.spawnRemoteCreeps =
                 }
                 if(spawnRemoteReserver)
                 {
-                    this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoomId})
+                    this.addToSpawnQueue({role: 'remoteReserver', targetRoom: remoteRoomId}, true);
                 }
             }
 
