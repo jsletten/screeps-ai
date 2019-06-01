@@ -71,6 +71,7 @@ module.exports = {
                         creep.harvest(target);
 
                         let extensions = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => {(structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
+                        console.log('Harvester found extensions: ' + extensions.length);
                         
                         if(creep.carry[RESOURCE_ENERGY] > 0 && extensions.length > 0) 
                         {
