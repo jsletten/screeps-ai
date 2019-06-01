@@ -447,14 +447,6 @@ Room.prototype.spawnRemoteCreeps =
                 }
             }
 
-            
-            //fixer
-            if(Globals.creepCountByRole('fixer', remoteRoomId) < 1)
-            {
-                //TODO: Make this use Spawn Queue
-                Globals.roles['fixer'].spawnCreep(this.spawns[0], remoteRoomId)
-            }
-
             //Container Harvesters / Transports
             if(remoteRoom)
             {
@@ -476,10 +468,10 @@ Room.prototype.spawnRemoteCreeps =
                     }  
                 }
 
-                //Guards
                 //Only spawn if there is a container to defend to ease economy while getting a new room going
                 if(remoteRoom.sources[0].container)
                 { 
+                    //Guards
                     if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < 1)
                     {
                         this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
@@ -487,6 +479,12 @@ Room.prototype.spawnRemoteCreeps =
                     if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
                     {
                         this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
+                    }
+
+                    //fixer
+                    if((Globals.creepCountByRole('fixer', remoteRoomId) + this.spawnQueueCount('fixer')) < 1)
+                    {
+                        this.addToSpawnQueue({role: 'fixer', targetRoom: remoteRoomId});
                     }
                 }
             }
