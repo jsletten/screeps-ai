@@ -464,7 +464,7 @@ Room.prototype.spawnRemoteCreeps =
     
                     if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
                     {
-                        this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
+                        this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                     }
 
                     if(source.container)
