@@ -21,6 +21,22 @@ module.exports = {
         
         return;
     },
+    buildBody: function(maxEnergy) 
+    {
+        let body = [];
+        let numberOfParts;
+
+        //1x CARRY - 1X MOVE
+        numberOfParts = Math.floor(maxEnergy / 300) * 2;
+        numberOfParts = Math.min(numberOfParts, 50); // limit healer size for now
+        for (let i = 0; i < numberOfParts/2; i++)
+        {
+            body.push(HEAL);
+            body.push(MOVE);
+        }
+
+        return body;
+    },    
     
     /** @param {Creep} creep **/
     run: function(creep) 

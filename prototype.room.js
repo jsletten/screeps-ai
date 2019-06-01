@@ -168,8 +168,8 @@ Room.prototype.executeDefenses =
     {    
         let hostiles = this.find(FIND_HOSTILE_CREEPS);
         //TODO: Spawn creeps to defend.
-        //If more than 10 hostiles are in the room we are in trouble, activate SafeMode!
-        if(hostiles.length > 10)
+        //If more than 4 hostiles are in the room we are in trouble, activate SafeMode!
+        if(hostiles.length > 4)
         {
             this.controller.activateSafeMode();
         }
@@ -484,10 +484,9 @@ Room.prototype.spawnRemoteCreeps =
                     {
                         this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
                     }
-                    if(Globals.creepCountByRole('healer', remoteRoomId) < 1)
+                    if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
                     {
-                        //TODO: Make this use Spawn Queue
-                        Globals.roles['healer'].spawnCreep(this.spawns[0], remoteRoomId)
+                        this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
                     }
                 }
             }
