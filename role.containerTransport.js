@@ -116,7 +116,7 @@ module.exports = {
 
                     if(!target)
                     {
-                        target = creep.room.spawns[0].findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+                        target = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
                             return (structure.structureType == STRUCTURE_CONTAINER) && (_.sum(structure.store) < structure.storeCapacity)}});
                     }
                 }
