@@ -35,11 +35,17 @@ module.exports = {
                         {
                             creep.moveTo(creep.room.controller);
                         }
-                        creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.")
                     }
                     else if(!creep.room.controller.my) 
                     {
                         if(creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) 
+                        {
+                            creep.moveTo(creep.room.controller);
+                        }
+                    }
+                    else
+                    {
+                        if(creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.") == ERR_NOT_IN_RANGE)
                         {
                             creep.moveTo(creep.room.controller);
                         }
