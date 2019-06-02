@@ -113,6 +113,12 @@ module.exports = {
                     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
                         return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))
                             || (structure.structureType == STRUCTURE_STORAGE))}}); 
+
+                    if(!target)
+                    {
+                        target = creep.room.spawns[0].findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+                            return (structure.structureType == STRUCTURE_CONTAINER) && (_.sum(structure.store) < structure.storeCapacity)}});
+                    }
                 }
                 else
                 {
