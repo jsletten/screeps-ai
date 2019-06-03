@@ -79,7 +79,14 @@ module.exports = {
                         }
                         else
                         {
-                            if(target.link && target.link.energy < target.link.energyCapacity)
+                            results = creep.pos.findInRange(FIND_MY_CONSTRUCTION_SITES, 1)
+
+                            if(results.length > 0)
+                            {
+                                creep.say('build');
+                                creep.build(results[0]);
+                            }
+                            else if(target.link && target.link.energy < target.link.energyCapacity)
                             {
                                 //We know it's an energy node because there is a link.
                                 creep.transfer(target.link, RESOURCE_ENERGY);
@@ -129,7 +136,7 @@ module.exports = {
                         }
                     }
                     creep.say('build');
-                    creep.build(site)
+                    creep.build(site);
                 }            
             }
         }
