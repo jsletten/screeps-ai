@@ -278,7 +278,7 @@ Room.prototype.spawnResourceCreeps =
                 this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
             }
 
-            if(source.container)
+            if(source.container && !source.link)
             {
                 if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
                 {
