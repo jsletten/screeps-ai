@@ -258,7 +258,7 @@ Room.prototype.spawnCreepsIfNecessary =
             }
             else
             {
-                if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 4)
+                if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 3)
                 {
                     this.addToSpawnQueue({role: 'upgrader'});
                 }
