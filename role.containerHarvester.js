@@ -79,9 +79,17 @@ module.exports = {
                         }
                         else
                         {
-                            for(const resourceType in creep.carry) 
+                            if(target.link && target.link.energy < target.link.energyCapacity)
                             {
-                                creep.transfer(container, resourceType);
+                                //We know it's an energy node because there is a link.
+                                creep.transfer(target.link, RESOURCE_ENERGY);
+                            }
+                            else
+                            {
+                                for(const resourceType in creep.carry) 
+                                {
+                                    creep.transfer(container, resourceType);
+                                }
                             }
                         }
                     }

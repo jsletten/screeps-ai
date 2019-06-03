@@ -273,34 +273,17 @@ Room.prototype.spawnResourceCreeps =
         {
             let source = this.sources[sourceIndex];
 
-            if(source.link)
+            if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
             {
-                if(!source.harvester && this.spawnQueueCount('linkHarvester') < 1)
-                {
-                    this.addToSpawnQueue({role: 'linkHarvester', targetID: source.id, targetRoom: source.room.name}, true);
-                }
+                this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
             }
-            else
-            {
-                if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
-                {
-                    this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
-                }
 
-                if(source.container)
+            if(source.container)
+            {
+                if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
                 {
-                    if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
-                    {
-                        this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);
-                    }
+                    this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);
                 }
-                else
-                {
-                    // if(this.controller && this.controller.level == 1 && (this.creepCountByRole('containerHarvester') + this.spawnQueueCount('containerHarvester')) < 3)
-                    // {
-                    //     this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
-                    // }
-                }  
             }
         }
 
