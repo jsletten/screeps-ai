@@ -195,7 +195,7 @@ Room.prototype.spawnCreepsIfNecessary =
 
         if(this.storage)
         {
-            let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 75000), 4);
+            let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 75000), 3);
 
             if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < maxNumberOfUpgraders)
             {
@@ -204,7 +204,7 @@ Room.prototype.spawnCreepsIfNecessary =
 
             if(this.controller && this.controller.container)
             {
-                if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < maxNumberOfUpgraders)
+                if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < 2)
                 {
                     this.addToSpawnQueue({role: 'upgraderTransport', targetID: this.controller.container.id, homeRoom: this.name});
                 }
