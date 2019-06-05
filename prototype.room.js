@@ -446,7 +446,7 @@ Room.prototype.spawnRemoteCreeps =
                     {
                         if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
                         {
-                            this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name});
+                            this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);
                         }
                     }  
                 }

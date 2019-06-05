@@ -34,7 +34,7 @@ module.exports = {
 
     buildBody: function(maxEnergy) 
     {
-        maxEnergy = Math.min(maxEnergy, 750);
+        maxEnergy = Math.min(maxEnergy, 900);
         let body = [];
         let numberOfParts = Math.floor(maxEnergy / 150) * 3;
 
