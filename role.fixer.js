@@ -53,7 +53,7 @@ module.exports = {
                 let  targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
 
                 if(targets.length > 0) {
-                    console.log('building');
+                    creep.say('building')
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                     }
@@ -65,13 +65,12 @@ module.exports = {
                     {
                         maxRepairAmount = maxRepairAmount * creep.room.controller.level;
                     }
-                    console.log('maxRepairAmount:' + maxRepairAmount);
                     //Fix closest damaged structure
                     let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: object => (object.hits < Math.min(object.hitsMax, maxRepairAmount))});
                 
                     if(target)
                     {
-                        console.log('repairing');
+                        creep.say('repairing');
                         if(creep.repair(target) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(target);
                         }
