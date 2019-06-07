@@ -40,7 +40,7 @@ module.exports = {
             }
             else
             {
-                console.log('Controller.owner:' + creep.room.controller.owner);
+                //console.log('Controller.owner:' + creep.room.controller.owner);
                 if(creep.room.controller.owner == undefined)
                 {
                     if(creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
