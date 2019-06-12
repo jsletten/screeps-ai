@@ -461,7 +461,8 @@ Room.prototype.spawnRemoteCreeps =
                     }
                     if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
                     {
-                        this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
+                        //Suspend healer for now to improve economy.  Rethink this as a single QRF that can respond to enemies in multiple remote rooms.
+                        //this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
                     }
 
                     //fixer
