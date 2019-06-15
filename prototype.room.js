@@ -410,7 +410,7 @@ Room.prototype.spawnRemoteCreeps =
         {
             let remoteRoomId = this.memory.remoteMineTargetIds[roomIndex];
             let remoteRoom = Game.rooms[remoteRoomId];
-            let spawnRemoteReserver = true; //Reset for each remote room
+            let spawnRemoteReserver = false; //Reset for each remote room
 
             console.log('spawnRemoteCreeps: ' + remoteRoomId);
 
@@ -419,9 +419,9 @@ Room.prototype.spawnRemoteCreeps =
             {
                 if(remoteRoom && remoteRoom.controller)
                 {
-                    if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
+                    if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd < 2000)
                     {
-                        spawnRemoteReserver = false;
+                        spawnRemoteReserver = true;
                     }
                 }
                 if(spawnRemoteReserver)
@@ -480,6 +480,10 @@ Room.prototype.spawnRemoteCreeps =
                         this.addToSpawnQueue({role: 'fixer', targetRoom: remoteRoomId});
                     }
                 }
+            }
+            else
+            {
+                //send a scout because we can't see the room.
             }
         }            
     };
