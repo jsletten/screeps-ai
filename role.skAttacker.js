@@ -37,30 +37,32 @@ module.exports = {
             let exit = creep.room.findExitTo(creep.memory.targetRoom);
             creep.moveTo(creep.pos.findClosestByRange(exit));
         }
-    
-        let target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(target) 
-        {
-            //Attack Source Keeper
-            if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target);
-            }
-        }
         else
         {
-            let skLairs = creep.room.find(STRUCTURE_KEEPER_LAIR);
-            if(skLairs.length > 0)
+            let target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            if(target) 
             {
-                skLairs.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
-                if(creep.pos.getRangeTo(skLairs[0]) > 3)
-                {
-                    creep.moveTo(skLairs[0]);
+                //Attack Source Keeper
+                if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
                 }
-            }  
+            }
             else
             {
-                creep.moveTo(25,25); //TODO make this smarter
-            }  
+                let skLairs = creep.room.find(STRUCTURE_KEEPER_LAIR);
+                if(skLairs.length > 0)
+                {
+                    skLairs.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
+                    if(creep.pos.getRangeTo(skLairs[0]) > 3)
+                    {
+                        creep.moveTo(skLairs[0]);
+                    }
+                }  
+                else
+                {
+                    creep.moveTo(25,25); //TODO make this smarter
+                }  
+            }
         }
         //Always try to heal
         creep.heal(creep);
