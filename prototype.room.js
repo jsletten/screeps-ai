@@ -451,8 +451,8 @@ Room.prototype.spawnRemoteCreeps =
                     }  
                 }
 
-                //Only spawn if there is a container to defend to ease economy while getting a new room going
-                if(remoteRoom.sources[0].container)
+                //Only spawn if there is a container to defend or hostile creeps in the room to ease economy while getting a new room going
+                if(remoteRoom.sources[0].container || remoteRoom.find(FIND_HOSTILE_CREEPS).length > 0)
                 { 
                     if(this.controller.level >= 7)
                     {
