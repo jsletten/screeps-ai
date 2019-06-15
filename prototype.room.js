@@ -454,17 +454,26 @@ Room.prototype.spawnRemoteCreeps =
                 //Only spawn if there is a container to defend to ease economy while getting a new room going
                 if(remoteRoom.sources[0].container)
                 { 
-                    //Guards
-                    if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < 1)
+                    if(this.controller.level >= 7)
                     {
-                        this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
+                        if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < 1)
+                        {
+                            this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId});
+                        }
                     }
-                    if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
+                    else
                     {
-                        //Suspend healer for now to improve economy.  Rethink this as a single QRF that can respond to enemies in multiple remote rooms.
-                        //this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
+                        //Guards
+                        if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < 1)
+                        {
+                            this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
+                        }
+                        if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
+                        {
+                            //Suspend healer for now to improve economy.  Rethink this as a single QRF that can respond to enemies in multiple remote rooms.
+                            //this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
+                        }
                     }
-
                     //fixer
                     if((Globals.creepCountByRole('fixer', remoteRoomId) + this.spawnQueueCount('fixer')) < 1)
                     {

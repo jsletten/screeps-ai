@@ -14,6 +14,7 @@ module.exports = {
         mineralHarvester: require('role.containerHarvester'),
         healer: require('role.healer'),
         guard: require('role.guard'),
+        skAttacker: require('role.skAttacker'),
         fixer: require('role.fixer'),
         linkHarvester: require('role.linkHarvester'),
         linkUnloader: require('role.linkUnloader'),
