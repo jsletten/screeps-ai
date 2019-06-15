@@ -41,18 +41,21 @@ module.exports = {
             else
             {
                 //console.log('Controller.owner:' + creep.room.controller.owner);
-                if(creep.room.controller && creep.room.controller.owner == undefined)
+                if(creep.room.controller)
                 {
-                    if(creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(creep.room.controller);
+                    if(creep.room.controller.owner == undefined)
+                    {
+                        if(creep.reserveController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(creep.room.controller);
+                        }
                     }
-                }
-                else if(!creep.room.controller.my) {
-                    if(creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(creep.room.controller);
+                    else if(!creep.room.controller.my) {
+                        if(creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(creep.room.controller);
+                        }
                     }
+                    creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.")
                 }
-                creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.")
             }
         }
     }
