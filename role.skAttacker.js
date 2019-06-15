@@ -56,7 +56,11 @@ module.exports = {
                 {
                     creep.moveTo(skLairs[0]);
                 }
-            }    
+            }  
+            else
+            {
+                creep.moveTo(25,25); //TODO make this smarter
+            }  
         }
         //Always try to heal
         creep.heal(creep);
