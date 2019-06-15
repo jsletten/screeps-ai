@@ -417,7 +417,7 @@ Room.prototype.spawnRemoteCreeps =
             //remoteReserver
             if((Globals.creepCountByRole('remoteReserver', remoteRoomId) + this.spawnQueueCount('remoteReserver'))  <1 )
             {
-                if(remoteRoom)
+                if(remoteRoom && remoteRoom.controller)
                 {
                     if(remoteRoom.controller.owner == undefined && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd > 2000)
                     {
