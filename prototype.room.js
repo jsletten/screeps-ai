@@ -456,7 +456,13 @@ Room.prototype.spawnRemoteCreeps =
                 { 
                     if(this.controller.level >= 7)
                     {
-                        if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < 1)
+                        let skLairs = remoteRoom.find(STRUCTURE_KEEPER_LAIR);
+                        let skAttackerCount = 1;
+                        if(skLairs && skLairs.length > 0)
+                        {
+                            skAttackerCount++;
+                        }
+                        if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < skAttackerCount)
                         {
                             this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId});
                         }
