@@ -56,7 +56,7 @@ module.exports = {
                     skLairs.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
                     if(creep.pos.getRangeTo(skLairs[0]) > 3)
                     {
-                        creep.moveTo(skLairs[0]);
+                        creep.moveTo(skLairs[0], {maxRooms:1});
                     }
                 }  
                 else
