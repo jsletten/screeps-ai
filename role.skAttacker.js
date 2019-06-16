@@ -8,15 +8,15 @@ module.exports = {
         // 20 Move (1000)
         // 8 Heal (2000)
 
-        for (let i = 0; i < 2; i++)
+        for (let i = 0; i < 4; i++)
         {
             body.push(TOUGH);
         }
-        for (let i = 0; i < 20; i++)
+        for (let i = 0; i < 24; i++)
         {
             body.push(MOVE);
         }
-        for (let i = 0; i < 10; i++)
+        for (let i = 0; i < 12; i++)
         {
             body.push(ATTACK);
         }
