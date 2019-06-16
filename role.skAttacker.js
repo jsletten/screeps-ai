@@ -49,7 +49,8 @@ module.exports = {
             }
             else
             {
-                let skLairs = creep.room.find(STRUCTURE_KEEPER_LAIR);
+                let skLairs = creep.room.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
+                
                 if(skLairs.length > 0)
                 {
                     skLairs.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
