@@ -68,34 +68,47 @@ module.exports = {
                     else
                     {
                         //console.log('Harvesting: ' + creep.harvest(target));
-                        creep.harvest(target);
-
-                        let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
-                            return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
-
-                        if(creep.carry[RESOURCE_ENERGY] > 0 && results.length > 0) 
+                        if(creep.harvest(target) == OK)
                         {
-                            creep.transfer(results[0], RESOURCE_ENERGY);
-                        }
-                        else
-                        {
-                            results = creep.pos.findInRange(FIND_MY_CONSTRUCTION_SITES, 1)
+                            let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
+                                return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
 
-                            if(results.length > 0)
+                            if(creep.carry[RESOURCE_ENERGY] > 0 && results.length > 0) 
                             {
-                                creep.say('build');
-                                creep.build(results[0]);
-                            }
-                            else if(target.link && target.link.energy < target.link.energyCapacity)
-                            {
-                                //We know it's an energy node because there is a link.
-                                creep.transfer(target.link, RESOURCE_ENERGY);
+                                creep.transfer(results[0], RESOURCE_ENERGY);
                             }
                             else
                             {
-                                for(const resourceType in creep.carry) 
+                                results = creep.pos.findInRange(FIND_MY_CONSTRUCTION_SITES, 1)
+
+                                if(results.length > 0)
                                 {
-                                    creep.transfer(container, resourceType);
+                                    creep.say('build');
+                                    creep.build(results[0]);
+                                }
+                                else if(target.link && target.link.energy < target.link.energyCapacity)
+                                {
+                                    //We know it's an energy node because there is a link.
+                                    creep.transfer(target.link, RESOURCE_ENERGY);
+                                }
+                                else
+                                {
+                                    for(const resourceType in creep.carry) 
+                                    {
+                                        creep.transfer(container, resourceType);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //Move resources from container to link since we have nothing better to do.
+                            if(container.store[RESOURCE_ENERGY] > 0 && target.link && target.link.energy < target.link.energyCapacity)
+                            {
+                                creep.withdraw(container, RESOURCE_ENERGY);
+                                if(creep.carry[RESOURCE_ENERGY] > 0)
+                                {
+                                    creep.transfer(target.link, RESOURCE_ENERGY);
                                 }
                             }
                         }
