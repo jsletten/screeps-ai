@@ -12,13 +12,13 @@ module.exports = {
         {
             body.push(TOUGH);
         }
-        for (let i = 0; i < 17; i++)
-        {
-            body.push(RANGED_ATTACK);
-        }
         for (let i = 0; i < 13; i++)
         {
             body.push(MOVE);
+        }
+        for (let i = 0; i < 17; i++)
+        {
+            body.push(RANGED_ATTACK);
         }
         for (let i = 0; i < 7; i++)
         {

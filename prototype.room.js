@@ -461,7 +461,7 @@ Room.prototype.spawnRemoteCreeps =
                         
                         if(skLairs && skLairs.length > 0)
                         {
-                            console.log('skLairs: ' + skLairs.length);
+                            //console.log('skLairs: ' + skLairs.length);
                             skAttackerCount++;
                         }
                         if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < skAttackerCount)
