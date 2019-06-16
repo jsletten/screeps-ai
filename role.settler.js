@@ -54,9 +54,18 @@ module.exports = {
                 let targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
                 let source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
 
-                if(targets && _.sum(creep.carry) == creep.carryCapacity)
+                if(creep.isFull)
                 {
-                    //We have full energy so let's go build
+                    creep.build = true;
+                }
+                else if(creep.build && _.sum(creep.carry) == 0)
+                {
+                    creep.build = false;
+                }
+
+                if(targets && creep.build)
+                {
+                    //We have energy so let's go build
                     if(targets.length > 0) 
                     {
                         if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) 
@@ -65,7 +74,7 @@ module.exports = {
                         }
                     }
                 }
-                else if(source && _.sum(creep.carry) < creep.carryCapacity)
+                else if(source && !creep.build)
                 {
                     //We need to get energy and there is a source available
                     if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
