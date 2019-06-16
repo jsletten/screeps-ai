@@ -449,6 +449,24 @@ Room.prototype.spawnRemoteCreeps =
                     }  
                 }
 
+                if(remoteRoom.mineral && remoteRoom.mineral.container)
+                {
+                    if(remoteRoom.mineral.extractor && remoteRoom.mineral.ticksToRegeneration == undefined)
+                    {
+                        if(!remoteRoom.mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
+                        {
+                            this.addToSpawnQueue({role: 'mineralHarvester', targetID: remoteRoom.mineral.id, targetRoom: remoteRoom.name});
+                        }
+                    }
+                    if(remoteRoom.mineral.container.hasResource)
+                    {
+                        if((remoteRoom.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
+                        {
+                            this.addToSpawnQueue({role: 'containerTransport', targetID: remoteRoom.mineral.container.id, homeRoom: this.name});
+                        }
+                    }
+                }
+
                 //Only spawn if there is a container to defend or hostile creeps in the room to ease economy while getting a new room going
                 let remoteHostileCount = remoteRoom.find(FIND_HOSTILE_CREEPS).length;
                 if(remoteRoom.sources[0].container || remoteHostileCount > 0)
