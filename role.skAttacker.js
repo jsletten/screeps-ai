@@ -39,7 +39,7 @@ module.exports = {
         }
         else
         {
-            let target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            let target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
             if(target) 
             {
                 //Attack Source Keeper
