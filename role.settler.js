@@ -54,7 +54,7 @@ module.exports = {
                 let targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
                 let source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
 
-                if(creep.isFull)
+                if(_.sum(creep.carry) == creep.carryCapacity)
                 {
                     creep.build = true;
                 }
