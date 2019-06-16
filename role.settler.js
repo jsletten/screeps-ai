@@ -3,14 +3,7 @@ module.exports = {
     {
         let body = [];
         maxEnergy -= 400; //reserve energy for CARRY/MOVE
-        body.push(CARRY);
-        body.push(CARRY);
-        body.push(CARRY);
-        body.push(CARRY);
-        body.push(CARRY);
-        body.push(CARRY);
-        body.push(MOVE);
-        body.push(MOVE);
+        
 
         //2x WORK - 1x MOVE
         let numberOfParts = Math.floor(maxEnergy / 150) * 2;
@@ -21,6 +14,15 @@ module.exports = {
             body.push(WORK);
             body.push(MOVE);
         }
+
+        body.push(CARRY);
+        body.push(CARRY);
+        body.push(CARRY);
+        body.push(CARRY);
+        body.push(CARRY);
+        body.push(CARRY);
+        body.push(MOVE);
+        body.push(MOVE);
 
         return body;
     },
