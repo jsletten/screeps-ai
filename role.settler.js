@@ -63,6 +63,7 @@ module.exports = {
                     creep.allowBuild = false;
                 }
 
+                console.log('allowBuild: ' + creep.allowBuild);
                 if(targets && creep.allowBuild)
                 {
                     //We have energy so let's go build
