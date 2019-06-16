@@ -24,7 +24,7 @@ function ()
 
         let body = Globals.roles[creepMemory.role].buildBody(spawnEnergy);
         let result = this.spawnCreep(body, name, {memory: creepMemory});
-        console.log('Attempting to spawn new ' + creepMemory.role + ': ' + result);
+        console.log(this.name + ' attempting to spawn new ' + creepMemory.role + ': ' + result);
         if (result == OK)
         {
             console.log('Spawning ' + name);

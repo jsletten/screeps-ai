@@ -330,13 +330,11 @@ Room.prototype.clearSpawnQueue =
 Room.prototype.executeSpawns = 
     function ()
     {
+        console.log('RoomBasedSpawn:' + this.name + ' spawnQueue.length:' + this.memory.spawnQueue.length);
         //Run spawn logic
         for (let name in this.spawns)
         {
             let spawn = this.spawns[name];
-            
-            console.log('RoomBasedSpawn:' + this.spawns[name].name + ' spawnQueue.length:' + this.memory.spawnQueue.length);
-        
             spawn.spawnNextInQueue();
         }
     };
