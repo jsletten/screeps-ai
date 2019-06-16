@@ -44,7 +44,7 @@ module.exports = {
             {
                 //Attack Source Keeper
                 if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}});
                 }
             }
             else
