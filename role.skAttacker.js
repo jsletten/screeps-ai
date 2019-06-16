@@ -3,9 +3,9 @@ module.exports = {
     {
         let body = [];
 
-        // 2 Tough (20)
-        // 10 Attack (800)
-        // 20 Move (1000)
+        // 4 Tough (40)
+        // 12 Attack (960)
+        // 24 Move (1200)
         // 8 Heal (2000)
 
         for (let i = 0; i < 4; i++)
@@ -43,7 +43,7 @@ module.exports = {
             if(target) 
             {
                 //Attack Source Keeper
-                if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
+                if(creep.attack(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {maxRooms:1, visualizePathStyle: {stroke: '#ffff00'}});
                 }
             }
@@ -61,7 +61,7 @@ module.exports = {
                 }  
                 else
                 {
-                    creep.moveTo(25,25); //TODO make this smarter
+                    creep.moveTo(25,25, {maxRooms:1}); //TODO make this smarter
                 }  
             }
         }
