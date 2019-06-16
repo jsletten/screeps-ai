@@ -8,15 +8,15 @@ module.exports = {
         // 8 Move (400)
         // 8 Heal (2000)
 
-        for (let i = 0; i < 4; i++)
+        for (let i = 0; i < 2; i++)
         {
             body.push(TOUGH);
         }
-        for (let i = 0; i < 20; i++)
+        for (let i = 0; i < 17; i++)
         {
             body.push(RANGED_ATTACK);
         }
-        for (let i = 0; i < 8; i++)
+        for (let i = 0; i < 9; i++)
         {
             body.push(MOVE);
         }
@@ -50,7 +50,7 @@ module.exports = {
             else
             {
                 let skLairs = creep.room.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
-                
+
                 if(skLairs.length > 0)
                 {
                     skLairs.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
