@@ -44,9 +44,41 @@ module.exports = {
                 //FILL AT CONTAINER
                 let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] > 0))});            
                 
-                if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                if(target)
+                {
+                    if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(target);
+                    }
                 }
+                else
+                {
+                    target = creep.pos.findClosestByPath(FIND_DROPPED_ENERGY);
+                    if(target) {
+                        creep.say('Resource!');
+                        if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(target);
+                        }
+                    }
+                    else 
+                    {
+                        target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {filter: (tombstone) => { 
+                            return (tombstone.store[RESOURCE_ENERGY] > 0)}}); 
+                    
+                        if(target)
+                        {
+                            if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(target);
+                            }
+                        }
+                        else
+                        {
+                            //TODO: Shouldn't hardcode waiting location
+                            creep.moveTo(24,24);
+                        }
+                    }
+                }
+                
             }
             else
             {
