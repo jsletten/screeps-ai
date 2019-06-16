@@ -3,20 +3,16 @@ module.exports = {
     {
         let body = [];
 
-        // 4 Tough (40)
-        // 12 Attack (960)
-        // 24 Move (1200)
+        // 14 Attack (1120)
+        // 26 Move (1300)
         // 8 Heal (2000)
 
-        for (let i = 0; i < 4; i++)
-        {
-            body.push(TOUGH);
-        }
-        for (let i = 0; i < 24; i++)
+
+        for (let i = 0; i < 26; i++)
         {
             body.push(MOVE);
         }
-        for (let i = 0; i < 12; i++)
+        for (let i = 0; i < 14; i++)
         {
             body.push(ATTACK);
         }
