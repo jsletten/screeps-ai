@@ -497,6 +497,10 @@ Room.prototype.spawnRemoteCreeps =
             else
             {
                 //send a scout because we can't see the room.
+                if((Globals.creepCountByRole('scout', remoteRoomId) + this.spawnQueueCount('scout')) < 1)
+                    {
+                        this.addToSpawnQueue({role: 'scout', targetRoom: remoteRoomId});
+                    }
             }
         }            
     };

@@ -15,6 +15,7 @@ module.exports = {
         healer: require('role.healer'),
         guard: require('role.guard'),
         skAttacker: require('role.skAttacker'),
+        scout: require('role.scout'),
         fixer: require('role.fixer'),
         linkHarvester: require('role.linkHarvester'),
         linkUnloader: require('role.linkUnloader'),
