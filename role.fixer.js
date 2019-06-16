@@ -48,7 +48,7 @@ module.exports = {
                 {
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
                     {
-                        creep.moveTo(target);
+                        creep.moveTo(target, {maxRooms:1});
                     }
                 }
                 else
@@ -57,7 +57,7 @@ module.exports = {
                     if(target) {
                         creep.say('Resource!');
                         if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target);
+                            creep.moveTo(target, {maxRooms:1});
                         }
                     }
                     else 
@@ -68,7 +68,7 @@ module.exports = {
                         if(target)
                         {
                             if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                                creep.moveTo(target);
+                                creep.moveTo(target, {maxRooms:1});
                             }
                         }
                         else
@@ -87,7 +87,7 @@ module.exports = {
                 if(targets.length > 0) {
                     creep.say('building')
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
+                        creep.moveTo(targets[0], {maxRooms:1, visualizePathStyle: {stroke: '#ffff00'}});
                     }
                 }
                 else
@@ -104,7 +104,7 @@ module.exports = {
                     {
                         creep.say('repairing');
                         if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target);
+                            creep.moveTo(target, {maxRooms:1});
                         }
                     }
                 }
