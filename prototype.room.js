@@ -437,12 +437,12 @@ Room.prototype.spawnRemoteCreeps =
                 {
                     let source = remoteRoom.sources[sourceIndex];
     
-                    if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
+                    if((!source.harvester && this.spawnQueueCount('containerHarvester') < 1) && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
                     {
                         this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                     }
 
-                    if(source.container)
+                    if(source.container && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
                     {
                         if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
                         {
