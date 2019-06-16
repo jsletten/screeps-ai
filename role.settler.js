@@ -56,14 +56,14 @@ module.exports = {
 
                 if(_.sum(creep.carry) == creep.carryCapacity)
                 {
-                    creep.build = true;
+                    creep.allowBuild = true;
                 }
-                else if(creep.build && _.sum(creep.carry) == 0)
+                else if(creep.allowBuild && _.sum(creep.carry) == 0)
                 {
-                    creep.build = false;
+                    creep.allowBuild = false;
                 }
 
-                if(targets && creep.build)
+                if(targets && creep.allowBuild)
                 {
                     //We have energy so let's go build
                     if(targets.length > 0) 
@@ -74,7 +74,7 @@ module.exports = {
                         }
                     }
                 }
-                else if(source && !creep.build)
+                else if(source && !creep.allowBuild)
                 {
                     //We need to get energy and there is a source available
                     if(creep.harvest(source) == ERR_NOT_IN_RANGE) 

@@ -145,7 +145,7 @@ module.exports.loop = function () {
 
     if(Game.flags.settlerFlag && (Globals.creepCountByRole('settler') + remoteSpawn.room.spawnQueueCount('settler') < 1))
     {
-        remoteSpawn.room.addToSpawnQueue({role: 'settler', targetRoom: Game.flags.settlerFlag.pos.roomName, path: path, build: false})
+        remoteSpawn.room.addToSpawnQueue({role: 'settler', targetRoom: Game.flags.settlerFlag.pos.roomName, path: path, allowBuild: false})
     }
 
     if(Game.flags.remoteClaimFlag && (Globals.creepCountByRole('remoteClaimer') + remoteSpawn.room.spawnQueueCount('remoteClaimer') < 1))
