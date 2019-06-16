@@ -452,19 +452,25 @@ Room.prototype.spawnRemoteCreeps =
                 }
 
                 //Only spawn if there is a container to defend or hostile creeps in the room to ease economy while getting a new room going
-                if(remoteRoom.sources[0].container || remoteRoom.find(FIND_HOSTILE_CREEPS).length > 0)
+                let remoteHostileCount = remoteRoom.find(FIND_HOSTILE_CREEPS).length;
+                if(remoteRoom.sources[0].container || remoteHostileCount > 0)
                 { 
+                    let attackerCount = 1;
+                    if(remoteHostileCount > 3)
+                    {
+                        attackerCount++;
+                    }
                     if(this.controller.level >= 7)
                     {
                         let skLairs = remoteRoom.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
-                        let skAttackerCount = 1;
                         
                         if(skLairs && skLairs.length > 0)
                         {
                             //console.log('skLairs: ' + skLairs.length);
-                            skAttackerCount++;
+                            attackerCount++;
                         }
-                        if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < skAttackerCount)
+
+                        if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < attackerCount)
                         {
                             this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId});
                         }
@@ -472,7 +478,7 @@ Room.prototype.spawnRemoteCreeps =
                     else
                     {
                         //Guards
-                        if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < 1)
+                        if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < attackerCount)
                         {
                             this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
                         }
