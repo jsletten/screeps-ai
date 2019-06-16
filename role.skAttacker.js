@@ -3,24 +3,24 @@ module.exports = {
     {
         let body = [];
 
-        // 4 Tough (20)
-        // 20 Range (3000)
-        // 8 Move (400)
+        // 2 Tough (20)
+        // 10 Attack (800)
+        // 20 Move (1000)
         // 8 Heal (2000)
 
         for (let i = 0; i < 2; i++)
         {
             body.push(TOUGH);
         }
-        for (let i = 0; i < 13; i++)
+        for (let i = 0; i < 20; i++)
         {
             body.push(MOVE);
         }
-        for (let i = 0; i < 17; i++)
+        for (let i = 0; i < 10; i++)
         {
-            body.push(RANGED_ATTACK);
+            body.push(ATTACK);
         }
-        for (let i = 0; i < 7; i++)
+        for (let i = 0; i < 8; i++)
         {
             body.push(HEAL);
         }
