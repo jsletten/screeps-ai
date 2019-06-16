@@ -456,7 +456,7 @@ Room.prototype.spawnRemoteCreeps =
                 { 
                     if(this.controller.level >= 7)
                     {
-                        let skLairs = creep.room.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
+                        let skLairs = remoteRoom.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
                         let skAttackerCount = 1;
                         
                         if(skLairs && skLairs.length > 0)
