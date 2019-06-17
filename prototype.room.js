@@ -483,11 +483,13 @@ Room.prototype.spawnRemoteCreeps =
                         
                         if(skLairs && skLairs.length > 0)
                         {
-                            //console.log('skLairs: ' + skLairs.length);
-                            attackerCount++;
+                            if((Globals.creepCountByRole('skRanger', remoteRoomId) + this.spawnQueueCount('skRanger')) < attackerCount)
+                            {
+                                this.addToSpawnQueue({role: 'skRanger', targetRoom: remoteRoomId});
+                            }
                         }
 
-                        if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < attackerCount)
+                        if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < 1)
                         {
                             this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId});
                         }
