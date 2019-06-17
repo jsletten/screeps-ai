@@ -5,7 +5,7 @@ module.exports = {
         let numberOfParts;
 
         //1 MOVE part for every 2 CARRY parts
-        maxEnergy = Math.min(maxEnergy, 1200);
+        maxEnergy = Math.min(maxEnergy, 1500);
         numberOfParts = Math.floor(maxEnergy / 150) * 3;
         for (let i = 0; i < ((numberOfParts/3)*2); i++) {
             body.push(CARRY);
