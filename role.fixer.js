@@ -93,7 +93,7 @@ module.exports = {
                 else
                 {
                     let maxRepairAmount = 100000;
-                    if(creep.room.controller.my)
+                    if(creep.room && creep.room.controller && creep.room.controller.my)
                     {
                         maxRepairAmount = maxRepairAmount * creep.room.controller.level;
                     }
