@@ -2,20 +2,22 @@ module.exports = {
     buildBody: function(maxEnergy) 
     {
         let body = [];
-
-        for (let i = 0; i < 5; i++)
+        let numberOfParts = Math.floor(maxEnergy / 960) * 10;
+        numberOfParts = Math.min(numberOfParts, 50); // limit guard size for now
+        
+        for (let i = 0; i < (numberOfParts/10); i++)
         {
             body.push(TOUGH);
         }
-        for (let i = 0; i < 25; i++)
+        for (let i = 0; i < ((numberOfParts/10)*5); i++)
         {
             body.push(MOVE);
         }
-        for (let i = 0; i < 12; i++)
+        for (let i = 0; i < ((numberOfParts/10)*3); i++)
         {
             body.push(RANGED_ATTACK);
         }
-        for (let i = 0; i < 8; i++)
+        for (let i = 0; i < (numberOfParts/10); i++)
         {
             body.push(HEAL);
         }
