@@ -472,10 +472,9 @@ Room.prototype.spawnRemoteCreeps =
                 if(remoteRoom.sources[0].container || remoteHostileCount > 0)
                 { 
                     let attackerCount = 1;
-                    if(remoteHostileCount > 3)
+                    if(remoteHostileCount)
                     {
-                        //TODO: Add more guards based on number of attackers.
-                        attackerCount++;
+                        attackerCount+= Math.floor(remoteHostileCount/3);
                     }
                     if(this.controller.level >= 7)
                     {
