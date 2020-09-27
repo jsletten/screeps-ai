@@ -30,7 +30,7 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(creep.carry.energy == 0) 
+        if(creep.store[RESOURCE_ENERGY] == 0) 
         {    
             let target = creep.room.controller.link || creep.room.controller.container;
             

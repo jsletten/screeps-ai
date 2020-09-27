@@ -17,7 +17,7 @@ module.exports = {
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(_.sum(creep.carry)  == 0) 
+        if(creep.store.getUsedCapacity() == 0) 
         {    
             if(creep.room.name != creep.memory.homeRoom)
             {
