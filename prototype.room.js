@@ -188,13 +188,13 @@ Room.prototype.spawnCreepsIfNecessary =
             }
         }
 
-        if(this.creepCountByRole('cleaner') + this.spawnQueueCount('cleaner') < 1)
-        {
-            this.addToSpawnQueue({role: 'cleaner'});
-        }
-
         if(this.storage)
         {
+            if(this.creepCountByRole('cleaner') + this.spawnQueueCount('cleaner') < 1)
+            {
+                this.addToSpawnQueue({role: 'cleaner'});
+            }
+
             let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 75000), 4);
 
             if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < maxNumberOfUpgraders)
