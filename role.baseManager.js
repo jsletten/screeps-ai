@@ -17,11 +17,6 @@ module.exports = {
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        
-        
-
-
-        
 
         let target;
 
@@ -31,15 +26,55 @@ module.exports = {
         }
         else if(creep.memory.gather == true)
         {
-            //Gather Energy
-            //Mining Container (closest over 100 seems to work)
-            //Storage
-            //Spawn Container(s)
+            if(creep.store.getFreeCapacity() == 0)
+            {
+                creep.memory.gather = false;
+            }
+            else
+            {
+                //Gather Energy
+                //Mining Container (closest over 100 seems to work could sort by fullest)
+                let sourceContainers = [];
+                for(let sourceIndex in this.sources)
+                {
+                    let source = this.sources[sourceIndex];
+        
+                    if(source.container && !source.link && source.container.store[RESOURCE_ENERGY] > 100)
+                    {
+                        sourceContainers.push(source.container);
+                    }
+                }
 
+                if(sourceContainers.length > 0)
+                {
+                    target = creep.pos.findClosestByPath(sourceContainers);
+                }
 
+                //Storage
+                if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] > 0)
+                {
+                    target = creep.room.storage;
+                }
 
-            if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, {reusePath: 10});
+                //Spawn Containers
+                if(!target)
+                {
+                    let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+                        return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] > 0)}});
+
+                    if(results.length > 0)
+                    {
+                        target = creep.pos.findClosestByPath(results);
+                    }  
+                }
+
+                if(target)
+                {
+                    if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(target, {reusePath: 10});
+                    }
+                }
             }
         }
         else
@@ -95,14 +130,21 @@ module.exports = {
                 target = creep.room.storage;
             }
 
-            //Gather if not full
-            if(!target && creep.store.getFreeCapacity() > 0)
+            if(target)
             {
-                creep.memory.gather = true;
+                if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
             }
-
-            //Couldn't find a delivery target...
-            //HOLD it till someone needs it
+            else
+            {
+                //Couldn't find a delivery target...
+                //Gather if not full or HOLD it till someone needs it
+                if(creep.store.getFreeCapacity() > 0)
+                {
+                    creep.memory.gather = true;
+                }
+            }
         }
     }
 };
