@@ -269,7 +269,7 @@ Room.prototype.spawnCreepsIfNecessary =
 Room.prototype.spawnResourceCreeps =
     function()
     {
-        if((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 1)
+        if((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 2)
         {
             this.addToSpawnQueue({role: 'baseManager', gather: true});
         }
