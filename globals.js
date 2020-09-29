@@ -28,7 +28,7 @@ module.exports = {
         combatTransport: require('role.combatTransport'),
         terminalHauler: require('role.terminalHauler'),
         labManager: require('role.labManager'),
-        baseManager: require('role.basemanager')
+        baseManager: require('role.baseManager')
     },
     
     creepsByRole: function(role, targetRoom = null)
