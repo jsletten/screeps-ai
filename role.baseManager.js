@@ -80,6 +80,10 @@ module.exports = {
                         creep.moveTo(target, {reusePath: 10});
                     }
                 }
+                else
+                {
+                    console.log('Gather Energy - Target NOT Found');
+                }
             }
         }
         else
