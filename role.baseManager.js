@@ -36,9 +36,9 @@ module.exports = {
                 console.log('Gather Energy');
                 //Mining Container (closest over 100 seems to work could sort by fullest)
                 let sourceContainers = [];
-                for(let sourceIndex in this.sources)
+                for(let sourceIndex in creep.room.sources)
                 {
-                    let source = this.sources[sourceIndex];
+                    let source = creep.room.sources[sourceIndex];
         
                     if(source.container && !source.link && source.container.store[RESOURCE_ENERGY] > 100)
                     {
