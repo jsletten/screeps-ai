@@ -39,7 +39,7 @@ module.exports = {
                 {
                     let source = creep.room.sources[sourceIndex];
         
-                    if(source.container && !source.link && source.container.store[RESOURCE_ENERGY] > 100)
+                    if(source.container && !source.link && source.container.store[RESOURCE_ENERGY] > (creep.room.controller.level*50))
                     {
                         sourceContainers.push(source.container);
                     }
