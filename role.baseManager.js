@@ -101,7 +101,7 @@ module.exports = {
                 if(!target)
                 {
                     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                        return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()))}}); 
+                        return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
                     console.log('Deliver Energy - Extensions');
                 }
                 
@@ -109,7 +109,7 @@ module.exports = {
                 if(!target)
                 {
                     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                        return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()))}}); 
+                        return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
                     console.log('Deliver Energy - Spawns');
                 }
 
@@ -136,7 +136,7 @@ module.exports = {
                 if(!target)
                 {
                     let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
-                        return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity())}});
+                        return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 
                     if(results.length > 0)
                     {
