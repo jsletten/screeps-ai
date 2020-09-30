@@ -20,7 +20,7 @@ module.exports = {
 
         let target;
 
-        if(creep.store.getUsedCapacity() == 0 && creep.ticksToLive < 100)
+        if(creep.store.getUsedCapacity() == 0 && creep.ticksToLive < 50)
         {
             creep.suicide();
         }
@@ -90,77 +90,85 @@ module.exports = {
         {
             //Deliver Energy
             console.log('Deliver Energy');
-            //Extensions
-            if(!target)
-            {
-                target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()))}}); 
-                console.log('Deliver Energy - Extensions');
-            }
-            
-            //Spawns
-            if(!target)
-            {
-                target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()))}}); 
-                console.log('Deliver Energy - Spawns');
-            }
 
-            //Controller Container under 50%
-            if(!target)
+            if(creep.store.getUsedCapacity() == 0)
             {
-                let roomController = creep.room.controller;
-                if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity()/2)
-                {
-                    target = roomController.container;
-                    console.log('Deliver Energy - Controller Container');
-                }
-            }
-
-            //Tower under 50%
-            if(!target)
-            {
-                target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()/2))}}); 
-                console.log('Deliver Energy - Tower');
-            }
-
-            //Spawn Containers
-            if(!target)
-            {
-                let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
-                    return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity())}});
-
-                if(results.length > 0)
-                {
-                    target = creep.pos.findClosestByPath(results);
-                    console.log('Deliver Energy - Spawn Countainer');
-                }    
-            }
-
-            //Storage under 50%
-            if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] < structure.store.getCapacity(RESOURCE_ENERGY)/2)
-            {
-                target = creep.room.storage;
-                console.log('Deliver Energy - Storage');
-            }
-
-            if(target)
-            {
-                if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
-                }
-                console.log('Deliver Energy - Target Found');
+                creep.memory.gather = true;
             }
             else
             {
-                console.log('Deliver Energy - No Target');
-                //Couldn't find a delivery target...
-                //Gather if not full or HOLD it till someone needs it
-                if(creep.store.getFreeCapacity() > 0)
+                //Extensions
+                if(!target)
                 {
-                    console.log('Deliver Energy - Try to gather');
-                    creep.memory.gather = true;
+                    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
+                        return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()))}}); 
+                    console.log('Deliver Energy - Extensions');
+                }
+                
+                //Spawns
+                if(!target)
+                {
+                    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
+                        return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()))}}); 
+                    console.log('Deliver Energy - Spawns');
+                }
+
+                //Controller Container under 50%
+                if(!target)
+                {
+                    let roomController = creep.room.controller;
+                    if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity()/2)
+                    {
+                        target = roomController.container;
+                        console.log('Deliver Energy - Controller Container');
+                    }
+                }
+
+                //Tower under 50%
+                if(!target)
+                {
+                    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
+                        return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()/2))}}); 
+                    console.log('Deliver Energy - Tower');
+                }
+
+                //Spawn Containers
+                if(!target)
+                {
+                    let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+                        return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity())}});
+
+                    if(results.length > 0)
+                    {
+                        target = creep.pos.findClosestByPath(results);
+                        console.log('Deliver Energy - Spawn Countainer');
+                    }    
+                }
+
+                //Storage under 50%
+                if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] < structure.store.getCapacity(RESOURCE_ENERGY)/2)
+                {
+                    target = creep.room.storage;
+                    console.log('Deliver Energy - Storage');
+                }
+
+                if(target)
+                {
+                    if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
+                    console.log('Deliver Energy - Target Found');
+                }
+                else
+                {
+                    console.log('Deliver Energy - No Target');
+                    //Couldn't find a delivery target...
+                    //Gather if not full or HOLD it till someone needs it
+                    if(creep.store.getFreeCapacity() > 0)
+                    {
+                        console.log('Deliver Energy - Try to gather');
+                        creep.memory.gather = true;
+                    }
                 }
             }
         }
