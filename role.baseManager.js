@@ -106,7 +106,7 @@ module.exports = {
                 if(!target)
                 {
                     let roomController = creep.room.controller;
-                    if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity()/2)
+                    if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2)
                     {
                         target = roomController.container;
                     }
@@ -147,7 +147,7 @@ module.exports = {
                 {
                     //Couldn't find a delivery target...
                     //Gather if not full or HOLD it till someone needs it
-                    if(creep.store.getFreeCapacity() > 0)
+                    if(creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
                     {
                         creep.memory.gather = true;
                     }
