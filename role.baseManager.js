@@ -132,7 +132,7 @@ module.exports = {
                 }
 
                 //Storage under 50%
-                if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] < structure.store.getCapacity(RESOURCE_ENERGY)/2)
+                if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] < creep.room.storage.store.getCapacity(RESOURCE_ENERGY)/2)
                 {
                     target = creep.room.storage;
                 }
