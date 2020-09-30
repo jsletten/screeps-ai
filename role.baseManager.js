@@ -110,7 +110,7 @@ module.exports = {
             if(!target)
             {
                 let roomController = creep.room.controller;
-                if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.getCapacity()/2)
+                if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity()/2)
                 {
                     target = roomController.container;
                     console.log('Deliver Energy - Controller Container');
