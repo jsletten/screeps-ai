@@ -116,7 +116,7 @@ module.exports = {
                 if(!target)
                 {
                     target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                        return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < structure.store.getCapacity()/2))}}); 
+                        return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
                 }
 
                 //Spawn Containers
