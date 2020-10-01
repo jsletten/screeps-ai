@@ -102,15 +102,6 @@ module.exports = {
                         return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
                 }
 
-                //Controller Container under 50%
-                if(!target)
-                {
-                    let roomController = creep.room.controller;
-                    if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2)
-                    {
-                        target = roomController.container;
-                    }
-                }
 
                 //Tower under 50%
                 if(!target)
@@ -136,6 +127,16 @@ module.exports = {
                 {
                     target = creep.room.storage;
                 }
+
+                //Controller Container under 50%
+                if(!target)
+                {
+                    let roomController = creep.room.controller;
+                    if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2)
+                    {
+                        target = roomController.container;
+                    }
+                }                
 
                 if(target)
                 {

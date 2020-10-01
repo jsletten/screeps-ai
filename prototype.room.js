@@ -202,13 +202,13 @@ Room.prototype.spawnCreepsIfNecessary =
                 this.addToSpawnQueue({role: 'upgrader'});
             }
 
-            // if(this.controller && this.controller.container && !this.controller.link)
-            // {
-            //     if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < maxNumberOfUpgraders)
-            //     {
-            //         this.addToSpawnQueue({role: 'upgraderTransport', targetID: this.controller.container.id, homeRoom: this.name});
-            //     }
-            // }
+            if(this.controller && this.controller.container && !this.controller.link)
+            {
+                if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < maxNumberOfUpgraders)
+                {
+                    this.addToSpawnQueue({role: 'upgraderTransport', targetID: this.controller.container.id, homeRoom: this.name});
+                }
+            }
 
             if(this.storage.link && (this.creepCountByRole('linkUnloader') + this.spawnQueueCount('linkUnloader')) < 1)
             {
