@@ -473,7 +473,7 @@ Room.prototype.spawnRemoteCreeps =
                     {
                         attackerCount+= Math.floor(remoteHostileCount/3);
                     }
-                    if(this.controller.level >= 7)
+                    if(this.controller.level >= 5)
                     {
                         let skLairs = remoteRoom.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
                         
