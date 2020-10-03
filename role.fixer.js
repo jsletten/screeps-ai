@@ -53,7 +53,7 @@ module.exports = {
                 }
                 else
                 {
-                    target = creep.pos.findClosestByPath(FIND_DROPPED_ENERGY);
+                    target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
                     if(target) {
                         creep.say('Resource!');
                         if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
