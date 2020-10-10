@@ -414,9 +414,12 @@ Room.prototype.spawnRemoteCreeps =
             {
                 if(remoteRoom && remoteRoom.controller)
                 {
-                    if(!remoteRoom.controller.my && remoteRoom.controller.reservation && remoteRoom.controller.reservation.ticksToEnd < 2000)
+                    if(!remoteRoom.controller.my)
                     {
-                        spawnRemoteReserver = true;
+                        if(remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk' && remoteRoom.controller.reservation.ticksToEnd < 2000)
+                        {
+                            spawnRemoteReserver = true;
+                        }
                     }
                 }
                 if(spawnRemoteReserver)
