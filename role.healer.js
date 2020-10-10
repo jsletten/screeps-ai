@@ -46,32 +46,36 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) 
     {
+        let healTarget = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+            filter: function(object) {
+                return object.hits < object.hitsMax;
+            }
+        });
+
+        let moveTarget;
+
+        if(creep.heal(healTarget) == ERR_NOT_IN_RANGE) {
+            moveTarget = target;
+        }
+
         if(creep.getActiveBodyparts(TOUGH) == 0)
         {
             if(Game.flags.rallyFlag)
             {
-                creep.moveTo(Game.flags.rallyFlag);
+                moveTarget = Game.flags.rallyFlag;
             }
         }
         else if(creep.room.name != creep.memory.targetRoom)
         {
             // find exit to target room
             let exit = creep.room.findExitTo(creep.memory.targetRoom);
-            creep.moveTo(creep.pos.findClosestByRange(exit));
+            moveTarget = creep.pos.findClosestByRange(exit);
         }
         else
         {
-            let target = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
-                filter: function(object) {
-                    return object.hits < object.hitsMax;
-                }
-            });
-            
-            if(target)
+            if(moveTarget)
             {
-                if(creep.heal(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
-                }
+                creep.moveTo(moveTarget);
             }
             else
             {
