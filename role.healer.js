@@ -27,9 +27,14 @@ module.exports = {
         let numberOfParts = 2;
 
         //1x CARRY - 1X MOVE
-        numberOfParts = Math.floor(maxEnergy / 300) * 2;
-        numberOfParts = Math.min(numberOfParts, 50); // limit healer size for now
-        for (let i = 0; i < numberOfParts/2; i++)
+        numberOfParts = Math.floor(maxEnergy / 310) * 3;
+        numberOfParts = Math.min(numberOfParts, 48); // limit healer size for now
+
+        for (let i = 0; i < numberOfParts/3; i++)
+        {
+            body.push(TOUGH);
+        }
+        for (let i = 0; i < numberOfParts/3; i++)
         {
             body.push(HEAL);
             body.push(MOVE);
@@ -41,7 +46,14 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) 
     {
-        if(creep.room.name != creep.memory.targetRoom)
+        if(creep.getActiveBodyparts(TOUGH) == 0)
+        {
+            if(Game.flags.rallyFlag)
+            {
+                creep.moveTo(Game.flags.rallyFlag);
+            }
+        }
+        else if(creep.room.name != creep.memory.targetRoom)
         {
             // find exit to target room
             let exit = creep.room.findExitTo(creep.memory.targetRoom);
