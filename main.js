@@ -122,7 +122,7 @@ module.exports.loop = function () {
         }
     }
 
-    if(Game.flags.tankFlag && Globals.creepCountByRole('tank') < 1)
+    if(Game.flags.tankFlag && Globals.creepCountByRole('tank') < 2)
     {
         Globals.roles['tank'].spawnCreep(remoteSpawn, Game.flags.tankFlag.pos.roomName);
     }
