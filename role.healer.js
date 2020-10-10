@@ -71,16 +71,15 @@ module.exports = {
             let exit = creep.room.findExitTo(creep.memory.targetRoom);
             moveTarget = creep.pos.findClosestByRange(exit);
         }
+        
+        if(moveTarget)
+        {
+            creep.moveTo(moveTarget);
+        }
         else
         {
-            if(moveTarget)
-            {
-                creep.moveTo(moveTarget);
-            }
-            else
-            {
-                creep.moveTo(25,25); //TODO make this smarter
-            }
+            creep.moveTo(25,25); //TODO make this smarter
         }
+        
     }
 };
