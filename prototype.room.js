@@ -414,12 +414,9 @@ Room.prototype.spawnRemoteCreeps =
             {
                 if(remoteRoom && remoteRoom.controller)
                 {
-                    if(!remoteRoom.controller.my)
+                    if(!remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk' && remoteRoom.controller.reservation.ticksToEnd < 2000))
                     {
-                        if(remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk' && remoteRoom.controller.reservation.ticksToEnd < 2000)
-                        {
-                            spawnRemoteReserver = true;
-                        }
+                        spawnRemoteReserver = true;
                     }
                 }
                 if(spawnRemoteReserver)
@@ -429,7 +426,7 @@ Room.prototype.spawnRemoteCreeps =
             }
 
             //Container Harvesters / Transports
-            if(remoteRoom)
+            if(remoteRoom && (remoteRoom.controller.my || (remoteROom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))
             {
                 for(let sourceIndex in remoteRoom.sources)
                 {
