@@ -57,7 +57,7 @@ module.exports = {
         if(healTarget)
         {
             if(creep.heal(healTarget) == ERR_NOT_IN_RANGE) {
-                moveTarget = target;
+                moveTarget = healTarget;
             }
         }
 
