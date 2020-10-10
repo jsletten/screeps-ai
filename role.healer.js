@@ -54,8 +54,11 @@ module.exports = {
 
         let moveTarget;
 
-        if(creep.heal(healTarget) == ERR_NOT_IN_RANGE) {
-            moveTarget = target;
+        if(healTarget)
+        {
+            if(creep.heal(healTarget) == ERR_NOT_IN_RANGE) {
+                moveTarget = target;
+            }
         }
 
         if(creep.getActiveBodyparts(TOUGH) == 0)
