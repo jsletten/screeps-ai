@@ -414,7 +414,7 @@ Room.prototype.spawnRemoteCreeps =
             {
                 if(remoteRoom && remoteRoom.controller)
                 {
-                    if(!remoteRoom.controller.my && remoteRoom.controller.owner != undefined)
+                    if(!remoteRoom.controller.my && remoteRoom.controller.owner != undefined && remoteRoom.controller.upgradeBlocked < 100)
                     {
                         spawnRemoteReserver = true;
                     }
