@@ -273,9 +273,12 @@ Room.prototype.spawnResourceCreeps =
         {
             let source = this.sources[sourceIndex];
 
-            if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
-            {
-                this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: source.room.name}, true);
+            if(source.container && !source.link)	
+            {	
+                if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)	
+                {	
+                    this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);	
+                }	
             }
 
             if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
