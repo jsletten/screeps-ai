@@ -215,10 +215,10 @@ Room.prototype.spawnCreepsIfNecessary =
                 this.addToSpawnQueue({role: 'linkUnloader'}, true);
             }
 
-            // if((this.creepCountByRole('storageManager') + this.spawnQueueCount('storageManager')) < 1)
-            // {
-            //     this.addToSpawnQueue({role: 'storageManager'}, true);
-            // }
+            if((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 2)
+            {
+                this.addToSpawnQueue({role: 'baseManager'}, true);
+            }
 
             if(this.labs.length > 0 && ((this.creepCountByRole('labManager') + this.spawnQueueCount('labManager')) < 1))
             {
@@ -269,14 +269,14 @@ Room.prototype.spawnCreepsIfNecessary =
 Room.prototype.spawnResourceCreeps =
     function()
     {
-        if((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 2)
-        {
-            this.addToSpawnQueue({role: 'baseManager', gather: true});
-        }
-
         for(let sourceIndex in this.sources)
         {
             let source = this.sources[sourceIndex];
+
+            if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+            {
+                this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: source.room.name}, true);
+            }
 
             if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
             {
