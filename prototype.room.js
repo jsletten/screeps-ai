@@ -449,7 +449,7 @@ Room.prototype.spawnRemoteCreeps =
 
                     if(source.container && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
                     {
-                        if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 2)
+                        if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
                         {
                             this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);
                         }
