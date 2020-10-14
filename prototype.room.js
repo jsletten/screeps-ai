@@ -423,7 +423,14 @@ Room.prototype.spawnRemoteCreeps =
                     }
                     else if(remoteRoom.controller.owner == undefined)
                     {
-                        if(remoteRoom.controller.reservation && (remoteRoom.controller.reservation.username != 'Kederk' || (remoteRoom.controller.reservation.username == 'Kederk' && remoteRoom.controller.reservation.ticksToEnd < 2000)))
+                        if(remoteRoom.controller.reservation)
+                        {
+                            if(remoteRoom.controller.reservation.username != 'Kederk' || (remoteRoom.controller.reservation.username == 'Kederk' && remoteRoom.controller.reservation.ticksToEnd < 2000))
+                            {
+                                spawnRemoteReserver = true;
+                            }
+                        }
+                        else
                         {
                             spawnRemoteReserver = true;
                         }
