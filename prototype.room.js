@@ -228,7 +228,7 @@ Room.prototype.spawnCreepsIfNecessary =
             if(this.terminal && ((this.creepCountByRole('terminalHauler') + this.spawnQueueCount('terminalHauler')) < 1))
             {
                 let spawnTerminalHauler = false;
-                for(resourceType in this.storage) 
+                for(resourceType in this.storage.store) 
                 {
                     resourceAmount = this.terminal.store[resourceType] || 0;
                     if(resourceAmount < 5000)
