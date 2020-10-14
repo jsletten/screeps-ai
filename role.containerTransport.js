@@ -50,7 +50,7 @@ module.exports = {
     
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(_.sum(creep.carry)  == 0) {
+        if(creep.store.getUsedCapacity() == 0) {
             if(creep.room.name == creep.memory.homeRoom && creep.ticksToLive < 100)
             {
                 creep.suicide();
@@ -58,7 +58,7 @@ module.exports = {
 
             let target = Game.getObjectById(creep.memory.targetID);
                  
-            if(target && _.sum(target.store) < 100)
+            if(target && target.store.getUsedCapacity() < 100)
             {
                 //Act as Cleaner
                 target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
@@ -72,7 +72,7 @@ module.exports = {
                 else 
                 {
                     target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {filter: (tombstone) => { 
-                        return (_.sum(tombstone.store) > 0)}}); 
+                        return (tombstone.store.getUsedCapacity() > 0)}}); 
                 
                     if(target)
                     {
@@ -108,28 +108,57 @@ module.exports = {
             {
                 let target;
                 
-                if(_.sum(creep.carry) == creep.carry[RESOURCE_ENERGY]) //Only energy so deposit anywhere
+                if(creep.store.getUsedCapacity() == creep.store[RESOURCE_ENERGY]) //Only energy so deposit anywhere
                 {
-                    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                        return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_LINK) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800))
-                            || (structure.structureType == STRUCTURE_STORAGE))}});
-
+                    //Extensions
                     if(!target)
                     {
                         target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                            return ((structure.structureType == STRUCTURE_TOWER) && ((structure.energy < structure.energyCapacity)&&(structure.energy < 800)))}}); 
+                            return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
                     }
 
+                    //Spawns
+                    if(!target)
+                    {
+                        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
+                            return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
+                    }
+
+                    //Tower under 50%
+                    if(!target)
+                    {
+                        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
+                            return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
+                    }
+
+                    //Controller Container under 50%
+                    if(!target)
+                    {
+                        let roomController = creep.room.controller;
+                        if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2)
+                        {
+                            target = roomController.container;
+                        }
+                    }                 
+
+                    //Spawn Containers
                     if(!target)
                     {
                         let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
-                            return (structure.structureType == STRUCTURE_CONTAINER) && (_.sum(structure.store) < structure.storeCapacity)}});
+                            return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
 
                         if(results.length > 0)
                         {
-                            target = results[0];
+                            target = creep.pos.findClosestByPath(results);
                         }    
                     }
+
+                    //Storage under 50%
+                    if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] < creep.room.storage.store.getCapacity(RESOURCE_ENERGY)/2)
+                    {
+                        target = creep.room.storage;
+                    }
+
                 }
                 else
                 {
@@ -138,7 +167,7 @@ module.exports = {
             
                 if(target)
                 {
-                    for(resourceType in creep.carry) 
+                    for(resourceType in creep.store) 
                     {
                         if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(target);
