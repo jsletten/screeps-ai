@@ -46,16 +46,32 @@ module.exports = {
             //         return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy >= 50))}});            
             // }
             
-            if(target && (creep.ticksToLive > 50))
+            if(target)
             {
-                //creep.say('withdraw');
-                if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
+                if(creep.ticksToLive > 50)
+                {
+                    if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(target);
+                    }
+                }
+                else
+                {
+                    creep.suicide();
                 }
             }
             else
             {
-                creep.suicide();
+                let source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+
+                if(source)
+                {
+                    //We need to get energy and there is a source available
+                    if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(source);
+                    }
+		        }
             }
         }
         else
