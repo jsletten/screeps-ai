@@ -124,18 +124,18 @@ module.exports = {
                             return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
                     }
 
-                    //Tower under 50%
+                    //Tower
                     if(!target)
                     {
                         target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                            return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
+                            return ((structure.structureType == STRUCTURE_TOWER) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) < creep.store.getUsedCapacity(RESOURCE_ENERGY)))}}); 
                     }
 
-                    //Controller Container under 50%
+                    //Controller Container
                     if(!target)
                     {
                         let roomController = creep.room.controller;
-                        if(roomController && roomController.container && !roomController.link && roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2)
+                        if(roomController && roomController.container && !roomController.link && roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) < creep.store.getUsedCapacity(RESOURCE_ENERGY))
                         {
                             target = roomController.container;
                         }
