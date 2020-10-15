@@ -37,14 +37,14 @@ module.exports = {
             if(!target)
             {
                 target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 100)}});            
+                    return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 50)}});            
             }
 
-            if(!target)
-            {
-                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy >= 50))}});            
-            }
+            // if(!target)
+            // {
+            //     target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+            //         return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy >= 50))}});            
+            // }
             
             if(target && (creep.ticksToLive > 50))
             {
