@@ -247,7 +247,7 @@ Room.prototype.spawnCreepsIfNecessary =
         {
             if(this.controller && this.controller.container)
             {
-                if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 2)
+                if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 3)
                 {
                     this.addToSpawnQueue({role: 'upgrader'});
                 }
@@ -272,10 +272,16 @@ Room.prototype.spawnResourceCreeps =
         for(let sourceIndex in this.sources)
         {
             let source = this.sources[sourceIndex];
+            let maxTransport = 1;
 
             if(source.container && !source.link)	
             {	
-                if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)	
+                if(this.controller && this.controller.container)
+                {
+                    maxTransport++;
+                }
+                
+                if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < maxTransport)	
                 {	
                     this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);	
                 }	
