@@ -29,26 +29,32 @@ module.exports = {
     },
 
     /** @param {Creep} creep **/
-    run: function(creep) {
-        if(creep.store[RESOURCE_ENERGY] == 0) 
-        {    
-            let target = creep.room.controller.link || creep.room.controller.container;
-            
-            if(!target)
-            {
-                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                    return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 50)}});            
-            }
+    run: function(creep) 
+    {
+        let target;
 
-            // if(!target)
-            // {
-            //     target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-            //         return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy >= 50))}});            
-            // }
-            
-            if(target)
+        if(creep.store.getUsedCapacity() == 0 && creep.ticksToLive < 50)
+        {
+            creep.suicide();
+        }
+        else if(creep.memory.gather == true)
+        {
+            if(creep.store.getFreeCapacity() == 0)
             {
-                if(creep.ticksToLive > 50)
+                creep.memory.gather = false;
+            }
+            else
+            {
+                //Gather Energy
+                target = creep.room.controller.link || creep.room.controller.container;
+            
+                if(!target)
+                {
+                    target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
+                        return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] >= 50)}});            
+                }
+                
+                if(target)
                 {
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
                     {
@@ -57,27 +63,31 @@ module.exports = {
                 }
                 else
                 {
-                    creep.suicide();
-                }
-            }
-            else
-            {
-                let source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-
-                if(source)
-                {
-                    //We need to get energy and there is a source available
-                    if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                    target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+    
+                    if(target)
                     {
-                        creep.moveTo(source);
+                        //We need to get energy and there is a source available
+                        if(creep.harvest(target) == ERR_NOT_IN_RANGE) 
+                        {
+                            creep.moveTo(target);
+                        }
                     }
-		        }
+                }
             }
         }
         else
         {
-            if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.controller);
+            if(creep.store.getUsedCapacity() == 0)
+            {
+                creep.memory.gather = true;
+            }
+            else
+            {
+                //Upgrade Controller
+                if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(creep.room.controller);
+                }
             }
         }
     }
