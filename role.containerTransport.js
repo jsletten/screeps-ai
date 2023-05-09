@@ -49,8 +49,12 @@ module.exports = {
     },
     
     /** @param {Creep} creep **/
-    run: function(creep) {
-        if(creep.store.getUsedCapacity() == 0) {
+    run: function(creep) 
+    {
+        let moveOptions = {reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}};
+
+        if(creep.store.getUsedCapacity() == 0) 
+        {
             if(creep.room.name == creep.memory.homeRoom && creep.ticksToLive < 100)
             {
                 creep.suicide();
@@ -65,8 +69,9 @@ module.exports = {
 
                 if(target) {
                     creep.say('Resource!');
-                    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target, {reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}});
+                    if(creep.pickup(target) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(target, moveOptions);
                     }
                 }
                 else 
@@ -78,8 +83,9 @@ module.exports = {
                     {
                         for(resourceType in target.store) 
                         {
-                            if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
-                                creep.moveTo(target, {reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}});
+                            if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) 
+                            {
+                                creep.moveTo(target, moveOptions);
                             }
                         }
                     }
@@ -90,8 +96,9 @@ module.exports = {
                 //Get resources from container
                 for(resourceType in target.store) 
                 {
-                    if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target,{reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}});
+                    if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(target, moveOptions);
                     }
                 }
             }
@@ -102,7 +109,7 @@ module.exports = {
                 // find exit to target room
                 let exit = creep.room.findExitTo(creep.memory.homeRoom);
                 // move to exit
-                creep.moveTo(creep.pos.findClosestByPath(exit), {reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}});
+                creep.moveTo(creep.pos.findClosestByPath(exit), moveOptions);
             }
             else
             {
@@ -170,7 +177,7 @@ module.exports = {
                     for(resourceType in creep.store) 
                     {
                         if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target, {reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}});
+                            creep.moveTo(target, moveOptions);
                         }
                     }
                 }
