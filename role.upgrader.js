@@ -84,9 +84,20 @@ module.exports = {
             }
             else
             {
-                //Upgrade Controller
-                if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(creep.room.controller);
+                if(creep.room.controller && creep.room.controller.sign.username != "Kederk")
+                {
+                    if(creep.signController(creep.room.controller, "Any creeps entering this territory will be considered hostile.") == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(creep.room.controller);
+                    }
+                }
+                else
+                {
+                    //Upgrade Controller
+                    if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) 
+                    {
+                        creep.moveTo(creep.room.controller);
+                    }
                 }
             }
         }
