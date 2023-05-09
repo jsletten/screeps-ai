@@ -57,6 +57,7 @@ module.exports = {
             }
 
             let target = Game.getObjectById(creep.memory.targetID);
+            let moveOptions = {reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}};
                  
             if(target && target.store.getUsedCapacity() < 100)
             {
@@ -66,7 +67,7 @@ module.exports = {
                 if(target) {
                     creep.say('Resource!');
                     if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}});
+                        creep.moveTo(target, moveOptions);
                     }
                 }
                 else 
@@ -79,7 +80,7 @@ module.exports = {
                         for(resourceType in target.store) 
                         {
                             if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
-                                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}});
+                                creep.moveTo(target, moveOptions);
                             }
                         }
                     }
@@ -91,7 +92,7 @@ module.exports = {
                 for(resourceType in target.store) 
                 {
                     if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target,{visualizePathStyle: {stroke: '#ffff00'}});
+                        creep.moveTo(target, moveOptions);
                     }
                 }
             }
@@ -102,7 +103,7 @@ module.exports = {
                 // find exit to target room
                 let exit = creep.room.findExitTo(creep.memory.homeRoom);
                 // move to exit
-                creep.moveTo(creep.pos.findClosestByPath(exit), {visualizePathStyle: {stroke: '#ffff00'}});
+                creep.moveTo(creep.pos.findClosestByPath(exit), moveOptions);
             }
             else
             {
@@ -170,7 +171,7 @@ module.exports = {
                     for(resourceType in creep.store) 
                     {
                         if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}});
+                            creep.moveTo(target, moveOptions);
                         }
                     }
                 }
