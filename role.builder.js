@@ -46,7 +46,7 @@ module.exports = {
         else 
         {
             var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 100)}});            
+                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 200)}});            
             
             // if(!target)
             // {
