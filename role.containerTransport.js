@@ -142,7 +142,7 @@ module.exports = {
                     if(!target)
                     {
                         let roomController = creep.room.controller;
-                        if(roomController && roomController.container && !roomController.link && roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > creep.store.getUsedCapacity(RESOURCE_ENERGY))
+                        if(roomController && roomController.container && !roomController.link && roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > 100)
                         {
                             target = roomController.container;
                         }
