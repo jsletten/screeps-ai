@@ -28,7 +28,7 @@ module.exports = {
             {
                 var  targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
 
-                if(targets.length > 0) {
+                if(targets && targets.length > 0) {
                     if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) 
                     {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
@@ -66,7 +66,7 @@ module.exports = {
             {
                 let resources = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {filter: (d) => {return (d.resourceType == RESOURCE_ENERGY)}});
 
-                if(resources.length > 0) 
+                if(resources && resources.length > 0) 
                 {
                     creep.say('Resource!');
                     if(creep.pickup(resources[0]) == ERR_NOT_IN_RANGE)
