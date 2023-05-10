@@ -115,7 +115,7 @@ module.exports = {
                         return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
                 }
 
-                //Controller Container under 50%
+                //Controller Container under 50% or has room for our whole load
                 if(!target)
                 {
                     let roomController = creep.room.controller;
