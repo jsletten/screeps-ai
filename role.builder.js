@@ -60,6 +60,16 @@ module.exports = {
                     creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
                 }
             }
+            else
+            {
+                let resources = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {filter: (d) => {return (d.resourceType == RESOURCE_ENERGY)}});
+
+                if(resources.length > 0) 
+                {
+                    creep.say('Resource!');
+                    creep.pickup(resources[0]);
+                }
+            }
         }
     }
     
