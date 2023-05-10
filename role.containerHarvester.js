@@ -116,10 +116,10 @@ module.exports = {
                                 //Act as Cleaner
                                 let resources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
 
-                                if(resources) 
+                                if(resources.length > 0) 
                                 {
                                     creep.say('Resource!');
-                                    creep.pickup(resources)
+                                    creep.pickup(resources[0]);
 
                                     let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
                                         return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
