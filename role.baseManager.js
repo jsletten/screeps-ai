@@ -42,10 +42,16 @@ module.exports = {
                     if(source.container && !source.link && source.container.store[RESOURCE_ENERGY] > (creep.room.controller.level*50))
                     {
                         sourceContainers.push(source.container);
+                        if(source.id == creep.memory.targetID)
+                        {
+                            //Target Mining Container
+                            target = Game.getObjectById(source.id);
+                        }
                     }
                 }
 
-                if(sourceContainers.length > 0)
+                //Closest Mining Container
+                if(!target && sourceContainers.length > 0)
                 {
                     target = creep.pos.findClosestByPath(sourceContainers);
                 }
