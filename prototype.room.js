@@ -199,16 +199,8 @@ Room.prototype.spawnCreepsIfNecessary =
 
             if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < maxNumberOfUpgraders)
             {
-                this.addToSpawnQueue({role: 'upgrader'});
+                this.addToSpawnQueue({role: 'upgrader', targetRoom: this.name});
             }
-
-            // if(this.controller && this.controller.container && !this.controller.link)
-            // {
-            //     if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < maxNumberOfUpgraders)
-            //     {
-            //         this.addToSpawnQueue({role: 'upgraderTransport', targetID: this.controller.container.id, homeRoom: this.name});
-            //     }
-            // }
 
             if(this.storage.link && (this.creepCountByRole('linkUnloader') + this.spawnQueueCount('linkUnloader')) < 1)
             {
@@ -249,18 +241,18 @@ Room.prototype.spawnCreepsIfNecessary =
             {
                 if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 2)
                 {
-                    this.addToSpawnQueue({role: 'upgrader'});
+                    this.addToSpawnQueue({role: 'upgrader', targetRoom: this.name});
                 }
-                // if((this.creepCountByRole('upgraderTransport') + this.spawnQueueCount('upgraderTransport')) < 1)
-                // {
-                //     this.addToSpawnQueue({role: 'upgraderTransport', targetID: this.controller.container.id, homeRoom: this.name});
-                // }
+                else if((this.controller.container.store.getFreeCapacity() < (this.controller.container.store.getCapacity()/2)) && ((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 3))
+                {
+                    this.addToSpawnQueue({role: 'upgrader', targetRoom: this.name});
+                }
             }
             else
             {
                 if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 3)
                 {
-                    this.addToSpawnQueue({role: 'upgrader'});
+                    this.addToSpawnQueue({role: 'upgrader', targetRoom: this.name});
                 }
             }
         }

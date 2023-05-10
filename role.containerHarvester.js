@@ -111,6 +111,47 @@ module.exports = {
                                     creep.transfer(target.link, RESOURCE_ENERGY);
                                 }
                             }
+                            else
+                            {
+                                //Act as Cleaner
+                                let resources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
+
+                                if(resources.length > 0) 
+                                {
+                                    creep.say('Resource!');
+                                    creep.pickup(resources[0]);
+
+                                    let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
+                                        return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
+        
+                                    if(creep.carry[RESOURCE_ENERGY] > 0 && results.length > 0) 
+                                    {
+                                        creep.transfer(results[0], RESOURCE_ENERGY);
+                                    }
+                                    else
+                                    {
+                                        results = creep.pos.findInRange(FIND_MY_CONSTRUCTION_SITES, 1)
+        
+                                        if(results.length > 0)
+                                        {
+                                            creep.say('build');
+                                            creep.build(results[0]);
+                                        }
+                                        else if(target.link && target.link.energy < target.link.energyCapacity)
+                                        {
+                                            //We know it's an energy node because there is a link.
+                                            creep.transfer(target.link, RESOURCE_ENERGY);
+                                        }
+                                        else
+                                        {
+                                            for(const resourceType in creep.carry) 
+                                            {
+                                                creep.transfer(container, resourceType);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

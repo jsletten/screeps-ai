@@ -52,7 +52,7 @@ module.exports = {
             else
             {
                 let targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
-                let source = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
+                let source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
                 let allowBuild = creep.memory.allowBuild;
 
                 if (!allowBuild && _.sum(creep.carry) == creep.carryCapacity)

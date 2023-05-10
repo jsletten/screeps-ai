@@ -28,8 +28,9 @@ module.exports = {
             {
                 var  targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
 
-                if(targets.length > 0) {
-                    if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+                if(targets && targets.length > 0) {
+                    if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) 
+                    {
                         creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}});
                     }
                 }
@@ -37,7 +38,8 @@ module.exports = {
                 {
                     var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
                         return (structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity}});            
-                    if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
+                    {
                         creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
                 }
@@ -58,6 +60,19 @@ module.exports = {
             {
                 if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target, {visualizePathStyle: {stroke: '#ff0000'}});
+                }
+            }
+            else
+            {
+                let resources = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {filter: (d) => {return (d.resourceType == RESOURCE_ENERGY)}});
+
+                if(resources && resources.length > 0) 
+                {
+                    creep.say('Resource!');
+                    if(creep.pickup(resources[0]) == ERR_NOT_IN_RANGE)
+                    {
+                        creep.moveTo(resources[0]);
+                    }
                 }
             }
         }
