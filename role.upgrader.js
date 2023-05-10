@@ -37,6 +37,12 @@ module.exports = {
         {
             creep.suicide();
         }
+        else if (creep.room.name != creep.memory.targetRoom)
+        {
+            // find exit to target room
+            var exit = creep.room.findExitTo(creep.memory.targetRoom);
+            creep.moveTo(creep.pos.findClosestByRange(exit));
+        }
         else if(creep.memory.gather == true)
         {
             if(creep.store.getFreeCapacity() == 0)
