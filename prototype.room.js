@@ -268,10 +268,10 @@ Room.prototype.spawnResourceCreeps =
 
             if(source.container && !source.link)	
             {	
-                if(this.controller && this.controller.container)
-                {
-                    maxTransport++;
-                }
+                // if(this.controller && this.controller.container)
+                // {
+                //     maxTransport++;
+                // }
                 
                 if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < maxTransport)	
                 {	
