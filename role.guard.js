@@ -36,14 +36,11 @@ module.exports = {
         else
         {    
             var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-            console.log('Target1: ' + target);
 
             if(!target) 
             {
-                target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType != STRUCTURE_CONTROLLER)
+                target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, {filter: (structure) => { return (structure.structureType != STRUCTURE_CONTROLLER) }});
             }
-
-            console.log('Target2: ' + target);
             
             if(target)
             {
