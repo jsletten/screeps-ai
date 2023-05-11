@@ -107,7 +107,7 @@ module.exports = {
             if(creep.room.name != creep.memory.homeRoom)
             {
                 // move to home room
-                creep.moveTo(Game.rooms[homeRoom].spawns[0], moveOptions);
+                creep.moveTo(Game.rooms[creep.memory.homeRoom].spawns[0], moveOptions);
             }
             else
             {
