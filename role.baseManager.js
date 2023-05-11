@@ -93,6 +93,13 @@ module.exports = {
                             creep.moveTo(resources[0]);
                         }
                     }
+                    else
+                    {
+                        if(creep.store.getUsedCapacity() > 0)
+                        {
+                            creep.memory.gather = false;
+                        }
+                    }
                 }
 
             }
