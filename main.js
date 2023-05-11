@@ -172,9 +172,11 @@ module.exports.loop = function () {
             room.executeTerminal();
             room.executeLabs();
             room.executeDefenses();
+            
+            room.spawnResourceCreeps();
             room.spawnCreepsIfNecessary();
             room.spawnRemoteCreeps();
-            room.spawnResourceCreeps();
+            
             room.executeSpawns();
         }
     }

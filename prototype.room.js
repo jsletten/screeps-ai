@@ -239,6 +239,12 @@ Room.prototype.spawnCreepsIfNecessary =
         {
             if(this.controller && this.controller.container)
             {
+                //Spawn extra baseManager to help out in pre storage era
+                if((this.spawnQueueCount('baseManager') < 1 ) && ((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 3))
+                {
+                    this.addToSpawnQueue({role: 'baseManager'});
+                }
+
                 if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < 2)
                 {
                     this.addToSpawnQueue({role: 'upgrader', targetRoom: this.name});
@@ -266,7 +272,7 @@ Room.prototype.spawnResourceCreeps =
             let source = this.sources[sourceIndex];
 
             if(source.container && !source.link)	
-            {	                
+            {	   
                 if((source.container.transports.length + this.spawnQueueCount('baseManager')) < 1)	
                 {	
                     this.addToSpawnQueue({role: 'baseManager', targetID: source.container.id}, true);	
@@ -276,14 +282,6 @@ Room.prototype.spawnResourceCreeps =
             if(!source.harvester && this.spawnQueueCount('containerHarvester') < 1)
             {
                 this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
-            }
-        }
-
-        if(this.controller && this.controller.container)
-        {
-            if((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 1)
-            {
-                this.addToSpawnQueue({role: 'baseManager'});
             }
         }
 
