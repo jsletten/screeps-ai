@@ -18,7 +18,7 @@ module.exports.loop = function () {
     }
     
     //Log current stats
-    console.log('Time:' + Game.time + ' CT:' + Globals.creepCountByRole('containerTransport') + ' CH:' + Globals.creepCountByRole('containerHarvester'));
+    console.log('Time:' + Game.time + ' BM:' + Globals.creepCountByRole('baseManager') + ' CH:' + Globals.creepCountByRole('containerHarvester'));
 
         //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
     let remoteSpawn = Game.spawns['Spawn1'];
@@ -172,7 +172,7 @@ module.exports.loop = function () {
             room.executeTerminal();
             room.executeLabs();
             room.executeDefenses();
-            
+
             room.spawnResourceCreeps();
             room.spawnCreepsIfNecessary();
             room.spawnRemoteCreeps();
