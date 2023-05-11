@@ -106,10 +106,8 @@ module.exports = {
         else {
             if(creep.room.name != creep.memory.homeRoom)
             {
-                // find exit to target room
-                let exit = creep.room.findExitTo(creep.memory.homeRoom);
-                // move to exit
-                creep.moveTo(creep.pos.findClosestByPath(exit), moveOptions);
+                // move to home room
+                creep.moveTo(Game.rooms[homeRoom].spawns[0], moveOptions);
             }
             else
             {
