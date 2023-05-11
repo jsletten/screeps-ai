@@ -81,6 +81,19 @@ module.exports = {
                         creep.moveTo(target, {reusePath: 10});
                     }
                 }
+                else
+                {
+                    let resources = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {filter: (d) => {return (d.resourceType == RESOURCE_ENERGY)}});
+
+                    if(resources && resources.length > 0) 
+                    {
+                        creep.say('Resource!');
+                        if(creep.pickup(resources[0]) == ERR_NOT_IN_RANGE)
+                        {
+                            creep.moveTo(resources[0]);
+                        }
+                    }
+                }
 
             }
         }
