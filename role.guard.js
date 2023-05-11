@@ -36,17 +36,21 @@ module.exports = {
         else
         {    
             var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-            if(!target) {
+            console.log('Target1: ' + target);
+
+            if(!target) 
+            {
                 target = creep.pos.findClosestByRange(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType != STRUCTURE_CONTROLLER)
             }
 
-            console.log(target);
+            console.log('Target2: ' + target);
             
             if(target)
             {
                 creep.rangedAttack(target);
 
-                if(creep.attack(target) == ERR_NOT_IN_RANGE) {
+                if(creep.attack(target) == ERR_NOT_IN_RANGE) 
+                {
                     creep.moveTo(target);
                 }
             }
