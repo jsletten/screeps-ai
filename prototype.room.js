@@ -207,10 +207,10 @@ Room.prototype.spawnCreepsIfNecessary =
                 this.addToSpawnQueue({role: 'linkUnloader'}, true);
             }
 
-            if((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 2)
-            {
-                this.addToSpawnQueue({role: 'baseManager'}, true);
-            }
+            // if((this.creepCountByRole('baseManager') + this.spawnQueueCount('baseManager')) < 2)
+            // {
+            //     this.addToSpawnQueue({role: 'baseManager'}, true);
+            // }
 
             if(this.labs.length > 0 && ((this.creepCountByRole('labManager') + this.spawnQueueCount('labManager')) < 1))
             {
