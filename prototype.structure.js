@@ -1,7 +1,7 @@
 Object.defineProperty(StructureContainer.prototype, 'transports', {
     get: function() {
         if (!this._transports) {          
-            this._transports = _.filter(Game.creeps, (creep) => creep.memory.role == 'containerTransport' && creep.memory.targetID == this.id);
+            this._transports = _.filter(Game.creeps, (creep) => (creep.memory.role == 'containerTransport' || creep.memory.role == 'baseManager') && creep.memory.targetID == this.id);
         }
         return this._transports || [];
     },
