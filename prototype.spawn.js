@@ -22,14 +22,26 @@ function ()
             }
         }
 
-        let body = Globals.roles[creepMemory.role].buildBody(spawnEnergy);
-        let result = this.spawnCreep(body, name, {memory: creepMemory});
-        console.log(this.name + ' attempting to spawn new ' + creepMemory.role + ': ' + result);
-        if (result == OK)
+        let role = Globals.roles[creepMemory.role];
+
+        if(role)
         {
-            console.log('Spawning ' + name);
+            let body = role.buildBody(spawnEnergy);
+            let result = this.spawnCreep(body, name, {memory: creepMemory});
+            console.log(this.name + ' attempting to spawn new ' + creepMemory.role + ': ' + result);
+            if (result == OK)
+            {
+                console.log('Spawning ' + name);
+                this.room.memory.spawnQueue.shift();
+            }
+        }
+        else
+        {
+            console.log('ERROR: Role NOT FOUND - Aborting spawn');
             this.room.memory.spawnQueue.shift();
         }
+
+        
     }
     if(this.spawning) 
     {
