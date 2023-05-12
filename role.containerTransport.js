@@ -1,37 +1,4 @@
 module.exports = {
-    spawnCreep: function(spawn, targetID, emergencySpawn, homeRoom = 'E32N13') 
-    {
-        let target = Game.getObjectById(targetID);
-        let memory = {role: 'containerTransport', targetID: targetID, homeRoom: homeRoom};
-        let body = [];
-        let maxEnergy
-
-        if(emergencySpawn)
-        {
-            maxEnergy = 150;
-        }
-        else
-        {
-            maxEnergy = spawn.room.energyCapacityAvailable;
-        }
-
-        if(spawn.room == target.room)
-        {
-            maxEnergy = Math.min(maxEnergy, 450);
-        }
-        else
-        {
-            maxEnergy = Math.min(maxEnergy, 750);
-        }
-
-        body = this.buildBody(maxEnergy);
-        
-        let newName = spawn.spawnCreep(body, 'CT-' + Game.time, {memory: memory});
-        console.log('Spawning new ' + memory.role + '(' + maxEnergy + '): targetID(' + targetID  + ') homeRoom(' + homeRoom + '): ' + newName);
-        
-        //return {body: body, memory: memory};
-    },
-
     buildBody: function(maxEnergy) 
     {
         maxEnergy = Math.min(maxEnergy, 1200);
@@ -111,64 +78,7 @@ module.exports = {
             }
             else
             {
-                let target;
-                
-                if(creep.store.getUsedCapacity() == creep.store[RESOURCE_ENERGY]) //Only energy so deposit anywhere
-                {
-                    //Extensions
-                    if(!target)
-                    {
-                        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                            return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
-                    }
-
-                    //Spawns
-                    if(!target)
-                    {
-                        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                            return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
-                    }
-
-                    //Tower
-                    if(!target)
-                    {
-                        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                            return ((structure.structureType == STRUCTURE_TOWER) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > creep.store.getUsedCapacity(RESOURCE_ENERGY)))}}); 
-                    }
-
-                    //Controller Container
-                    if(!target)
-                    {
-                        let roomController = creep.room.controller;
-                        if(roomController && roomController.container && !roomController.link && roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > 100)
-                        {
-                            target = roomController.container;
-                        }
-                    }                 
-
-                    //Spawn Containers
-                    if(!target)
-                    {
-                        let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
-                            return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-
-                        if(results.length > 0)
-                        {
-                            target = creep.pos.findClosestByPath(results);
-                        }    
-                    }
-
-                    //Storage under 50%
-                    if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] < creep.room.storage.store.getCapacity(RESOURCE_ENERGY)/2)
-                    {
-                        target = creep.room.storage;
-                    }
-
-                }
-                else
-                {
-                    target = creep.room.storage; //Carrying resources other then energy so must deposit to storage
-                }
+                let target = creep.room.storage; //Carrying resources other then energy so must deposit to storage
             
                 if(target)
                 {
