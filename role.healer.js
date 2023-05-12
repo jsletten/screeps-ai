@@ -1,26 +1,4 @@
 module.exports = {
-    spawnCreep: function(spawn, targetRoom) 
-    {
-        var body = [];
-        var maxEnergy
-        var numberOfParts = 2;
-
-        maxEnergy = spawn.room.energyCapacityAvailable;
-
-        //1x CARRY - 1X MOVE
-        numberOfParts = Math.floor(maxEnergy / 300) * 2;
-        numberOfParts = Math.min(numberOfParts, 50); // limit healer size for now
-        for (let i = 0; i < numberOfParts/2; i++)
-        {
-            body.push(HEAL);
-            body.push(MOVE);
-        }
-
-        var result = spawn.createCreep(body, undefined, {role: 'healer', targetRoom: targetRoom});
-        console.log('Spawning new healer(' + numberOfParts + '): targetRoom(' + targetRoom + '): ' + result);
-        
-        return;
-    },
     buildBody: function(maxEnergy) 
     {
         let body = [];

@@ -16,43 +16,12 @@ module.exports.loop = function () {
             console.log('Clearing non-existing creep memory:' + name);
         }
     }
-    
+
     //Log current stats
     console.log('Time:' + Game.time + ' BM:' + Globals.creepCountByRole('baseManager') + ' CH:' + Globals.creepCountByRole('containerHarvester'));
 
-        //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
+    //TODO: Everything remote is hard coded with spawn right now, make this more dynamic
     let remoteSpawn = Game.spawns['Spawn1'];
-    
-    // if(Game.flags.mineFlag1)
-    // {
-    //     let targetRoom = Game.flags.mineFlag1.pos.roomName;
-
-    //     if(Globals.creepCountByRole('fixer', targetRoom) < 1)
-    //     {
-    //         Globals.roles['fixer'].spawnCreep(remoteSpawn, targetRoom)
-    //     }
-
-    //     if(Game.flags.mineFlag1.room)
-    //     {       
-    //         for(let sourceIndex in Game.flags.mineFlag1.room.sources)
-    //         {
-    //             let source = Game.flags.mineFlag1.room.sources[sourceIndex];
-
-    //                 if(!source.harvester && remoteSpawn.room.spawnQueueCount('containerHarvester') < 1)
-    //                 {
-    //                     remoteSpawn.room.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name});
-    //                 }
-
-    //                 if(source.container)
-    //                 {
-    //                     if((source.container.transports.length + remoteSpawn.room.spawnQueueCount('containerTransport')) < 3)
-    //                     {
-    //                         remoteSpawn.room.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: remoteSpawn.room.name});
-    //                     }
-    //                 }  
-    //         }
-    //     }
-    // }
 
     if(Game.flags.defendRoom)
     {
@@ -66,7 +35,7 @@ module.exports.loop = function () {
         }
         if(Globals.creepCountByRole('healer', targetRoom) < 1)
         {
-            Globals.roles['healer'].spawnCreep(remoteSpawn, targetRoom)
+            remoteSpawn.room.addToSpawnQueue({role: 'healer', targetRoom: targetRoom});
         }
     }
 
@@ -85,19 +54,19 @@ module.exports.loop = function () {
 
         if(spawnClaimer)
         {
-            Globals.roles['claimer'].spawnCreep(remoteSpawn);
+            remoteSpawn.room.addToSpawnQueue({role: 'claimer'});
         }
     }
 
     if(Game.flags.attackWall && Globals.creepCountByRole('wallMiner') < 3)
     {
-        Globals.roles['wallMiner'].spawnCreep(remoteSpawn);
+        remoteSpawn.room.addToSpawnQueue({role: 'wallMiner'});
 
         let targetRoom = Game.flags.attackWall.pos.roomName;
 
         if(Globals.creepCountByRole('healer', targetRoom) < 1)
         {
-            Globals.roles['healer'].spawnCreep(remoteSpawn, targetRoom)
+            remoteSpawn.room.addToSpawnQueue({role: 'healer', targetRoom: targetRoom});
         }
     }
 
@@ -124,7 +93,7 @@ module.exports.loop = function () {
 
     if(Game.flags.tankFlag && Globals.creepCountByRole('tank') < 2)
     {
-        Globals.roles['tank'].spawnCreep(remoteSpawn, Game.flags.tankFlag.pos.roomName);
+        remoteSpawn.room.addToSpawnQueue({role: 'tank', targetRoom: Game.flags.tankFlag.pos.roomName});
     }
 
 

@@ -1,11 +1,8 @@
 module.exports = {
-    spawnCreep: function(spawn, targetRoom) 
+    buildBody: function(maxEnergy) 
     {
-        var body = [];
-        var maxEnergy
-        var numberOfParts;
-
-        maxEnergy = spawn.room.energyCapacityAvailable;
+        let body = [];
+        let numberOfParts;
 
         //1x HEAL - 1X MOVE
         numberOfParts = Math.floor(maxEnergy / 310) * 3;
@@ -21,11 +18,7 @@ module.exports = {
             body.push(MOVE);
         }
 
-        let memory = {role: 'tank', targetRoom: targetRoom, homeRoom: spawn.room.name};
-        let result = spawn.spawnCreep(body, 'TK-' + Game.time, {memory: memory});
-        console.log('Spawning new Tank(' + numberOfParts + '): targetRoom(' + targetRoom + '): ' + result);
-        
-        //return {name: result, body: body, memory: memory};
+        return body;
     },
     
     /** @param {Creep} creep **/

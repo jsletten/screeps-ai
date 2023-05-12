@@ -1,21 +1,4 @@
 module.exports = {
-    spawnCreep: function(spawn, targetRoom) 
-    {
-        var body = [];
-
-        body.push(WORK);
-        body.push(CARRY);
-        body.push(MOVE);
-        body.push(MOVE);
-
-        if(spawn)
-        {
-            let result = spawn.createCreep(body, undefined, {role: 'fixer', targetRoom: targetRoom});
-            console.log('Spawning new fixer: targetRoom(' + targetRoom + '): ' + result);
-        }
-        return;
-    },
-
     buildBody: function(maxEnergy) 
     {
         let body = [];

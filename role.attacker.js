@@ -1,9 +1,4 @@
 module.exports = {
-    spawnCreep: function(targetRoom) 
-    {
-        //DO NOT USE
-    },
-
     buildBody: function(maxEnergy) 
     {
         let body = [];
