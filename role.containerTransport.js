@@ -64,8 +64,10 @@ module.exports = {
                     else
                     {
                         if(creep.pos.getRangeTo(targetContainer) > 2)
-                        //Nothing else to do but move toward container.
-                        creep.moveTo(targetContainer, moveOptions);
+                        {
+                            //Nothing else to do but move toward container.
+                            creep.moveTo(targetContainer, moveOptions);
+                        }
                     }
                 }
             }
