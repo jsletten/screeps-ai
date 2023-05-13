@@ -54,7 +54,7 @@ Creep.prototype.deliverEnergy =
         if(!target)
         {
             let roomController = this.room.controller;
-            if(roomController && roomController.container && !roomController.link && (roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2) || (roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > creep.store.getUsedCapacity(RESOURCE_ENERGY)))
+            if(roomController && roomController.container && !roomController.link && (roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2) || (roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > this.store.getUsedCapacity(RESOURCE_ENERGY)))
             {
                 target = roomController.container;
             }
