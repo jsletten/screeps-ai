@@ -78,7 +78,7 @@ module.exports = {
             }
             else
             {
-                if(creep.getUsedCapacity() == creep.store.getUsedCapacity(RESOURCE_ENERGY))
+                if(creep.store.getUsedCapacity() == creep.store.getUsedCapacity(RESOURCE_ENERGY))
                 {
                     creep.deliverEnergy();
                 }
