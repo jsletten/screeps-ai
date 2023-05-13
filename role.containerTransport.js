@@ -71,14 +71,14 @@ module.exports = {
                     }
                 }
             }
-            else if(target)
+            else if(targetContainer)
             {
                 //Get resources from container
-                for(resourceType in target.store) 
+                for(resourceType in targetContainer.store) 
                 {
-                    if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) 
+                    if(creep.withdraw(targetContainer, resourceType) == ERR_NOT_IN_RANGE) 
                     {
-                        creep.moveTo(target, moveOptions);
+                        creep.moveTo(targetContainer, moveOptions);
                     }
                 }
             }
