@@ -6,6 +6,25 @@ Creep.prototype.runRole =
         Globals.roles[this.memory.role].run(this);
     };
 
+Creep.prototype.deliver = 
+    function(target)
+    {
+        if(!target)
+        {
+            target = creep.room.storage;
+        }
+        
+        if(target)
+        {
+            for(resourceType in creep.store) 
+            {
+                if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target, moveOptions);
+                }
+            }
+        }
+    }
+
 Creep.prototype.deliverEnergy = 
     function (target)
     {
