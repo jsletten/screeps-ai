@@ -27,17 +27,17 @@ module.exports = {
                 creep.suicide();
             }
 
-            let target = Game.getObjectById(creep.memory.targetID);
+            let targetContainer = Game.getObjectById(creep.memory.targetID);
 
-            if(creep.room.name != target.room.name)
+            if(creep.room.name != targetContainer.room.name)
             {
                 // move to home room
-                creep.moveTo(target, moveOptions);
+                creep.moveTo(targetContainer, moveOptions);
             }                 
-            else if(target && target.store.getUsedCapacity() < 100)
+            else if(targetContainer && targetContainer.store.getUsedCapacity() < 100)
             {
                 //Act as Cleaner
-                target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+                let target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
 
                 if(target) {
                     creep.say('Resource!');
@@ -60,6 +60,12 @@ module.exports = {
                                 creep.moveTo(target, moveOptions);
                             }
                         }
+                    }
+                    else
+                    {
+                        if(creep.pos.getRangeTo(targetContainer) > 2)
+                        //Nothing else to do but move toward container.
+                        creep.moveTo(targetContainer, moveOptions);
                     }
                 }
             }
