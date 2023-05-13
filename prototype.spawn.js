@@ -10,7 +10,7 @@ function ()
     {
         let name = creepMemory.role + '-' + Game.time;
         let spawnEnergy = this.room.energyCapacityAvailable;
-        if(creepMemory.role == 'storageManager' || creepMemory.role == 'containerHarvester' || creepMemory.role == 'containerTransport' || creepMemory.role == 'linkHarvester')
+        if(creepMemory.role == 'storageManager' || creepMemory.role == 'containerHarvester' || creepMemory.role == 'containerTransport' || creepMemory.role == 'linkHarvester' || creepMemory.role == 'baseManager')
         {
             if(this.room.energyAvailable < 200)
             {
