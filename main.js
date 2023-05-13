@@ -70,7 +70,7 @@ module.exports.loop = function () {
         }
     }
 
-    let dismantleWallSpawn = remoteSpawn;
+    let dismantleWallSpawn = Game.spawns['Spawn2'];
     if(Game.flags.dismantleWall && (Globals.creepCountByRole('wallDismantler') + dismantleWallSpawn.room.spawnQueueCount('wallDismantler') < 3))
     {
         dismantleWallSpawn.room.addToSpawnQueue({role: 'wallDismantler', homeRoom: dismantleWallSpawn.room.name});
