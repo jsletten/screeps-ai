@@ -18,7 +18,7 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) 
     {
-        let moveOptions = {reusePath: 2, visualizePathStyle: {stroke: '#ffff00'}};
+        let moveOptions = {reusePath: 5, visualizePathStyle: {stroke: '#ffff00'}};
 
         if(creep.store.getUsedCapacity() == 0) 
         {
