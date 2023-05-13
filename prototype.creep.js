@@ -11,15 +11,16 @@ Creep.prototype.deliver =
     {
         if(!target)
         {
-            target = creep.room.storage;
+            target = 
+            this.room.storage;
         }
         
         if(target)
         {
-            for(resourceType in creep.store) 
+            for(resourceType in this.store) 
             {
-                if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, moveOptions);
+                if(this.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
+                    this.moveTo(target, moveOptions);
                 }
             }
         }
