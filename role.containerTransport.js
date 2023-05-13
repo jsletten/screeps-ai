@@ -28,8 +28,13 @@ module.exports = {
             }
 
             let target = Game.getObjectById(creep.memory.targetID);
-                 
-            if(target && target.store.getUsedCapacity() < 100)
+
+            if(creep.room.name != creep.memory.homeRoom)
+            {
+                // move to home room
+                creep.moveTo(target, moveOptions);
+            }                 
+            else if(target && target.store.getUsedCapacity() < 100)
             {
                 //Act as Cleaner
                 target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
