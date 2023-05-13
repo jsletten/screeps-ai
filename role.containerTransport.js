@@ -78,17 +78,7 @@ module.exports = {
             }
             else
             {
-                let target = creep.room.storage; //Carrying resources other then energy so must deposit to storage
-            
-                if(target)
-                {
-                    for(resourceType in creep.store) 
-                    {
-                        if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(target, moveOptions);
-                        }
-                    }
-                }
+                creep.deliverEnergy();
             }
         }
     }
