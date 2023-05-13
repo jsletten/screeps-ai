@@ -1,10 +1,10 @@
 module.exports = {
-    spawnCreep: function(spawn, homeRoom = 'E32N13') 
+    buildBody: function(maxEnergy) 
     {
         let body = [];
-        let maxEnergy
         let numberOfParts;
-        maxEnergy = spawn.room.energyCapacityAvailable - 150;
+
+        maxEnergy = maxEnergy - 150;
 
         body.push(CARRY);
         body.push(CARRY);
@@ -23,10 +23,8 @@ module.exports = {
             body.push(TOUGH);
         }
 
-        let memory = {role: 'wallMiner', homeRoom: homeRoom};
-        let result = spawn.spawnCreep(body, 'WM-' + Game.time, {memory: memory});
-        console.log('Spawning new WallMiner(' + numberOfParts + '): ' + result);
-    },
+        return body;
+    },    
     
     /** @param {Creep} creep **/
     run: function(creep) {

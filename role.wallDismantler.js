@@ -1,25 +1,4 @@
 module.exports = {
-    spawnCreep: function(spawn, homeRoom = 'E32N13') 
-    {
-        let body = [];
-        let maxEnergy = spawn.room.energyCapacityAvailable;
-        let numberOfParts;
-        
-        numberOfParts = Math.floor(maxEnergy / 150) * 2;
-        numberOfParts = Math.min(numberOfParts, 50); 
-
-        for (let i = 0; i < numberOfParts/2; i++)
-        {
-            body.push(WORK);
-            body.push(MOVE);
-        }
-
-
-        let memory = {role: 'wallDismantler', homeRoom: homeRoom};
-        let result = spawn.spawnCreep(body, 'WD-' + Game.time, {memory: memory});
-        console.log('Spawning new wallDismantler(' + numberOfParts + '): ' + result);
-    },
-
     buildBody: function(maxEnergy)
     {
         let body = [];
