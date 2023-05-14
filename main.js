@@ -8,10 +8,21 @@ require('prototype.structure');
 var Globals = require('globals');
 var roleTower = require('role.tower');
 
-module.exports.loop = function () {
+// Any modules that you use that modify the game's prototypes should be require'd
+// before you require the profiler.
+const profiler = require('screeps-profiler');
+
+// This line monkey patches the global prototypes.
+profiler.enable();
+module.exports.loop = function() 
+{
+  profiler.wrap(function() 
+  {
     // Always place this memory cleaning code at the very top of your main loop!
-    for(var name in Memory.creeps) {
-        if(!Game.creeps[name]) {
+    for(var name in Memory.creeps) 
+    {
+        if(!Game.creeps[name]) 
+        {
             delete Memory.creeps[name];
             console.log('Clearing non-existing creep memory:' + name);
         }
@@ -149,4 +160,5 @@ module.exports.loop = function () {
             room.executeSpawns();
         }
     }
+  });
 }
