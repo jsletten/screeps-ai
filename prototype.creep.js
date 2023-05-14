@@ -110,7 +110,7 @@ Object.defineProperty(Creep.prototype, 'moveOptions',
     {
         if (!this._moveOptions) 
         {
-            this._moveOptions = '';
+            this._moveOptions = {};
         }
         return this._moveOptions;
     },
