@@ -20,7 +20,7 @@ Creep.prototype.deliver =
             for(resourceType in this.store) 
             {
                 if(this.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
-                    this.moveTo(target);
+                    this.moveTo(target, this.moveOptions);
                 }
             }
         }
@@ -83,19 +83,42 @@ Creep.prototype.deliverEnergy =
         if(target)
         {
             if(this.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                this.moveTo(target);
+                this.moveTo(target, this.moveOptions);
             }
         }
 
         return target;
     };
 
-Object.defineProperty(Creep.prototype, 'isFull', {
-    get: function() {
-        if (!this._isFull) {
+Object.defineProperty(Creep.prototype, 'isFull', 
+{
+    get: function() 
+    {
+        if (!this._isFull) 
+        {
             this._isFull = _.sum(this.carry) === this.carryCapacity;
         }
         return this._isFull;
+    },
+    enumerable: false,
+    configurable: true
+});
+
+Object.defineProperty(Creep.prototype, 'moveOptions', 
+{
+    get: function() 
+    {
+        if (!this._moveOptions) 
+        {
+            this._moveOptions = '';
+        }
+        return this._moveOptions;
+    },
+    set: function(newValue) 
+    {
+        // We set the stored private variable so the next time the getter is called 
+        // it returns this new value
+        this._moveOptions = newValue;
     },
     enumerable: false,
     configurable: true
