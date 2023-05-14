@@ -20,7 +20,7 @@ Creep.prototype.deliver =
             for(resourceType in this.store) 
             {
                 if(this.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
-                    this.moveTo(target, moveOptions);
+                    this.moveTo(target);
                 }
             }
         }
