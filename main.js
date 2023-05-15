@@ -1,10 +1,10 @@
 // This file contains the main game loop
 
 // import modules
-require('./Prototypes/prototype.creep');
-require('./Prototypes/prototype.spawn');
-require('./Prototypes/prototype.room');
-require('./Prototypes/prototype.structure');
+require('./prototype.creep');
+require('./prototype.spawn');
+require('./prototype.room');
+require('./prototype.structure');
 var Globals = require('globals');
 var roleTower = require('role.tower');
 
