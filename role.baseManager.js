@@ -34,6 +34,7 @@ module.exports = {
             if(creep.store.getFreeCapacity() == 0)
             {
                 creep.memory.gather = false;
+                creep.targetID = '';
             }
             else
             {
