@@ -85,6 +85,14 @@ module.exports = {
                     {
                         creep.moveTo(target);
                     }
+                    else
+                    {
+                        if(creep.store.getUsedCapacity() > 0)
+                        {
+                            creep.memory.gather = false;
+                            creep.targetID = '';
+                        }
+                    }
                 }
                 else
                 {
@@ -103,6 +111,7 @@ module.exports = {
                         if(creep.store.getUsedCapacity() > 0)
                         {
                             creep.memory.gather = false;
+                            creep.memory.targetID = '';
                         }
                     }
                 }
@@ -116,12 +125,14 @@ module.exports = {
             if(creep.store.getUsedCapacity() == 0)
             {
                 creep.memory.gather = true;
+                creep.memory.targetID = '';
             }
             else
-            {
-                if(creep.deliverEnergy(target))
+            {   
+                target = creep.deliverEnergy(target);
+                if(target)
                 {
-                    
+                    creep.memory.targetID = target.id;
                 }
                 else
                 {
