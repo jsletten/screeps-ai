@@ -483,10 +483,10 @@ Room.prototype.spawnRemoteCreeps =
                 let remoteHostileCount = remoteRoom.find(FIND_HOSTILE_CREEPS).length;
                 if(remoteRoom.sources[0].container || remoteHostileCount > 0)
                 { 
-                    let attackerCount = 1;
+                    let attackerCount = 0;
                     if(remoteHostileCount)
                     {
-                        attackerCount+= Math.floor(remoteHostileCount/3);
+                        attackerCount = 1 + Math.floor(remoteHostileCount/3);
                     }
                     if(this.controller.level >= 5)
                     {
