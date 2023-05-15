@@ -22,7 +22,7 @@ module.exports = {
 
         if(creep.memory.targetID)
         {
-            target = Game.getObjectById(source.id);
+            target = Game.getObjectById(creep.memory.targetID);
         }
 
         if(creep.store.getUsedCapacity() == 0 && creep.ticksToLive < 50)
