@@ -81,6 +81,7 @@ module.exports = {
 
                 if(target)
                 {
+                    creep.memory.targetID = target.id;
                     if(creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
                     {
                         creep.moveTo(target);
