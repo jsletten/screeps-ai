@@ -34,7 +34,7 @@ module.exports = {
             if(creep.store.getFreeCapacity() == 0)
             {
                 creep.memory.gather = false;
-                creep.targetID = '';
+                creep.memory.targetID = '';
             }
             else
             {
@@ -92,7 +92,7 @@ module.exports = {
                         if(creep.store.getUsedCapacity() > 0)
                         {
                             creep.memory.gather = false;
-                            creep.targetID = '';
+                            creep.memory.targetID = '';
                         }
                     }
                 }
