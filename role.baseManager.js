@@ -139,10 +139,10 @@ module.exports = {
                     creep.memory.targetID = '';
                     //Couldn't find a delivery target...
                     //Gather if not full or HOLD it till someone needs it
-                    if(creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
-                    {
-                        creep.memory.gather = true;
-                    }
+                    // if(creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+                    // {
+                    //     creep.memory.gather = true;
+                    // }
                 }
             }
         }
