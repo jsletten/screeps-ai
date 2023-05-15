@@ -82,8 +82,14 @@ Creep.prototype.deliverEnergy =
 
         if(target)
         {
-            if(this.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+            if(this.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
+            {
                 this.moveTo(target, this.moveOptions);
+            }
+            else
+            {
+                //We're done clear target
+                target = undefined;
             }
         }
 

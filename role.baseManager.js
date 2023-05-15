@@ -136,6 +136,7 @@ module.exports = {
                 }
                 else
                 {
+                    creep.memory.targetID = '';
                     //Couldn't find a delivery target...
                     //Gather if not full or HOLD it till someone needs it
                     if(creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
