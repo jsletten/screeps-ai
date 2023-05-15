@@ -20,6 +20,11 @@ module.exports = {
 
         let target;
 
+        if(creep.memory.targetID)
+        {
+            target = Game.getObjectById(source.id);
+        }
+
         if(creep.store.getUsedCapacity() == 0 && creep.ticksToLive < 50)
         {
             creep.suicide();
@@ -33,7 +38,7 @@ module.exports = {
             else
             {
                 //Gather Energy
-                //Mining Container (closest over 100 seems to work could sort by fullest)
+                //Mining Container
                 let sourceContainers = [];
                 for(let sourceIndex in creep.room.sources)
                 {
@@ -114,7 +119,7 @@ module.exports = {
             }
             else
             {
-                if(creep.deliverEnergy())
+                if(creep.deliverEnergy(target))
                 {
                     
                 }
