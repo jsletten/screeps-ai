@@ -195,7 +195,7 @@ Room.prototype.spawnCreepsIfNecessary =
                 this.addToSpawnQueue({role: 'cleaner'});
             }
 
-            let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 50000), 4);
+            let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 50000), 3);
 
             if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < maxNumberOfUpgraders)
             {
