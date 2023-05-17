@@ -29,7 +29,7 @@ module.exports = {
 
             let targetContainer = Game.getObjectById(creep.memory.targetID);
 
-            if(creep.room.name != targetContainer.room.name)
+            if(targetContainer && targetContainer.room && creep.room.name != targetContainer.room.name)
             {
                 // move to home room
                 creep.moveTo(targetContainer, creep.moveOptions);
