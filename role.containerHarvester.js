@@ -60,7 +60,7 @@ module.exports = {
             {
                 if(creep.pos.isEqualTo(container.pos))
                 {
-                    if(creep.carry[RESOURCE_ENERGY] > 0 && container.hits < container.hitsMax)
+                    if(creep.store[RESOURCE_ENERGY] > 0 && container.hits < container.hitsMax)
                     {   
                         creep.say('Reapiring!');
                         creep.repair(container);
@@ -73,7 +73,7 @@ module.exports = {
                             let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
                                 return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
 
-                            if(creep.carry[RESOURCE_ENERGY] > 0 && results.length > 0) 
+                            if(creep.store[RESOURCE_ENERGY] > 0 && results.length > 0) 
                             {
                                 creep.transfer(results[0], RESOURCE_ENERGY);
                             }
@@ -93,7 +93,7 @@ module.exports = {
                                 }
                                 else
                                 {
-                                    for(const resourceType in creep.carry) 
+                                    for(const resourceType in creep.store) 
                                     {
                                         creep.transfer(container, resourceType);
                                     }
@@ -106,7 +106,7 @@ module.exports = {
                             if(container.store[RESOURCE_ENERGY] > 0 && target.link && target.link.energy < target.link.energyCapacity)
                             {
                                 creep.withdraw(container, RESOURCE_ENERGY);
-                                if(creep.carry[RESOURCE_ENERGY] > 0)
+                                if(creep.store[RESOURCE_ENERGY] > 0)
                                 {
                                     creep.transfer(target.link, RESOURCE_ENERGY);
                                 }
@@ -124,7 +124,7 @@ module.exports = {
                                     let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
                                         return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
         
-                                    if(creep.carry[RESOURCE_ENERGY] > 0 && results.length > 0) 
+                                    if(creep.store[RESOURCE_ENERGY] > 0 && results.length > 0) 
                                     {
                                         creep.transfer(results[0], RESOURCE_ENERGY);
                                     }
@@ -144,7 +144,7 @@ module.exports = {
                                         }
                                         else
                                         {
-                                            for(const resourceType in creep.carry) 
+                                            for(const resourceType in creep.store) 
                                             {
                                                 creep.transfer(container, resourceType);
                                             }
