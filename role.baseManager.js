@@ -39,6 +39,13 @@ module.exports = {
             else
             {
                 //Gather Energy
+
+                //Storage
+                if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
+                {
+                    target = creep.room.storage;
+                }
+
                 //Mining Container
                 let sourceContainers = [];
                 for(let sourceIndex in creep.room.sources)
@@ -60,12 +67,6 @@ module.exports = {
                 if(!target && sourceContainers.length > 0)
                 {
                     target = creep.pos.findClosestByPath(sourceContainers);
-                }
-
-                //Storage
-                if(!target && creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY] > 0)
-                {
-                    target = creep.room.storage;
                 }
 
                 //Spawn Containers
