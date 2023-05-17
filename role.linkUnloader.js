@@ -14,7 +14,7 @@ module.exports = {
         {
             let link = creep.room.storage.link;
 
-            if (link && link.energy > 0)  //Withdraw from Link
+            if (link && link.store[RESOURCE_ENERGY] > 0)  //Withdraw from Link
             {
                 if(creep.withdraw(link, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) 
                 {
