@@ -5,15 +5,13 @@ module.exports = {
         body.push(CARRY);
         body.push(CARRY);
         body.push(MOVE);
-        body.push(CARRY);
-        body.push(CARRY);
-        body.push(MOVE);
         return body;
     },
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(_.sum(creep.carry)  == 0) {
+        if(creep.store.getUsedCapacity()  == 0) 
+        {
             let link = creep.room.storage.link;
 
             if (link && link.energy > 0)  //Withdraw from Link

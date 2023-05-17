@@ -91,7 +91,7 @@ Room.prototype.executeLinks =
             if(this.storage.link)
             {        
                 let linksWithEnergy = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                    return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
+                    return (structure.structureType == STRUCTURE_LINK) && (structure.store[RESOURCE_ENERGY] > 0)}});            
                 
                 for(let link in linksWithEnergy)
                 {
@@ -195,7 +195,13 @@ Room.prototype.spawnCreepsIfNecessary =
                 this.addToSpawnQueue({role: 'cleaner'});
             }
 
-            let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 50000), 3);
+            let maxNumberOfUpgraders = 1;
+            
+            //Only need more than one if room is under level 8
+            if(this.controller && this.controller.level < 8)
+            {
+                maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 50000), 3);
+            }
 
             if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < maxNumberOfUpgraders)
             {
