@@ -300,13 +300,14 @@ Room.prototype.spawnResourceCreeps =
                     this.addToSpawnQueue({role: 'mineralHarvester', targetID: this.mineral.id, targetRoom: this.mineral.room.name});
                 }
             }
-            if(this.mineral.container && this.mineral.container.hasResource)
-            {
-                if((this.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
-                {
-                    this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
-                }
-            }
+            //Don't bother with containerTransport.  The Cleaner can take care of it.
+            // if(this.mineral.container && this.mineral.container.hasResource)
+            // {
+            //     if((this.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
+            //     {
+            //         this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
+            //     }
+            // }
         }
     };
 
