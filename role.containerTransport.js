@@ -91,15 +91,15 @@ module.exports = {
             }
             else
             {
-                // if(creep.store.getUsedCapacity() == creep.store.getUsedCapacity(RESOURCE_ENERGY))
-                // {
-                //     creep.deliverEnergy();
-                // }
-                // else
-                // {
-                //     creep.deliver();
-                // }
-                creep.deliver();
+                if(creep.store.getUsedCapacity() == creep.store.getUsedCapacity(RESOURCE_ENERGY))
+                {
+                    creep.deliverEnergy();
+                }
+                else
+                {
+                    creep.deliver();
+                }
+                //creep.deliver();
             }
         }
     }
