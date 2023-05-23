@@ -50,14 +50,14 @@ Creep.prototype.deliverEnergy =
         }
 
         //Controller Container under 50% or has room for our whole load
-        if(!target)
-        {
-            let roomController = this.room.controller;
-            if(roomController && !roomController.link && roomController.container && !roomController.link && (roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2) || (roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > this.store.getUsedCapacity(RESOURCE_ENERGY)))
-            {
-                target = roomController.container;
-            }
-        }                 
+        // if(!target)
+        // {
+        //     let roomController = this.room.controller;
+        //     if(roomController && !roomController.link && roomController.container && !roomController.link && (roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2) || (roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > this.store.getUsedCapacity(RESOURCE_ENERGY)))
+        //     {
+        //         target = roomController.container;
+        //     }
+        // }                 
 
         //Spawn Containers
         if(!target)
