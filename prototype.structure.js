@@ -254,7 +254,7 @@ Object.defineProperty(StructureController.prototype, 'link', {
 Object.defineProperty(StructureController.prototype, 'container', {
     get: function() {
         if (!this._container) {
-            let results = this.pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+            let results = this.pos.findInRange(FIND_STRUCTURES, 3, {filter: (structure) => { 
                 return (structure.structureType == STRUCTURE_CONTAINER) }});
             if(results.length > 0)
             {

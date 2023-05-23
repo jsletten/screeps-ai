@@ -91,13 +91,13 @@ Room.prototype.executeLinks =
             if(this.storage.link)
             {        
                 let linksWithEnergy = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { 
-                    return (structure.structureType == STRUCTURE_LINK) && (structure.energy > 0)}});            
+                    return (structure.structureType == STRUCTURE_LINK) && (structure.store[RESOURCE_ENERGY] > 0)}});            
                 
                 for(let link in linksWithEnergy)
                 {
                     if(linksWithEnergy[link].id != this.storage.link.id && (!this.controller.link || this.controller.link.id != linksWithEnergy[link].id))
                     {
-                        if(this.controller.link && this.controller.link.energy < 400)
+                        if(this.controller.link && this.controller.link.store[RESOURCE_ENERGY] < 400)
                         {
                             linksWithEnergy[link].transferEnergy(this.controller.link)
                         }
@@ -195,7 +195,13 @@ Room.prototype.spawnCreepsIfNecessary =
                 this.addToSpawnQueue({role: 'cleaner'});
             }
 
-            let maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 50000), 3);
+            let maxNumberOfUpgraders = 1;
+            
+            //Only need more than one if room is under level 8
+            if(this.controller && this.controller.level < 8)
+            {
+                maxNumberOfUpgraders = Math.min(Math.floor(this.storage.store[RESOURCE_ENERGY] / 50000), 3);
+            }
 
             if((this.creepCountByRole('upgrader') + this.spawnQueueCount('upgrader')) < maxNumberOfUpgraders)
             {
@@ -294,13 +300,14 @@ Room.prototype.spawnResourceCreeps =
                     this.addToSpawnQueue({role: 'mineralHarvester', targetID: this.mineral.id, targetRoom: this.mineral.room.name});
                 }
             }
-            if(this.mineral.container && this.mineral.container.hasResource)
-            {
-                if((this.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
-                {
-                    this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
-                }
-            }
+            //Don't bother with containerTransport.  The Cleaner can take care of it.
+            // if(this.mineral.container && this.mineral.container.hasResource)
+            // {
+            //     if((this.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
+            //     {
+            //         this.addToSpawnQueue({role: 'containerTransport', targetID: this.mineral.container.id, homeRoom: this.name});
+            //     }
+            // }
         }
     };
 

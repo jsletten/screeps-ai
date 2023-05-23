@@ -11,8 +11,7 @@ Creep.prototype.deliver =
     {
         if(!target)
         {
-            target = 
-            this.room.storage;
+            target = this.room.storage;
         }
         
         if(target)

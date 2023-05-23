@@ -81,6 +81,12 @@ module.exports = {
                     }  
                 }
 
+                //Terminal
+                if(!target && creep.room.terminal && creep.room.terminal.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())
+                {
+                    target = creep.room.terminal;
+                }
+
                 if(target)
                 {
                     creep.memory.targetID = target.id;
