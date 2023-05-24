@@ -46,14 +46,14 @@ Creep.prototype.deliverEnergy =
         if(!target)
         {
             target = this.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_TOWER) && (structure.store[RESOURCE_ENERGY] < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
+                return ((structure.structureType == STRUCTURE_TOWER) && (structure.getUsedCapacity(RESOURCE_ENERGY) < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
         }
 
         //Controller Container under 50% or has room for our whole load
         if(!target)
         {
             let roomController = this.room.controller;
-            if(roomController && !roomController.link && roomController.container && !roomController.link && (roomController.container.store[RESOURCE_ENERGY] < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2) || (roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > this.store.getUsedCapacity(RESOURCE_ENERGY)))
+            if(roomController && !roomController.link && roomController.container && (roomController.container.store.getUsedCapacity(RESOURCE_ENERGY) < roomController.container.store.getCapacity(RESOURCE_ENERGY)/2) || (roomController.container.store.getFreeCapacity(RESOURCE_ENERGY) > this.store.getUsedCapacity(RESOURCE_ENERGY)))
             {
                 target = roomController.container;
             }
