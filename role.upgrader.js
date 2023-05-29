@@ -51,10 +51,14 @@ module.exports = {
             {
                 let target;
                 //Gather Energy
-                if(creep.room.controller && creep.room.controller.link && creep.room.controller.link.store.getUsedCapacity() > 0)
-                    target = creep.room.controller.link
+                if(creep.room.controller && creep.room.controller.link && (creep.room.controller.link.store.getUsedCapacity(RESOURCE_ENERGY) > 0))
+                {
+                    target = creep.room.controller.link;
+                }
                 else if(creep.room.controller && creep.room.controller.container)
+                {
                     target = creep.room.controller.container;
+                }
             
                 if(!target)
                 {
