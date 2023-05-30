@@ -505,7 +505,7 @@ Room.prototype.spawnRemoteCreeps =
                             {
                                 if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < 1)
                                 {
-                                    this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId});
+                                    this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId}, true);
                                 }
                                 //Healer
                                 if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
@@ -516,7 +516,7 @@ Room.prototype.spawnRemoteCreeps =
 
                             if((Globals.creepCountByRole('skRanger', remoteRoomId) + this.spawnQueueCount('skRanger')) < attackerCount)
                             {
-                                this.addToSpawnQueue({role: 'skRanger', targetRoom: remoteRoomId});
+                                this.addToSpawnQueue({role: 'skRanger', targetRoom: remoteRoomId}, true);
                             }
                         }
                         else
