@@ -447,8 +447,10 @@ Room.prototype.spawnRemoteCreeps =
                 }
             }
 
+            let skLairs = remoteRoom.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
+
             //Container Harvesters / Transports
-            if(remoteRoom && remoteRoom.controller && (remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))
+            if(remoteRoom && ((skLairs && skLairs.length > 0) || (remoteRoom.controller && (remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))))
             {
                 for(let sourceIndex in remoteRoom.sources)
                 {
