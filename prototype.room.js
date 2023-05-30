@@ -498,9 +498,7 @@ Room.prototype.spawnRemoteCreeps =
                         attackerCount = 1 + Math.floor(remoteHostileCount/3);
                     }
                     if(this.controller.level >= 5)
-                    {
-                        let skLairs = remoteRoom.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
-                        
+                    {                        
                         if(skLairs && skLairs.length > 0)
                         {
                             if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < 1)
