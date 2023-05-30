@@ -447,89 +447,92 @@ Room.prototype.spawnRemoteCreeps =
                 }
             }
 
-            let skLairs = remoteRoom.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
-
-            //Container Harvesters / Transports
-            if(remoteRoom && ((skLairs && skLairs.length > 0) || (remoteRoom.controller && (remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))))
+            if(remoteRoom)
             {
-                for(let sourceIndex in remoteRoom.sources)
+                let skLairs = remoteRoom.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
+
+                //Container Harvesters / Transports
+                if(((skLairs && skLairs.length > 0) || (remoteRoom.controller && (remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))))
                 {
-                    let source = remoteRoom.sources[sourceIndex];
-    
-                    if((!source.harvester && this.spawnQueueCount('containerHarvester') < 1) && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
+                    for(let sourceIndex in remoteRoom.sources)
                     {
-                        this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
-                    }
-
-                    if(source.container && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
-                    {
-                        if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
+                        let source = remoteRoom.sources[sourceIndex];
+        
+                        if((!source.harvester && this.spawnQueueCount('containerHarvester') < 1) && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
                         {
-                            this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);
+                            this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                         }
-                    }  
-                }
 
-                if(remoteRoom.mineral && remoteRoom.mineral.container)
-                {
-                    if(remoteRoom.mineral.extractor && remoteRoom.mineral.ticksToRegeneration == undefined)
-                    {
-                        if(!remoteRoom.mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
+                        if(source.container && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
                         {
-                            this.addToSpawnQueue({role: 'mineralHarvester', targetID: remoteRoom.mineral.id, targetRoom: remoteRoom.name});
-                        }
-                    }
-                    if(remoteRoom.mineral.container.hasResource)
-                    {
-                        if((remoteRoom.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
-                        {
-                            this.addToSpawnQueue({role: 'containerTransport', targetID: remoteRoom.mineral.container.id, homeRoom: this.name});
-                        }
-                    }
-                }
-
-                //Only spawn if there is a container to defend or hostile creeps in the room to ease economy while getting a new room going
-                let remoteHostileCount = remoteRoom.find(FIND_HOSTILE_CREEPS).length;
-                if(remoteRoom.sources[0].container || remoteHostileCount > 0)
-                { 
-                    let attackerCount = 0;
-                    if(remoteHostileCount)
-                    {
-                        attackerCount = 1 + Math.floor(remoteHostileCount/3);
-                    }
-                    if(this.controller.level >= 5)
-                    {                        
-                        if(skLairs && skLairs.length > 0)
-                        {
-                            if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < 1)
+                            if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
                             {
-                                this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId});
+                                this.addToSpawnQueue({role: 'containerTransport', targetID: source.container.id, homeRoom: this.name}, true);
                             }
-                            //Healer
-                            if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
+                        }  
+                    }
+
+                    if(remoteRoom.mineral && remoteRoom.mineral.container)
+                    {
+                        if(remoteRoom.mineral.extractor && remoteRoom.mineral.ticksToRegeneration == undefined)
+                        {
+                            if(!remoteRoom.mineral.harvester && this.spawnQueueCount('mineralHarvester') < 1)
                             {
-                                this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
-                            }                            
+                                this.addToSpawnQueue({role: 'mineralHarvester', targetID: remoteRoom.mineral.id, targetRoom: remoteRoom.name});
+                            }
                         }
-
-                        if((Globals.creepCountByRole('skRanger', remoteRoomId) + this.spawnQueueCount('skRanger')) < attackerCount)
+                        if(remoteRoom.mineral.container.hasResource)
                         {
-                            this.addToSpawnQueue({role: 'skRanger', targetRoom: remoteRoomId});
-                        }
-                    }
-                    else
-                    {
-                        //Guards
-                        if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < attackerCount)
-                        {
-                            this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
+                            if((remoteRoom.mineral.container.transports.length + this.spawnQueueCount('containerTransport')) < 1)
+                            {
+                                this.addToSpawnQueue({role: 'containerTransport', targetID: remoteRoom.mineral.container.id, homeRoom: this.name});
+                            }
                         }
                     }
 
-                    //fixer
-                    if((Globals.creepCountByRole('fixer', remoteRoomId) + this.spawnQueueCount('fixer')) < 1)
-                    {
-                        this.addToSpawnQueue({role: 'fixer', targetRoom: remoteRoomId});
+                    //Only spawn if there is a container to defend or hostile creeps in the room to ease economy while getting a new room going
+                    let remoteHostileCount = remoteRoom.find(FIND_HOSTILE_CREEPS).length;
+                    if(remoteRoom.sources[0].container || remoteHostileCount > 0)
+                    { 
+                        let attackerCount = 0;
+                        if(remoteHostileCount)
+                        {
+                            attackerCount = 1 + Math.floor(remoteHostileCount/3);
+                        }
+                        if(this.controller.level >= 5)
+                        {                        
+                            if(skLairs && skLairs.length > 0)
+                            {
+                                if((Globals.creepCountByRole('skAttacker', remoteRoomId) + this.spawnQueueCount('skAttacker')) < 1)
+                                {
+                                    this.addToSpawnQueue({role: 'skAttacker', targetRoom: remoteRoomId});
+                                }
+                                //Healer
+                                if((Globals.creepCountByRole('healer', remoteRoomId) + this.spawnQueueCount('healer')) < 1)
+                                {
+                                    this.addToSpawnQueue({role: 'healer', targetRoom: remoteRoomId});
+                                }                            
+                            }
+
+                            if((Globals.creepCountByRole('skRanger', remoteRoomId) + this.spawnQueueCount('skRanger')) < attackerCount)
+                            {
+                                this.addToSpawnQueue({role: 'skRanger', targetRoom: remoteRoomId});
+                            }
+                        }
+                        else
+                        {
+                            //Guards
+                            if((Globals.creepCountByRole('guard', remoteRoomId) + this.spawnQueueCount('guard')) < attackerCount)
+                            {
+                                this.addToSpawnQueue({role: 'guard', targetRoom: remoteRoomId});
+                            }
+                        }
+
+                        //fixer
+                        if((Globals.creepCountByRole('fixer', remoteRoomId) + this.spawnQueueCount('fixer')) < 1)
+                        {
+                            this.addToSpawnQueue({role: 'fixer', targetRoom: remoteRoomId});
+                        }
                     }
                 }
             }
