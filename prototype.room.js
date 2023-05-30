@@ -448,7 +448,7 @@ Room.prototype.spawnRemoteCreeps =
             }
 
             //Container Harvesters / Transports
-            if(remoteRoom && (remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))
+            if(remoteRoom && remoteRoom.controller && (remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))
             {
                 for(let sourceIndex in remoteRoom.sources)
                 {
