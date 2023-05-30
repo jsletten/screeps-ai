@@ -31,8 +31,6 @@ module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) 
     {
-        let target;
-
         if(creep.store.getUsedCapacity() == 0 && creep.ticksToLive < 50)
         {
             creep.suicide();
@@ -51,8 +49,16 @@ module.exports = {
             }
             else
             {
+                let target;
                 //Gather Energy
-                target = creep.room.controller.link || creep.room.controller.container;
+                if(creep.room.controller && creep.room.controller.link && (creep.room.controller.link.store.getUsedCapacity(RESOURCE_ENERGY) > 0))
+                {
+                    target = creep.room.controller.link;
+                }
+                else if(creep.room.controller && creep.room.controller.container)
+                {
+                    target = creep.room.controller.container;
+                }
             
                 if(!target)
                 {
