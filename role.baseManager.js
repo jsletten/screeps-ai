@@ -105,7 +105,7 @@ module.exports = {
                 }
                 else
                 {
-                    let resources = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES, {filter: (d) => {return (d.resourceType == RESOURCE_ENERGY)}});
+                    let resources = creep.pos.findClosestByPath(creep.room.dropped_resources, {filter: (d) => {return (d.resourceType == RESOURCE_ENERGY)}});
 
                     if(resources && resources.length > 0) 
                     {
