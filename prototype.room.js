@@ -76,6 +76,28 @@ Object.defineProperty(Room.prototype, 'labs', {
     configurable: true
 });
 
+Object.defineProperty(Room.prototype, 'empty_spawns', {
+    get: function() {
+        if (!this._empty_spawns) {
+            this._empty_spawns = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}});
+        }
+        return this._empty_spawns;
+    },
+    enumerable: false,
+    configurable: true
+});
+
+Object.defineProperty(Room.prototype, 'empty_extensions', {
+    get: function() {
+        if (!this._empty_extensions) {
+            this._empty_extensions = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
+        }
+        return this._empty_extensions;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Room.prototype.spawnQueueCount =
     function (role)
     {

@@ -32,15 +32,13 @@ Creep.prototype.deliverEnergy =
         //Extensions
         if(!target)
         {
-            target = this.pos.findClosestByPath(structures, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
+            target = this.pos.findClosestByPath(this.room.empty_extensions)
         }
         
         //Spawns
         if(!target)
         {
-            target = this.pos.findClosestByPath(structures, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
+            target = this.pos.findClosestByPath(this.room.empty_spawns); 
         }
 
         //Tower under 50%
