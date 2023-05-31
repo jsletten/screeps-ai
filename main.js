@@ -13,7 +13,7 @@ var roleTower = require('role.tower');
 const profiler = require('screeps-profiler');
 
 // This line monkey patches the global prototypes.
-profiler.enable();
+//profiler.enable();
 module.exports.loop = function() 
 {
   profiler.wrap(function() 
