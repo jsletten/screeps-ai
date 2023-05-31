@@ -29,19 +29,19 @@ Creep.prototype.deliverEnergy =
     function (target)
     {
         //Extensions
-        if(!target)
+        if(!target && this.room.empty_extensions.length > 0)
         {
             target = this.pos.findClosestByPath(this.room.empty_extensions)
         }
         
         //Spawns
-        if(!target)
+        if(!target && this.room.empty_spawns.length > 0)
         {
             target = this.pos.findClosestByPath(this.room.empty_spawns); 
         }
 
         //Tower under 50%
-        if(!target)
+        if(!target && this.room.empty_towers.length > 0)
         {
             target = this.pos.findClosestByPath(this.room.empty_towers);
         }
@@ -73,8 +73,6 @@ Creep.prototype.deliverEnergy =
         //         target = this.pos.findClosestByPath(results);
         //     }    
         // }
-
-       
 
         if(target)
         {
