@@ -51,26 +51,22 @@ module.exports = {
             }
             else
             {
-                let targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
-                let source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
                 let allowBuild = creep.memory.allowBuild;
 
-                if (!allowBuild && _.sum(creep.carry) == creep.carryCapacity)
+                if (!allowBuild && creep.store.getFreeCapacity() == 0)
                 {
                     allowBuild = true;
                     creep.memory.allowBuild = true;
                 }
-                else if(allowBuild && _.sum(creep.carry) == 0)
+                else if(allowBuild && creep.store.getUsedCapacity() == 0)
                 {
                     allowBuild = false;
                     creep.memory.allowBuild = false;
                 }
-                
 
-                console.log('allowBuild: ' + allowBuild);
-
-                if(targets && allowBuild)
+                if(allowBuild)
                 {
+                    let targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
                     //We have energy so let's go build
                     if(targets.length > 0) 
                     {
@@ -80,18 +76,17 @@ module.exports = {
                         }
                     }
                 }
-                else if(source && !allowBuild)
-                {
-                    //We need to get energy and there is a source available
-                    if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
-                    {
-                        creep.moveTo(source);
-                    }
-                }
                 else
                 {
-                    //Do Nothing for now.
-                    //TODO: Move somewhere out of the way or maybe to the next available source?
+                    let source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+                    if(source)
+                    {
+                        //We need to get energy and there is a source available
+                        if(creep.harvest(source) == ERR_NOT_IN_RANGE) 
+                        {
+                            creep.moveTo(source);
+                        }
+                    }
                 }
             }
         }

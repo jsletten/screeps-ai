@@ -70,8 +70,7 @@ module.exports = {
                         //console.log('Harvesting: ' + creep.harvest(target));
                         if(creep.harvest(target) == OK)
                         {
-                            let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
-                                return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
+                            let results = creep.pos.findInRange(creep.room.empty_extensions, 1);
 
                             if(creep.store[RESOURCE_ENERGY] > 0 && results.length > 0) 
                             {
@@ -114,15 +113,14 @@ module.exports = {
                             else
                             {
                                 //Act as Cleaner
-                                let resources = creep.pos.findInRange(FIND_DROPPED_RESOURCES, 1);
+                                let resources = creep.pos.findInRange(creep.room.dropped_resources, 1);
 
                                 if(resources.length > 0) 
                                 {
                                     creep.say('Resource!');
                                     creep.pickup(resources[0]);
 
-                                    let results = creep.pos.findInRange(FIND_MY_STRUCTURES, 1, {filter: (structure) => { 
-                                        return (structure.structureType == STRUCTURE_EXTENSION) && (structure.energy < structure.energyCapacity)}});
+                                    let results = creep.pos.findInRange(creep.room.empty_extensions, 1);
         
                                     if(creep.store[RESOURCE_ENERGY] > 0 && results.length > 0) 
                                     {
@@ -163,11 +161,11 @@ module.exports = {
             }
             else
             {
-                var site = target.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.inRangeTo(target, 1)) }});
+                var site = target.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {filter: (structure) => { return (structure.structureType == STRUCTURE_CONTAINER) && (structure.pos.isNearTo(target)) }});
                 if(!site)
                 {
                     //No Container && No Construction Site
-                    if(creep.pos.inRangeTo(target, 1))
+                    if(creep.pos.isNearTo(target))
                     {
                         creep.room.createConstructionSite(creep.pos, STRUCTURE_CONTAINER);
                     }
