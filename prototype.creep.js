@@ -28,7 +28,6 @@ Creep.prototype.deliver =
 Creep.prototype.deliverEnergy = 
     function (target)
     {
-        let structures = this.room.find(FIND_MY_STRUCTURES);
         //Extensions
         if(!target)
         {
