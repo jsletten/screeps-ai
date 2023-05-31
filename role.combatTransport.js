@@ -47,8 +47,7 @@ module.exports = {
                 }
                 else 
                 {
-                    target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {filter: (tombstone) => { 
-                        return (_.sum(tombstone.store) > 0)}}); 
+                    target = creep.pos.findClosestByPath(creep.room.tombstones); 
                 
                     if(target)
                     {

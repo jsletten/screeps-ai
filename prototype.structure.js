@@ -81,8 +81,7 @@ Object.defineProperty(Source.prototype, 'link', {
 Object.defineProperty(Source.prototype, 'container', {
     get: function() {
         if (!this._container) {
-            let results = this.pos.findInRange(FIND_STRUCTURES, 1, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_CONTAINER) }});
+            let results = this.pos.findInRange(this.room.containers, 1);
             if(results.length > 0)
             {
                 this._container = results[0];
@@ -142,8 +141,7 @@ Object.defineProperty(Mineral.prototype, 'extractor', {
 Object.defineProperty(Mineral.prototype, 'container', {
     get: function() {
         if (!this._container) {
-            let results = this.pos.findInRange(FIND_STRUCTURES, 1, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_CONTAINER) }});
+            let results = this.pos.findInRange(this.room.containers, 1);
             if(results.length > 0)
             {
                 this._container = results[0];
@@ -254,8 +252,7 @@ Object.defineProperty(StructureController.prototype, 'link', {
 Object.defineProperty(StructureController.prototype, 'container', {
     get: function() {
         if (!this._container) {
-            let results = this.pos.findInRange(FIND_STRUCTURES, 3, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_CONTAINER) }});
+            let results = this.pos.findInRange(this.room.containers, 3);
             if(results.length > 0)
             {
                 this._container = results[0];

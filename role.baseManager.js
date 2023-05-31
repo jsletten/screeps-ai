@@ -69,17 +69,17 @@ module.exports = {
                     target = creep.pos.findClosestByPath(sourceContainers);
                 }
 
-                //Spawn Containers
-                if(!target)
-                {
-                    let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
-                        return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] > 0)}});
+                // //Spawn Containers
+                // if(!target)
+                // {
+                //     let results = creep.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+                //         return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store[RESOURCE_ENERGY] > 0)}});
 
-                    if(results.length > 0)
-                    {
-                        target = creep.pos.findClosestByPath(results);
-                    }  
-                }
+                //     if(results.length > 0)
+                //     {
+                //         target = creep.pos.findClosestByPath(results);
+                //     }  
+                // }
 
                 //Terminal
                 if(!target && creep.room.terminal && creep.room.terminal.store[RESOURCE_ENERGY] > creep.store.getFreeCapacity())

@@ -120,6 +120,18 @@ Object.defineProperty(Room.prototype, 'dropped_resources', {
     configurable: true
 });
 
+Object.defineProperty(Room.prototype, 'tombstones', {
+    get: function() {
+        if (!this._tombstones) {
+            this._tombstones = this.find(FIND_TOMBSTONES, {filter: (tombstone) => { 
+                return (tombstone.store.getUsedCapacity() > 0)}}); 
+        }
+        return this._tombstones;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Room.prototype.spawnQueueCount =
     function (role)
     {

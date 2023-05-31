@@ -19,14 +19,13 @@ module.exports = {
             }
             else 
             {
-                target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {filter: (tombstone) => { 
-                    return (_.sum(tombstone.store) > 0)}}); 
+                target = creep.pos.findClosestByPath(creep.room.tombstones); 
 
                 if(!target)
                 {
                     //Clean out containers that have something other than energy in them.  This will potentially try to unload mineral containers in late game...
-                    target = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
-                        return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store.getUsedCapacity(RESOURCE_ENERGY) < structure.store.getUsedCapacity())}});
+                    target = creep.pos.findClosestByPath(creep.room.containers, {filter: (structure) => { 
+                        return (structure.store.getUsedCapacity(RESOURCE_ENERGY) < structure.store.getUsedCapacity())}});
                 }
             
                 if(target)
