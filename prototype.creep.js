@@ -59,23 +59,23 @@ Creep.prototype.deliverEnergy =
             }
         }                 
 
-        //Spawn Containers
-        if(!target)
-        {
-            let results = this.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
-                return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
-
-            if(results.length > 0)
-            {
-                target = this.pos.findClosestByPath(results);
-            }    
-        }
-
         //Storage under 50%
         if(!target && this.room.storage && this.room.storage.store[RESOURCE_ENERGY] < this.room.storage.store.getCapacity(RESOURCE_ENERGY)/2)
         {
             target = this.room.storage;
         }
+
+        // //Spawn Containers
+        // if(!target)
+        // {
+        //     let results = this.room.spawns[0].pos.findInRange(FIND_STRUCTURES, 2, {filter: (structure) => { 
+        //         return (structure.structureType == STRUCTURE_CONTAINER) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0)}});
+
+        //     if(results.length > 0)
+        //     {
+        //         target = this.pos.findClosestByPath(results);
+        //     }    
+        // }
 
        
 
