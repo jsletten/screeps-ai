@@ -17,7 +17,7 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {       
-        if(creep.carry[RESOURCE_ENERGY] > 0) {
+        if(creep.store[RESOURCE_ENERGY] > 0) {
             if (creep.room.name != creep.memory.targetRoom)
             {
                 // find exit to target room
@@ -48,13 +48,13 @@ module.exports = {
         else 
         {
             var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 100)}});            
-            
-            // if(!target)
-            // {
-            //     target = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (structure) => { 
-            //         return ((structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && (structure.energy > 0))}});            
-            // }
+                return ((structure.structureType == STRUCTURE_STORAGE || structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] > 100)}});          
+                
+            if(!target)
+            {
+                target = creep.pos.findClosestByPath(FIND_TOMBSTONES, {filter: (tombstone) => { 
+                    return (tombstone.store[RESOURCE_ENERGY] > 0)}}); 
+            }
             
             if(target)
             {

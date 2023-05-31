@@ -13,9 +13,8 @@ module.exports = {
     {
         if(creep.room.name != creep.memory.targetRoom)
         {
-            // find exit to target room
-            let exit = creep.room.findExitTo(creep.memory.targetRoom);
-            creep.moveTo(creep.pos.findClosestByRange(exit));
+            let roomPos = new RoomPosition(24, 24, creep.memory.targetRoom);
+            creep.moveTo(roomPos);
         }
         else
         {    
