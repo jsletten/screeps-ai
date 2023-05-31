@@ -37,7 +37,7 @@ module.exports = {
             else if(targetContainer && targetContainer.store.getUsedCapacity() < 100)
             {
                 //Act as Cleaner
-                let target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+                let target = creep.pos.findClosestByPath(creep.room.dropped_resources);
 
                 if(target) {
                     creep.say('Resource!');

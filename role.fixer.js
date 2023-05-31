@@ -36,7 +36,7 @@ module.exports = {
                 }
                 else
                 {
-                    target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+                    target = creep.pos.findClosestByPath(creep.room.dropped_resources);
                     if(target) {
                         creep.say('Resource!');
                         if(creep.pickup(target) == ERR_NOT_IN_RANGE) {

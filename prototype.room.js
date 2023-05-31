@@ -109,6 +109,17 @@ Object.defineProperty(Room.prototype, 'empty_towers', {
     configurable: true
 });
 
+Object.defineProperty(Room.prototype, 'dropped_resources', {
+    get: function() {
+        if (!this._dropped_resources) {
+            this._dropped_resources = this.find(FIND_DROPPED_RESOURCES);
+        }
+        return this._dropped_resources;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Room.prototype.spawnQueueCount =
     function (role)
     {

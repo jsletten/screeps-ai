@@ -8,8 +8,8 @@ module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        if(_.sum(creep.carry)  == 0) {
-            var target = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+        if(creep.store.getUsedCapacity() == 0) {
+            var target = creep.pos.findClosestByPath(creep.room.dropped_resources);
 
             if(target) {
                 creep.say('Resource!');
@@ -46,7 +46,7 @@ module.exports = {
 
             if(target)
             {
-                for(resourceType in creep.carry) 
+                for(resourceType in creep.store) 
                 {
                     if(creep.transfer(target, resourceType) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(target);
