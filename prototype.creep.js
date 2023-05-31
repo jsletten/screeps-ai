@@ -44,8 +44,7 @@ Creep.prototype.deliverEnergy =
         //Tower under 50%
         if(!target)
         {
-            target = this.pos.findClosestByPath(structures, {filter: (structure) => { 
-                return ((structure.structureType == STRUCTURE_TOWER) && (structure.store.getUsedCapacity(RESOURCE_ENERGY) < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
+            target = this.pos.findClosestByPath(this.room.empty_towers);
         }
 
         //Controller Container under 50% or has room for our whole load
