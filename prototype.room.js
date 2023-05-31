@@ -487,16 +487,18 @@ Room.prototype.spawnRemoteCreeps =
                 //Container Harvesters / Transports
                 if(((skLairs && skLairs.length > 0) || (remoteRoom.controller && (remoteRoom.controller.my || (remoteRoom.controller.reservation && remoteRoom.controller.reservation.username == 'Kederk')))))
                 {
+                    let remoteHostileCount = remoteRoom.find(FIND_HOSTILE_CREEPS).length;
+
                     for(let sourceIndex in remoteRoom.sources)
                     {
                         let source = remoteRoom.sources[sourceIndex];
         
-                        if((!source.harvester && this.spawnQueueCount('containerHarvester') < 1) && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
+                        if((!source.harvester && this.spawnQueueCount('containerHarvester') < 1) && remoteHostileCount == 0)
                         {
                             this.addToSpawnQueue({role: 'containerHarvester', targetID: source.id, targetRoom: source.room.name}, true);
                         }
 
-                        if(source.container && remoteRoom.find(FIND_HOSTILE_CREEPS).length == 0)
+                        if(source.container && remoteHostileCount == 0)
                         {
                             if((source.container.transports.length + this.spawnQueueCount('containerTransport')) < 3)
                             {
@@ -524,7 +526,6 @@ Room.prototype.spawnRemoteCreeps =
                     }
 
                     //Only spawn if there is a container to defend or hostile creeps in the room to ease economy while getting a new room going
-                    let remoteHostileCount = remoteRoom.find(FIND_HOSTILE_CREEPS).length;
                     if(remoteRoom.sources[0].container || remoteHostileCount > 0)
                     { 
                         let attackerCount = 0;
