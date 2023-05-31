@@ -28,35 +28,39 @@ module.exports = {
             }
 
             let targetContainer = Game.getObjectById(creep.memory.targetID);
-
-            if(targetContainer && targetContainer.room && creep.room.name != targetContainer.room.name)
+            if(targetContainer)
             {
-                // move to home room
-                creep.moveTo(targetContainer, creep.moveOptions);
-            }                 
-            else if(targetContainer && targetContainer.store.getUsedCapacity() < 100)
-            {
-                //Act as Cleaner
-                let target = creep.pos.findClosestByPath(creep.room.dropped_resources);
-
-                if(target) {
-                    creep.say('Resource!');
-                    if(creep.pickup(target) == ERR_NOT_IN_RANGE) 
-                    {
-                        creep.moveTo(target, creep.moveOptions);
-                    }
-                }
-                else 
+                if(targetContainer.room && creep.room.name != targetContainer.room.name)
                 {
-                    target = creep.pos.findClosestByPath(creep.room.tombstones);
-                
-                    if(target)
+                    // move to home room
+                    creep.moveTo(targetContainer, creep.moveOptions);
+                }                 
+                else if(targetContainer.store.getUsedCapacity() < 100)
+                {
+                    //Act as Cleaner
+                    if(creep.room.dropped_resources.length > 0)
                     {
-                        for(resourceType in target.store) 
-                        {
-                            if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) 
+                        let target = creep.pos.findClosestByPath(creep.room.dropped_resources);
+
+                        if(target) {
+                            creep.say('Resource!');
+                            if(creep.pickup(target) == ERR_NOT_IN_RANGE) 
                             {
                                 creep.moveTo(target, creep.moveOptions);
+                            }
+                        }                    
+                    else if(creep.room.tombstones.length > 0)
+                    {
+                        let target = creep.pos.findClosestByPath(creep.room.tombstones);
+                
+                        if(target)
+                        {
+                            for(resourceType in target.store) 
+                            {
+                                if(creep.withdraw(target, resourceType) == ERR_NOT_IN_RANGE) 
+                                {
+                                    creep.moveTo(target, creep.moveOptions);
+                                }
                             }
                         }
                     }
@@ -68,16 +72,17 @@ module.exports = {
                             creep.moveTo(targetContainer, creep.moveOptions);
                         }
                     }
+                    }
                 }
-            }
-            else if(targetContainer)
-            {
-                //Get resources from container
-                for(resourceType in targetContainer.store) 
+                else
                 {
-                    if(creep.withdraw(targetContainer, resourceType) == ERR_NOT_IN_RANGE) 
+                    //Get resources from container
+                    for(resourceType in targetContainer.store) 
                     {
-                        creep.moveTo(targetContainer, creep.moveOptions);
+                        if(creep.withdraw(targetContainer, resourceType) == ERR_NOT_IN_RANGE) 
+                        {
+                            creep.moveTo(targetContainer, creep.moveOptions);
+                        }
                     }
                 }
             }
