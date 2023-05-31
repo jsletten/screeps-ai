@@ -28,25 +28,24 @@ Creep.prototype.deliver =
 Creep.prototype.deliverEnergy = 
     function (target)
     {
-        let structures = this.room.find(FIND_STRUCTURES);
         //Extensions
         if(!target)
         {
-            target = this.pos.findClosestByPath(structures, {filter: (structure) => { 
+            target = this.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
                 return ((structure.structureType == STRUCTURE_EXTENSION) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
         }
         
         //Spawns
         if(!target)
         {
-            target = this.pos.findClosestByPath(structures, {filter: (structure) => { 
+            target = this.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
                 return ((structure.structureType == STRUCTURE_SPAWN) && (structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0))}}); 
         }
 
         //Tower under 50%
         if(!target)
         {
-            target = this.pos.findClosestByPath(structures, {filter: (structure) => { 
+            target = this.pos.findClosestByPath(FIND_STRUCTURES, {filter: (structure) => { 
                 return ((structure.structureType == STRUCTURE_TOWER) && (structure.store.getUsedCapacity(RESOURCE_ENERGY) < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
         }
 
