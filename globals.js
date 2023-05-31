@@ -17,7 +17,6 @@ module.exports = {
         skRanger: require('role.skRanger'),
         scout: require('role.scout'),
         fixer: require('role.fixer'),
-        linkHarvester: require('role.linkHarvester'),
         linkUnloader: require('role.linkUnloader'),
         tank: require('role.tank'),
         settler: require('role.settler'),

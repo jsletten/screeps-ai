@@ -31,21 +31,6 @@ Object.defineProperty(StructureContainer.prototype, 'hasResource', {
     configurable: true
 });
 
-Object.defineProperty(StructureLink.prototype, 'harvester', {
-    get: function() {
-        if (!this._linkHarvester) {        
-            let results = _.filter(Game.creeps, (creep) => creep.memory.role == 'linkHarvester' && creep.memory.targetID == this.id);
-            if(results.length > 0)
-            {
-                this._linkHarvester = results[0];
-            }
-        }
-        return this._linkHarvester;
-    },
-    enumerable: false,
-    configurable: true
-});
-
 Object.defineProperty(StructureStorage.prototype, 'link', {
     get: function() {
         if (!this._link) {
@@ -96,7 +81,7 @@ Object.defineProperty(Source.prototype, 'container', {
 Object.defineProperty(Source.prototype, 'harvester', {
     get: function() {
         if (!this._harvester) {        
-            let results = _.filter(Game.creeps, (creep) => (creep.memory.role == 'containerHarvester' || creep.memory.role == 'linkHarvester') && creep.memory.targetID == this.id);
+            let results = _.filter(Game.creeps, (creep) => (creep.memory.role == 'containerHarvester') && creep.memory.targetID == this.id);
             if(results.length > 0)
             {
                 this._harvester = results[0];
