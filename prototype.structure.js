@@ -81,7 +81,7 @@ Object.defineProperty(Source.prototype, 'container', {
 Object.defineProperty(Source.prototype, 'harvester', {
     get: function() {
         if (!this._harvester) {        
-            let results = _.filter(Game.creeps, (creep) => (creep.memory.role == 'containerHarvester') && creep.memory.targetID == this.id);
+            let results = _.filter(Game.creeps, (creep) => (creep.memory.targetID == this.id && creep.memory.role == 'containerHarvester'));
             if(results.length > 0)
             {
                 this._harvester = results[0];
