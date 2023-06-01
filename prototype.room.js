@@ -103,7 +103,7 @@ Object.defineProperty(Room.prototype, 'empty_towers', {
         if (!this._empty_towers) {
             this._empty_towers = this.find(FIND_MY_STRUCTURES, {filter: (structure) => { return ((structure.structureType == STRUCTURE_TOWER) && (structure.store.getUsedCapacity(RESOURCE_ENERGY) < (structure.store.getCapacity(RESOURCE_ENERGY)/2)))}}); 
         }
-        return this._empty_extensions;
+        return this._empty_towers;
     },
     enumerable: false,
     configurable: true
