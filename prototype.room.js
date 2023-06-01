@@ -109,6 +109,18 @@ Object.defineProperty(Room.prototype, 'empty_towers', {
     configurable: true
 });
 
+Object.defineProperty(Room.prototype, 'skLairs', {
+    get: function() {
+        if (!this._skLairs) {
+            this._skLairs = this.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
+            this._skLairs.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
+        }
+        return this._skLairs;
+    },
+    enumerable: false,
+    configurable: true
+});
+
 Object.defineProperty(Room.prototype, 'dropped_resources', {
     get: function() {
         if (!this._dropped_resources) {

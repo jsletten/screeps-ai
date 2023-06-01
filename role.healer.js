@@ -59,7 +59,19 @@ module.exports = {
         }
         else
         {
-            creep.moveTo(25,25); //TODO make this smarter
+            let skLairs = creep.room.skLairs;
+
+            if(skLairs.length > 0)
+            {
+                if(creep.pos.getRangeTo(skLairs[0]) > 3)
+                {
+                    creep.moveTo(skLairs[0]);
+                }
+            }  
+            else
+            {
+                creep.moveTo(25,25); //TODO make this smarter
+            }  
         }
         
     }

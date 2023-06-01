@@ -19,7 +19,7 @@ module.exports = {
         else
         {    
             //TODO: Shouldn't hardcode waiting location
-            creep.moveTo(24,24, {maxRooms:1});
+            creep.moveTo(24,24);
         }
     }
 };

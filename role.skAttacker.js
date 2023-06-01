@@ -41,24 +41,23 @@ module.exports = {
             {
                 //Attack Source Keeper
                 if(creep.attack(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, {maxRooms:1, visualizePathStyle: {stroke: '#ffff00'}});
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}});
                 }
             }
             else
             {
-                let skLairs = creep.room.find(FIND_HOSTILE_STRUCTURES, (structure) => structure.structureType == STRUCTURE_KEEPER_LAIR);
+                let skLairs = creep.room.skLairs;
 
                 if(skLairs.length > 0)
                 {
-                    skLairs.sort((a,b) => a.ticksToSpawn - b.ticksToSpawn);
                     if(creep.pos.getRangeTo(skLairs[0]) > 1)
                     {
-                        creep.moveTo(skLairs[0], {maxRooms:1});
+                        creep.moveTo(skLairs[0]);
                     }
                 }  
                 else
                 {
-                    creep.moveTo(25,25, {maxRooms:1}); //TODO make this smarter
+                    creep.moveTo(25,25); //TODO make this smarter
                 }  
             }
         }
